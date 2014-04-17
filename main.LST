@@ -1,0 +1,1589 @@
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 1   
+
+
+C51 COMPILER V6.20c, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Program Files (x86)\Keil\C51\BIN\C51.EXE main.c DEBUG OBJECTEXTEND CODE LISTINCLUDE SYMBOLS
+
+stmt level    source
+
+   1          // Daniel Davidek
+   2          // MPOR
+   3          // 2014_02_20
+   4          // t2L1
+   5          // MCU: AT89C51ED2
+   6          // fMCU: 11.059MHz
+   7          
+   8          #include "main.h"
+   1      =1  #ifndef _MAIN_H_
+   2      =1  #define _MAIN_H_
+   3      =1  
+   4      =1  
+   5      =1  #include <intrins.h>
+   1      =2  /*--------------------------------------------------------------------------
+   2      =2  INTRINS.H
+   3      =2  
+   4      =2  Intrinsic functions for C51.
+   5      =2  Copyright (c) 1988-2001 Keil Elektronik GmbH and Keil Software, Inc.
+   6      =2  All rights reserved.
+   7      =2  --------------------------------------------------------------------------*/
+   8      =2  
+   9      =2  extern void          _nop_     (void);
+  10      =2  extern bit           _testbit_ (bit);
+  11      =2  extern unsigned char _cror_    (unsigned char, unsigned char);
+  12      =2  extern unsigned int  _iror_    (unsigned int,  unsigned char);
+  13      =2  extern unsigned long _lror_    (unsigned long, unsigned char);
+  14      =2  extern unsigned char _crol_    (unsigned char, unsigned char);
+  15      =2  extern unsigned int  _irol_    (unsigned int,  unsigned char);
+  16      =2  extern unsigned long _lrol_    (unsigned long, unsigned char);
+  17      =2  extern unsigned char _chkfloat_(float);
+   6      =1  #include <stdio.h>
+   1      =2  /*--------------------------------------------------------------------------
+   2      =2  STDIO.H
+   3      =2  
+   4      =2  Prototypes for standard I/O functions.
+   5      =2  Copyright (c) 1988-2001 Keil Elektronik GmbH and Keil Software, Inc.
+   6      =2  All rights reserved.
+   7      =2  --------------------------------------------------------------------------*/
+   8      =2  
+   9      =2  #ifndef EOF
+  10      =2   #define EOF -1
+  11      =2  #endif
+  12      =2  
+  13      =2  #ifndef NULL
+  14      =2   #define NULL ((void *) 0)
+  15      =2  #endif
+  16      =2  
+  17      =2  #ifndef _SIZE_T
+  18      =2   #define _SIZE_T
+  19      =2   typedef unsigned int size_t;
+  20      =2  #endif
+  21      =2  
+  22      =2  #pragma SAVE
+  23      =2  #pragma REGPARMS
+  24      =2  extern char _getkey (void);
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 2   
+
+  25      =2  extern char getchar (void);
+  26      =2  extern char ungetchar (char);
+  27      =2  extern char putchar (char);
+  28      =2  extern int printf   (const char *, ...);
+  29      =2  extern int sprintf  (char *, const char *, ...);
+  30      =2  extern int vprintf  (const char *, char *);
+  31      =2  extern int vsprintf (char *, const char *, char *);
+  32      =2  extern char *gets (char *, int n);
+  33      =2  extern int scanf (const char *, ...);
+  34      =2  extern int sscanf (char *, const char *, ...);
+  35      =2  extern int puts (const char *);
+  36      =2  
+  37      =2  #pragma RESTORE
+   7      =1  //#include <89c51rd2.H>
+   8      =1  
+   9      =1  #include "defines.h"
+   1      =2  #ifndef _DEFINES_H_
+   2      =2  #define _DEFINES_H_
+   3      =2  
+   4      =2  #include <intrins.h>
+   1      =3  /*--------------------------------------------------------------------------
+   2      =3  INTRINS.H
+   3      =3  
+   4      =3  Intrinsic functions for C51.
+   5      =3  Copyright (c) 1988-2001 Keil Elektronik GmbH and Keil Software, Inc.
+   6      =3  All rights reserved.
+   7      =3  --------------------------------------------------------------------------*/
+   8      =3  
+   9      =3  extern void          _nop_     (void);
+  10      =3  extern bit           _testbit_ (bit);
+  11      =3  extern unsigned char _cror_    (unsigned char, unsigned char);
+  12      =3  extern unsigned int  _iror_    (unsigned int,  unsigned char);
+  13      =3  extern unsigned long _lror_    (unsigned long, unsigned char);
+  14      =3  extern unsigned char _crol_    (unsigned char, unsigned char);
+  15      =3  extern unsigned int  _irol_    (unsigned int,  unsigned char);
+  16      =3  extern unsigned long _lrol_    (unsigned long, unsigned char);
+  17      =3  extern unsigned char _chkfloat_(float);
+   5      =2  #include <stdio.h>
+   1      =3  /*--------------------------------------------------------------------------
+   2      =3  STDIO.H
+   3      =3  
+   4      =3  Prototypes for standard I/O functions.
+   5      =3  Copyright (c) 1988-2001 Keil Elektronik GmbH and Keil Software, Inc.
+   6      =3  All rights reserved.
+   7      =3  --------------------------------------------------------------------------*/
+   8      =3  
+   9      =3  #ifndef EOF
+           =3  #define EOF -1
+           =3 #endif
+  12      =3  
+  13      =3  #ifndef NULL
+           =3  #define NULL ((void *) 0)
+           =3 #endif
+  16      =3  
+  17      =3  #ifndef _SIZE_T
+           =3  #define _SIZE_T
+           =3  typedef unsigned int size_t;
+           =3 #endif
+  21      =3  
+  22      =3  #pragma SAVE
+  23      =3  #pragma REGPARMS
+  24      =3  extern char _getkey (void);
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 3   
+
+  25      =3  extern char getchar (void);
+  26      =3  extern char ungetchar (char);
+  27      =3  extern char putchar (char);
+  28      =3  extern int printf   (const char *, ...);
+  29      =3  extern int sprintf  (char *, const char *, ...);
+  30      =3  extern int vprintf  (const char *, char *);
+  31      =3  extern int vsprintf (char *, const char *, char *);
+  32      =3  extern char *gets (char *, int n);
+  33      =3  extern int scanf (const char *, ...);
+  34      =3  extern int sscanf (char *, const char *, ...);
+  35      =3  extern int puts (const char *);
+  36      =3  
+  37      =3  #pragma RESTORE
+   6      =2  //#include <atmelWM\89C51RD2.h>
+   7      =2  #include <89c51rd2.H>
+   1      =3  /*-------------------------------------------------------------------------
+   2      =3  R89c51rd2.H
+   3      =3  
+   4      =3  Header file for AtmelWM T89C51RD2
+   5      =3    
+   6      =3  Copyright (c) 1988-1999 Keil Elektronik GmbH and Keil Software, Inc.
+   7      =3  All rights reserved.
+   8      =3  -------------------------------------------------------------------------*/
+   9      =3  sfr  P0      =   0x80;			 
+  10      =3  
+  11      =3  sbit  P0_7    =   P0^7;
+  12      =3  sbit  P0_6    =   P0^6;
+  13      =3  sbit  P0_5    =   P0^5;
+  14      =3  sbit  P0_4    =   P0^4;
+  15      =3  sbit  P0_3    =   P0^3;
+  16      =3  sbit  P0_2    =   P0^2;
+  17      =3  sbit  P0_1    =   P0^1;
+  18      =3  sbit  P0_0    =   P0^0;
+  19      =3  
+  20      =3  sfr  SP      =   0x81;
+  21      =3  sfr  DPL     =   0x82;
+  22      =3  sfr  DPH     =   0x83;
+  23      =3  
+  24      =3  sfr  PCON    =   0x87;			 
+  25      =3  
+  26      =3  sfr  TCON    =   0x88;             
+  27      =3  
+  28      =3  sbit  TF1    =   TCON^7;
+  29      =3  sbit  TR1    =   TCON^6;
+  30      =3  sbit  TF0    =   TCON^5;
+  31      =3  sbit  TR0    =   TCON^4;
+  32      =3  sbit  IE1_   =   TCON^3;
+  33      =3  sbit  IT1    =   TCON^2;
+  34      =3  sbit  IE0_   =   TCON^1;
+  35      =3  sbit  IT0    =   TCON^0;
+  36      =3  
+  37      =3  sfr  TMOD    =   0x89;			 
+  38      =3  
+  39      =3  sfr  TL0     =   0x8A;			 
+  40      =3  
+  41      =3  sfr  TL1     =   0x8B;			 
+  42      =3  
+  43      =3  sfr  TH0     =   0x8C;			 
+  44      =3  
+  45      =3  sfr  TH1     =   0x8D;			 
+  46      =3  
+  47      =3  sfr  CKCON      =   0x8F;			 
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 4   
+
+  48      =3  
+  49      =3  
+  50      =3  sfr  P1      =   0x90;			 
+  51      =3  
+  52      =3  sbit  P1_7    =   P1^7;
+  53      =3  sbit  P1_6    =   P1^6;
+  54      =3  sbit  P1_5    =   P1^5;
+  55      =3  sbit  P1_4    =   P1^4;
+  56      =3  sbit  P1_3    =   P1^3;
+  57      =3  sbit  P1_2    =   P1^2;
+  58      =3  sbit  P1_1    =   P1^1;
+  59      =3  sbit  P1_0    =   P1^0;
+  60      =3  
+  61      =3  sbit  CEX4    =   P1^7;
+  62      =3  sbit  CEX3    =   P1^6;
+  63      =3  sbit  CEX2    =   P1^5;
+  64      =3  sbit  CEX1    =   P1^4;
+  65      =3  sbit  CEX0    =   P1^3;
+  66      =3  sbit  ECI     =   P1^2;
+  67      =3  sbit  T2EX    =   P1^1;
+  68      =3  sbit  T2      =   P1^0;
+  69      =3  
+  70      =3  sfr  SCON    =   0x98;			 
+  71      =3  
+  72      =3  sfr  SCON_1    =   0xC0;			 
+  73      =3  
+  74      =3  sbit  SM0    =   SCON^7;
+  75      =3  sbit  FE     =   SCON^7;
+  76      =3  sbit  SM1    =   SCON^6;
+  77      =3  sbit  SM2    =   SCON^5;
+  78      =3  sbit  REN    =   SCON^4;
+  79      =3  sbit  TB8    =   SCON^3;
+  80      =3  sbit  RB8    =   SCON^2;
+  81      =3  sbit  TI     =   SCON^1;
+  82      =3  sbit  RI     =   SCON^0;
+  83      =3  
+  84      =3  sfr  SBUF    =   0x99;			 
+  85      =3  
+  86      =3  sfr  SBUF_1  =   0xC1;             
+  87      =3  
+  88      =3  sfr  BRL  =     0x9A;                
+  89      =3  
+  90      =3  sfr  P2      =   0xA0;			 
+  91      =3  
+  92      =3  sbit  P2_7    =   P2^7;
+  93      =3  sbit  P2_6    =   P2^6;
+  94      =3  sbit  P2_5    =   P2^5;
+  95      =3  sbit  P2_4    =   P2^4;
+  96      =3  sbit  P2_3    =   P2^3;
+  97      =3  sbit  P2_2    =   P2^2;
+  98      =3  sbit  P2_1    =   P2^1;
+  99      =3  sbit  P2_0    =   P2^0;
+ 100      =3  
+ 101      =3  sfr  WDTRST  =   0xA6;			 
+ 102      =3  sfr  WDTPRG  =   0xA7;			 
+ 103      =3  
+ 104      =3  sfr  AUXR1  =   0xA2;              
+ 105      =3  
+ 106      =3  sfr  IE     =   0xA8;			     
+ 107      =3  sfr  IE0    =   0xA8;
+ 108      =3  
+ 109      =3  sbit  EA     =   IE^7;
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 5   
+
+ 110      =3  sbit  EC     =   IE^6;
+ 111      =3  sbit  ET2    =   IE^5;
+ 112      =3  sbit  ES     =   IE^4;
+ 113      =3  sbit  ET1    =   IE^3;
+ 114      =3  sbit  EX1    =   IE^2;
+ 115      =3  sbit  ET0    =   IE^1;
+ 116      =3  sbit  EX0    =   IE^0;
+ 117      =3  
+ 118      =3  sfr  SADDR   =   0xA9;			 
+ 119      =3  
+ 120      =3  
+ 121      =3  sfr  SADDR_1   =   0xAA;			 
+ 122      =3  
+ 123      =3  sfr  P3      =   0xB0;			 
+ 124      =3  
+ 125      =3  sbit  P3_7    =   P3^7;
+ 126      =3  sbit  P3_6    =   P3^6;
+ 127      =3  sbit  P3_5    =   P3^5;
+ 128      =3  sbit  P3_4    =   P3^4;
+ 129      =3  sbit  P3_3    =   P3^3;
+ 130      =3  sbit  P3_2    =   P3^2;
+ 131      =3  sbit  P3_1    =   P3^1;
+ 132      =3  sbit  P3_0    =   P3^0;
+ 133      =3  
+ 134      =3  sbit  RD      =   P3^7;
+ 135      =3  sbit  WR      =   P3^6;
+ 136      =3  sbit  T1      =   P3^5;
+ 137      =3  sbit  T0      =   P3^4;
+ 138      =3  sbit  INT1    =   P3^3;
+ 139      =3  sbit  INT0    =   P3^2;
+ 140      =3  sbit  TXD     =   P3^1;
+ 141      =3  sbit  RXD     =   P3^0;
+ 142      =3  
+ 143      =3  
+ 144      =3  sfr  AUXR    =   0x8E; 			 
+ 145      =3  
+ 146      =3  sfr  SADEN   =   0xB9;			 
+ 147      =3  
+ 148      =3  sfr  SADEN_1 =   0xBA;			  
+ 149      =3  
+ 150      =3  sfr  IPH     =   0xB7;			     
+ 151      =3  sfr  IPH0    =   0xB7;
+ 152      =3  
+ 153      =3  sfr  IPL     =   0xB8;			     
+ 154      =3  sfr  IPL0    =   0xB8;	
+ 155      =3  
+ 156      =3  sbit PPC  = IPL^6;
+ 157      =3  sbit PT2  = IPL^5;
+ 158      =3  sbit PS   = IPL^4;
+ 159      =3  sbit PT1  = IPL^3;
+ 160      =3  sbit PX1  = IPL^2;
+ 161      =3  sbit PT0  = IPL^1;
+ 162      =3  sbit PX0  = IPL^0;
+ 163      =3  
+ 164      =3  sfr  T2CON   =   0xC8;             
+ 165      =3  
+ 166      =3  sbit  TF2    =   T2CON^7;
+ 167      =3  sbit  EXF2   =   T2CON^6;
+ 168      =3  sbit  RCLK   =   T2CON^5;
+ 169      =3  sbit  TCLK   =   T2CON^4;
+ 170      =3  sbit  EXEN2  =   T2CON^3;
+ 171      =3  sbit  TR2    =   T2CON^2;
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 6   
+
+ 172      =3  sbit  CT2    =   T2CON^1;
+ 173      =3  sbit  CPRL2  =   T2CON^0;
+ 174      =3  
+ 175      =3  sfr  T2MOD   =   0xC9;			 
+ 176      =3  
+ 177      =3  sfr  RCAP2L  =   0xCA;			 
+ 178      =3  sfr  RCAP2H  =   0xCB;			 
+ 179      =3  sfr  TL2     =   0xCC;			 
+ 180      =3  sfr  TH2     =   0xCD;			 
+ 181      =3  
+ 182      =3  sfr  BDRCON  =   0x9B;			 
+ 183      =3  
+ 184      =3  sfr  BDRCON_1  =   0x9C;			 
+ 185      =3  
+ 186      =3  
+ 187      =3  sfr  PSW     =   0xD0;			 
+ 188      =3  sbit  CY     =   PSW^7;
+ 189      =3  sbit  AC     =   PSW^6;
+ 190      =3  sbit  F0     =   PSW^5;
+ 191      =3  sbit  RS1    =   PSW^4;
+ 192      =3  sbit  RS0    =   PSW^3;
+ 193      =3  sbit  OV     =   PSW^2;
+ 194      =3  sbit  UD     =   PSW^1;
+ 195      =3  sbit  P      =   PSW^0;
+ 196      =3  
+ 197      =3  sfr  CCON    =   0xD8;			 
+ 198      =3  
+ 199      =3  sbit  CF      =   CCON^7;
+ 200      =3  sbit  CR      =   CCON^6;
+ 201      =3  sbit  CCF4    =   CCON^4;
+ 202      =3  sbit  CCF3    =   CCON^3;
+ 203      =3  sbit  CCF2    =   CCON^2;
+ 204      =3  sbit  CCF1    =   CCON^1;
+ 205      =3  sbit  CCF0    =   CCON^0;
+ 206      =3  
+ 207      =3  sfr  CMOD    =   0xD9;			 
+ 208      =3  
+ 209      =3  sfr  CCAPM0  =   0xDA;			 
+ 210      =3  sfr  CCAPM1  =   0xDB;			 
+ 211      =3  sfr  CCAPM2  =   0xDC;			 
+ 212      =3  sfr  CCAPM3  =   0xDD;			 
+ 213      =3  sfr  CCAPM4  =   0xDE;			 
+ 214      =3  
+ 215      =3  sfr  CL      =   0xE9;			 
+ 216      =3  
+ 217      =3  sfr  CCAP0L  =   0xEA;			 
+ 218      =3  
+ 219      =3  sfr  CCAP1L  =   0xEB;			 
+ 220      =3  
+ 221      =3  sfr  CCAP2L  =   0xEC;			 
+ 222      =3  
+ 223      =3  sfr  CCAP3L  =   0xED;			 
+ 224      =3  
+ 225      =3  sfr  CCAP4L  =   0xEE;			 
+ 226      =3  
+ 227      =3  sfr  ACC     =   0xE0;			 
+ 228      =3  sfr  B       =   0xF0;			 
+ 229      =3  
+ 230      =3  sfr  CH      =   0xF9;			 
+ 231      =3  
+ 232      =3  sfr  CCAP0H  =   0xFA;			 
+ 233      =3  sfr  CCAP1H  =   0xFB;			  
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 7   
+
+ 234      =3  sfr  CCAP2H  =   0xFC;			 
+ 235      =3  sfr  CCAP3H  =   0xFD;			 
+ 236      =3  sfr  CCAP4H  =   0xFE;			 
+ 237      =3  
+ 238      =3  sfr  ICON  =   0xFF;               
+ 239      =3  sfr  CKSEL  =   0x85;               
+ 240      =3  sfr  OSCCON  =   0x86;               
+ 241      =3  
+ 242      =3  sfr FCON 	= 0xD1;
+ 243      =3  sfr EECON	= 0xD2;
+ 244      =3  sfr EETIM	= 0xD3;
+ 245      =3  
+ 246      =3  
+ 247      =3  
+ 248      =3  
+   8      =2  //#include "reg51.h"
+   9      =2  
+  10      =2  
+  11      =2  
+  12      =2  #define INT_MAX 0xffff
+  13      =2  #define B32_MAX 0x8000
+  14      =2  //#define CYCLES_WHILE 0x0df
+  15      =2  #define CYCLES_WHILE 0x001
+  16      =2  
+  17      =2  #define GET_MBYTE(BYTE,BIT) ((BYTE) & 1<<(BIT))
+  18      =2  #define GET_BIT(BYTE,BIT) ( !(!( GET_MBYTE(BYTE,BIT) )) )
+  19      =2  #define BIT(b) (1LU<<(b))
+  20      =2  #define NBIT(b) (~(1LU<<(b)))
+  21      =2  #define SET_BIT(BYTE,b) ( (BYTE) | (BIT(b)) )
+  22      =2  #define CLR_BIT(BYTE,b) ( (BYTE) & (NBIT(b)) )
+  23      =2  //#define SET_BIT(BYTE,BIT) (BYTE & LU1<<BIT)
+  24      =2  
+  25      =2  
+  26      =2  //p3b3
+  27      =2  //p1b5
+  28      =2  //p3b4
+  29      =2  #define BT1 !(P3&(0x04)); 
+  30      =2  #define BT2 !(P1&(0x10));
+  31      =2  #define BT3 !(P3&(0x08));
+  32      =2  
+  33      =2  #define BT(num) \
+  34      =2  ( switch (num) \
+  35      =2    {             \ 
+  36      =2      case 1:  return BT1;  \
+  37      =2      case 2:  return BT2;  \
+  38      =2      case 3:  return BT3;  \
+  39      =2    }              \
+  40      =2  )
+  41      =2  
+  42      =2  
+  43      =2  
+  44      =2  // number of bit in byte
+  45      =2  // T2MOD
+  46      =2  #define T2OE	1
+  47      =2  #define DCEN	0
+  48      =2  
+  49      =2  
+  50      =2  typedef short int 	int8_t ;
+  51      =2  typedef int 		int16_t ;
+  52      =2  typedef long int 	int32_t ;
+  53      =2  
+  54      =2  typedef unsigned short int 	uint8_t ;
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 8   
+
+  55      =2  typedef unsigned int		uint16_t ;
+  56      =2  typedef unsigned long int 	uint32_t ;
+  57      =2  
+  58      =2  
+  59      =2  #endif
+  10      =1  
+  11      =1  #include "disp.h"
+   1      =2  /**
+   2      =2   * @file: helloworld.h
+   3      =2   *
+   4      =2   * Copyright (c) 2009 MPOR
+   5      =2   *
+   6      =2   * @brief: This file is a header of the disp.lib library for 4x20 display
+   7      =2   *
+   8      =2   * @version $Revision: 2.0 $ $Name:  $ 
+   9      =2   *
+  10      =2   * @date: 2009-12-13
+  11      =2   * 
+  12      =2   * Compiler: uVision2 V2.20a
+  13      =2   */
+  14      =2  
+  15      =2  /* moves cursor to the new position [x, y]*/
+  16      =2  void gotoxy(unsigned char x, unsigned char y);
+  17      =2  
+  18      =2  /* initializes display */
+  19      =2  void disp_init(void);
+  20      =2  
+  21      =2  /* overriden standard output*/
+  22      =2  char putchar(char ch);
+  23      =2  
+  24      =2  /* clears display content and moves cursor to the original position */
+  25      =2  void clrscr(void);
+  12      =1  #include "kb.h"
+   1      =2  #ifndef _KB_H_
+   2      =2  #define _KB_H_
+   3      =2  
+   4      =2  
+   5      =2  #include "defines.h"
+   1      =3  #ifndef _DEFINES_H_
+           =3 #define _DEFINES_H_
+           =3 
+           =3 #include <intrins.h>
+           =3 #include <stdio.h>
+           =3 //#include <atmelWM\89C51RD2.h>
+           =3 #include <89c51rd2.H>
+           =3 //#include "reg51.h"
+           =3 
+           =3 
+           =3 
+           =3 #define INT_MAX 0xffff
+           =3 #define B32_MAX 0x8000
+           =3 //#define CYCLES_WHILE 0x0df
+           =3 #define CYCLES_WHILE 0x001
+           =3 
+           =3 #define GET_MBYTE(BYTE,BIT) ((BYTE) & 1<<(BIT))
+           =3 #define GET_BIT(BYTE,BIT) ( !(!( GET_MBYTE(BYTE,BIT) )) )
+           =3 #define BIT(b) (1LU<<(b))
+           =3 #define NBIT(b) (~(1LU<<(b)))
+           =3 #define SET_BIT(BYTE,b) ( (BYTE) | (BIT(b)) )
+           =3 #define CLR_BIT(BYTE,b) ( (BYTE) & (NBIT(b)) )
+           =3 //#define SET_BIT(BYTE,BIT) (BYTE & LU1<<BIT)
+           =3 
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 9   
+
+           =3 
+           =3 //p3b3
+           =3 //p1b5
+           =3 //p3b4
+           =3 #define BT1 !(P3&(0x04)); 
+           =3 #define BT2 !(P1&(0x10));
+           =3 #define BT3 !(P3&(0x08));
+           =3 
+           =3 #define BT(num) \
+           =3 ( switch (num) \
+           =3   {             \ 
+           =3     case 1:  return BT1;  \
+           =3     case 2:  return BT2;  \
+           =3     case 3:  return BT3;  \
+           =3   }              \
+           =3 )
+           =3 
+           =3 
+           =3 
+           =3 // number of bit in byte
+           =3 // T2MOD
+           =3 #define T2OE	1
+           =3 #define DCEN	0
+           =3 
+           =3 
+           =3 typedef short int 	int8_t ;
+           =3 typedef int 		int16_t ;
+           =3 typedef long int 	int32_t ;
+           =3 
+           =3 typedef unsigned short int 	uint8_t ;
+           =3 typedef unsigned int		uint16_t ;
+           =3 typedef unsigned long int 	uint32_t ;
+           =3 
+           =3 
+           =3 #endif
+   6      =2  #include "waitin.h"
+   1      =3  #ifndef _WAITIN_H_
+   2      =3  #define _WAITIN_H_
+   3      =3  
+   4      =3  #include "defines.h"
+   1      =4  #ifndef _DEFINES_H_
+           =4 #define _DEFINES_H_
+           =4 
+           =4 #include <intrins.h>
+           =4 #include <stdio.h>
+           =4 //#include <atmelWM\89C51RD2.h>
+           =4 #include <89c51rd2.H>
+           =4 //#include "reg51.h"
+           =4 
+           =4 
+           =4 
+           =4 #define INT_MAX 0xffff
+           =4 #define B32_MAX 0x8000
+           =4 //#define CYCLES_WHILE 0x0df
+           =4 #define CYCLES_WHILE 0x001
+           =4 
+           =4 #define GET_MBYTE(BYTE,BIT) ((BYTE) & 1<<(BIT))
+           =4 #define GET_BIT(BYTE,BIT) ( !(!( GET_MBYTE(BYTE,BIT) )) )
+           =4 #define BIT(b) (1LU<<(b))
+           =4 #define NBIT(b) (~(1LU<<(b)))
+           =4 #define SET_BIT(BYTE,b) ( (BYTE) | (BIT(b)) )
+           =4 #define CLR_BIT(BYTE,b) ( (BYTE) & (NBIT(b)) )
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 10  
+
+           =4 //#define SET_BIT(BYTE,BIT) (BYTE & LU1<<BIT)
+           =4 
+           =4 
+           =4 //p3b3
+           =4 //p1b5
+           =4 //p3b4
+           =4 #define BT1 !(P3&(0x04)); 
+           =4 #define BT2 !(P1&(0x10));
+           =4 #define BT3 !(P3&(0x08));
+           =4 
+           =4 #define BT(num) \
+           =4 ( switch (num) \
+           =4   {             \ 
+           =4     case 1:  return BT1;  \
+           =4     case 2:  return BT2;  \
+           =4     case 3:  return BT3;  \
+           =4   }              \
+           =4 )
+           =4 
+           =4 
+           =4 
+           =4 // number of bit in byte
+           =4 // T2MOD
+           =4 #define T2OE	1
+           =4 #define DCEN	0
+           =4 
+           =4 
+           =4 typedef short int 	int8_t ;
+           =4 typedef int 		int16_t ;
+           =4 typedef long int 	int32_t ;
+           =4 
+           =4 typedef unsigned short int 	uint8_t ;
+           =4 typedef unsigned int		uint16_t ;
+           =4 typedef unsigned long int 	uint32_t ;
+           =4 
+           =4 
+           =4 #endif
+   5      =3  
+   6      =3  
+   7      =3  void wwwait(int w);
+   8      =3  void mwait(int cycles);
+   9      =3  void swait(int cycles);
+  10      =3  
+  11      =3  void INIT_T0m1();
+  12      =3  void pause(unsigned int doba);
+  13      =3  void pause10(unsigned int doba);
+  14      =3  
+  15      =3  #endif
+   7      =2  
+   8      =2  #define nRows 4
+   9      =2  #define nCols 4
+  10      =2  #define nButtons 4
+  11      =2  
+  12      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  13      =2  // EXTERN variable declarations
+  14      =2  
+  15      =2  extern unsigned char xdata kbCW;
+  16      =2  extern unsigned char xdata kbRow;
+  17      =2  extern unsigned char xdata kbCol;
+  18      =2  
+  19      =2  extern uint8_t xdata key[nRows][nCols];
+  20      =2  extern uint8_t xdata btn[nButtons];
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 11  
+
+  21      =2  
+  22      =2  extern char xdata keyChar[nRows][nCols];
+  23      =2  
+  24      =2  extern char xdata btnChar[nButtons];
+  25      =2  
+  26      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  27      =2  // FUNCTION DECLARATIONS
+  28      =2  void KB_scanPressedKeys(void);
+  29      =2  void KB_scanPressedBtns(void);
+  30      =2  void KB_printPressedKeys(void);
+  31      =2  void KB_printPressedBtns(void);
+  32      =2  
+  33      =2  void INIT_kb();
+  34      =2  
+  35      =2  #endif
+  13      =1  #include "waitin.h"
+   1      =2  #ifndef _WAITIN_H_
+           =2 #define _WAITIN_H_
+           =2 
+           =2 #include "defines.h"
+           =2 
+           =2 
+           =2 void wwwait(int w);
+           =2 void mwait(int cycles);
+           =2 void swait(int cycles);
+           =2 
+           =2 void INIT_T0m1();
+           =2 void pause(unsigned int doba);
+           =2 void pause10(unsigned int doba);
+           =2 
+           =2 #endif
+  14      =1  
+  15      =1  
+  16      =1  void INIT_uart_m3_t1();
+  17      =1  int RESOLVE_memory();
+  18      =1  
+  19      =1  
+  20      =1  #endif
+   9          
+  10          
+  11          unsigned char xdata LED_P1 _at_ 0xA003;
+  12          unsigned char xdata LED_P2 _at_ 0xA004;
+  13          unsigned char xdata LED_P3 _at_ 0xA005;
+  14          //led
+  15          long int had;
+  16          int smer = 1;
+  17          //FCN
+  18          
+  19          char xdata line[4][21]; //= 20*4 +\0 *4
+  20          
+  21          
+  22          void DBG_tryKb(void);
+  23          void DBG_passed(void);
+  24          
+  25          
+  26          
+  27          void timer_IT(void) interrupt 5{
+  28   1      	static int DIV10 = 0;
+  29   1      	int i =0;
+  30   1      	DIV10 = (DIV10 >= 9 ? DIV10+1: 0);
+  31   1      
+  32   1      	if(DIV10 ==0){
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 12  
+
+  33   2      		if(had == 0x800000) {
+  34   3      			smer = 1;
+  35   3      		}
+  36   2      		else if(had ==0x01){
+  37   3      			smer = 0;
+  38   3      	//		had = 0x01;
+  39   3      		}
+  40   2      		if(smer==0)	had <<= 1;
+  41   2      		else		had >>= 1;
+  42   2      			/*
+  43   2      		LED_P1 = had ;
+  44   2      		LED_P2 = had ;
+  45   2      		LED_P3 = had ;*/
+  46   2      	
+  47   2      		
+  48   2      		LED_P1 = had>>0 & (0xFF);
+  49   2      		LED_P2 = had>>8 & (0xFF);
+  50   2      		LED_P3 = 0x00;
+  51   2      		for(i=0;i<8;i++)
+  52   2      			if( (had>>16) & BIT(i) )
+  53   2      				LED_P3 = BIT(8-i);
+  54   2      	
+  55   2      	//			SET_BIT(LED_P3, 8-i);
+  56   2      	}
+  57   1      }
+  58          
+  59          
+  60          void INIT_T2_clock();
+  61          
+  62          void INIT_T2_clock(){
+  63   1      
+  64   1      	
+  65   1      	//CLK = FCLK/(12*(65536 - RCAP2H/RCAP2L));
+  66   1      	unsigned int HH = 0xB1;//20000 impulzu - zaokrouhlene
+  67   1      	unsigned int LL = 0xDF;
+  68   1      
+  69   1      	// T_tim = 1 / (Fclk/12) .= 1.085 [us]
+  70   1      	// T_wanna / T_tim = N; T_tim / T_w = 1/N
+  71   1      	// N = 18431 = 0x47FF
+  72   1      	HH = 0x47;
+  73   1      	LL = 0xFF;
+  74   1      
+  75   1      	//
+  76   1      	// Timer2 perioda 20ms - a hada treba
+  77   1      	// 16b, Up,Dn , 
+  78   1      	// CLK - figure 2-17
+  79   1      	// 		periph/6 = clk/12
+  80   1      	// autoreload 
+  81   1      	// chci inkrementalni s automatickym prednastavenim a vyvolanim interruptu
+  82   1      
+  83   1      
+  84   1      	/*
+  85   1      	// T2MOD
+  86   1      	T2MOD = SET_BIT(T2MOD,T2OE); // Set to program P1.0/T2 as clock output.
+  87   1      	T2MOD = SET_BIT(T2MOD,DCEN); // Set to enable Timer 2 as up/down counter.
+  88   1      	
+  89   1      	// T2CON
+  90   1      	T2CON = CLR_BIT(T2CON,1); // C/T2# - Cleared for timer operation (input from internal clock system: FCLK 
+             -PERIPH)
+  91   1      	*/
+  92   1      	// clock
+  93   1      
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 13  
+
+  94   1      	//	had = 0x1;
+  95   1      	had = 0x800000;
+  96   1      	
+  97   1      	ET2 = 0; // zakaz preruseni od timeru
+  98   1      
+  99   1      
+ 100   1      	LED_P1 = had;
+ 101   1      	LED_P2 = 0x00;
+ 102   1      	LED_P3 = 0x00;
+ 103   1      	TR2=0; // vypnti timeru 2
+ 104   1      	
+ 105   1      	EA=1;  // enable global interrupt
+ 106   1      	
+ 107   1      	CT2=0; // T2con^1
+ 108   1      	TR2=1; // T2con^1
+ 109   1      
+ 110   1      
+ 111   1      	RCAP2H=HH;
+ 112   1      	RCAP2L=LL; 
+ 113   1      	
+ 114   1      	TH2 = HH;
+ 115   1      	TL2 = LL;// nastaveni timer 2
+ 116   1      
+ 117   1      
+ 118   1      	T2MOD=0x01; //timer 2 mod 1
+ 119   1      	TR2=1;
+ 120   1      	ET2=1;
+ 121   1      	
+ 122   1      	while(1) {}
+ 123   1      	
+ 124   1      
+ 125   1      }
+ 126          
+ 127          // main
+ 128          void main(void){
+ 129   1      	int i = 0;
+ 130   1      
+ 131   1      	disp_init();
+ 132   1      	clrscr();
+ 133   1      
+ 134   1      //	INIT_T0m1();
+ 135   1      	//RESOLVE_memory();
+ 136   1      
+ 137   1      /*
+ 138   1      	for(i=0;i<80;i++)
+ 139   1      		line[i] = '&';
+ 140   1      		*/
+ 141   1      
+ 142   1      	INIT_kb();
+ 143   1      	while(1){
+ 144   2      		//DBG_passed();
+ 145   2      		//DBG_snake();
+ 146   2      		DBG_tryKb();
+ 147   2      	}
+ 148   1      
+ 149   1      	//INIT_uart_m3_t1();
+ 150   1      
+ 151   1      	//while(1){_nop_();}
+ 152   1      }
+ 153          
+ 154          /*
+ 155          do radku pisu - postupna nula
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 14  
+
+ 156          ze sloupce ctu
+ 157          
+ 158          bity z nibblu
+ 159          sloupce = 
+ 160          7654|3210 - led|klavesnice
+ 161          
+ 162          radky
+ 163          4 = tlacitka
+ 164          5
+ 165          6
+ 166          7
+ 167          - = pod tim klavesnice
+ 168          0 
+ 169          1
+ 170          2
+ 171          3
+ 172          */
+ 173          
+ 174          void DBG_tryKb(void)
+ 175          {
+ 176   1      //	const uint8_t nRows = 5;
+ 177   1      //	const uint8_t nCols = 5;
+ 178   1      
+ 179   1      	uint8_t r=0;
+ 180   1      	uint8_t c=0;
+ 181   1      	
+ 182   1      		clrscr();	
+ 183   1      	while(1)
+ 184   1      	{
+ 185   2      		KB_scanPressedKeys();
+ 186   2      		KB_scanPressedBtns();
+ 187   2      		//clrscr();	
+ 188   2      		KB_printPressedKeys();
+ 189   2      //		KB_printPressedBtns();
+ 190   2      	}
+ 191   1      
+ 192   1      }
+ 193          
+ 194          void DBG_snake(void)
+ 195          {
+ 196   1      	int i = 0;
+ 197   1      	INIT_T2_clock();
+ 198   1      	while(1)
+ 199   1      	{
+ 200   2      		i++;
+ 201   2      	}
+ 202   1      }
+ 203          void DBG_passed(void)
+ 204          {
+ 205   1      	int i = 0;
+ 206   1      	while(1){
+ 207   2      		clrscr();		
+ 208   2      		printf("UBEHLO %is",i++);
+ 209   2      		pause10(100);
+ 210   2      	}
+ 211   1      }
+ 212          
+ 213          
+ 214          
+ 215          
+ 216          
+ 217          
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 15  
+
+ 218          
+ 219          
+ 220          
+ 221          
+ 222          
+ 223          
+ 224          
+ 225          
+ 226          
+ 227          
+ 228          
+ 229          
+ 230          
+ 231          
+ 232          
+ 233          
+ 234          
+ 235          
+ 236          
+ 237          
+ 238          
+ 239          
+ 240          
+ 241          
+ 242          
+ 243          
+ 244          
+ 245          
+ 246          
+ 247          
+ 248          
+ 249          
+ 250          
+ 251          
+ 252          
+ 253          
+ 254          
+ 255          
+ 256          /*
+ 257          
+ 258          // variable baud rate
+ 259          // SM1 = 1; 
+ 260          SCON = SCON | BIT(6);
+ 261          // SM0 = 1;
+ 262          SCON = SCON | BIT(7);
+ 263          
+ 264          // ** interrupt flags clear
+ 265          //RI = 0;
+ 266          SCON = SCON & NBIT(0);
+ 267          //TI = 0;
+ 268          SCON = SCON & NBIT(1);
+ 269          
+ 270          // ** transmitter last bit before STOP bit = pry je to jednicka
+ 271          //SCON[3] = TB8 = 1
+ 272          //Transmitter Bit 8 / Ninth bit to transmit in modes 2 and 3
+ 273          //Clear to transmit a logic 0 in the 9th bit.
+ 274          //Set to transmit a logic 1 in the 9th bit.
+ 275          //TB8 = 1;
+ 276          SCON = SCON | BIT(3);
+ 277          
+ 278          
+ 279          // ** ask UART to use tim1 as for his baud rate
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 16  
+
+ 280          // Receive Clock bit for UART
+ 281          // Cleared to use timer 1 overflow as receive clock for serial port in mode 1 or 3.
+ 282          // RCLK = 0
+ 283          T2CON = T2CON & NBIT(5);
+ 284          
+ 285          //Transmit Clock bit for UART
+ 286          // Cleared to use timer 1 overflow as transmit clock for serial port in mode 1 or 3.
+ 287          // TCLK = 0
+ 288          T2CON = T2CON & NBIT(4);
+ 289          
+ 290          // ***** TIMER1
+ 291          
+ 292          
+ 293          //In the most typical applications, it is configured for “timer” operation, in the auto-reload mode
+ 294          //(high nibble of TMOD = 0010B).
+ 295          // set T1 mode 2 = 8bit tim - autoreload TL1 from TH1 at overflow
+ 296          // M01 = 0;
+ 297          	TMOD = TMOD & NBIT(4);
+ 298          // M11 = 0;
+ 299          	TMOD = TMOD & NBIT(5);
+ 300          
+ 301          
+ 302          
+ 303          // The Timer 1 interrupt should be disabled in this application
+ 304          	//T asi je vyply..
+ 305          
+ 306          
+ 307          // Figure 2-21. Timer 1 Generated Commonly Used Baud Rates\
+ 308          // 9-bit UARTVariable
+ 309          //SM0 = 1;
+ 310          SCON = SCON  &~ NBIT(7);
+ 311          //SM1 = 0;
+ 312          SCON = SCON  | NBIT(6);
+ 313          
+ 314          
+ 315          // 9600Bd = autoreload SMOD = 0
+ 316          // autoreload t1 set to 0xFD
+ 317          // for 9600Bd on 11.0592 MHz
+ 318          // Fperif = Fcpu/2?
+ 319          	TH1 = 0xFD;
+ 320          	TL1 = 0;
+ 321          //SMOD1 = 0;
+ 322          PCON = PCON &~ NBIT(7);
+ 323          //SMOD0 = 0;
+ 324          PCON = PCON &~ NBIT(6);
+ 325          
+ 326          
+ 327          // enable serial
+ 328          ES = 1;
+ 329          EA = 1;
+ 330          // turn on timer 1
+ 331          	TR1 = 1;
+ 332          //	TCON = TCON | BIT(4);
+ 333          
+ 334          // ** transmission enable 
+ 335          //REN = 1;
+ 336          SCON = SCON | BIT(4);
+ 337          
+ 338          // ted by mel byt zaply UART 9600b tak jak je popsany nahore
+ 339          */
+ 340          //nefunkcni
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 17  
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION timer_IT (BEGIN)
+0000 C0E0              PUSH    ACC
+0002 C0F0              PUSH    B
+0004 C083              PUSH    DPH
+0006 C082              PUSH    DPL
+0008 C0D0              PUSH    PSW
+000A 75D000            MOV     PSW,#00H
+000D C000              PUSH    AR0
+000F C001              PUSH    AR1
+0011 C002              PUSH    AR2
+0013 C003              PUSH    AR3
+0015 C004              PUSH    AR4
+0017 C005              PUSH    AR5
+0019 C006              PUSH    AR6
+001B C007              PUSH    AR7
+                                           ; SOURCE LINE # 27
+                                           ; SOURCE LINE # 29
+001D 750000      R     MOV     i,#00H
+0020 750000      R     MOV     i+01H,#00H
+                                           ; SOURCE LINE # 30
+0023 C3                CLR     C
+0024 E500        R     MOV     A,DIV10+01H
+0026 9409              SUBB    A,#09H
+0028 E500        R     MOV     A,DIV10
+002A 6480              XRL     A,#080H
+002C 9480              SUBB    A,#080H
+002E 400B              JC      ?C0001
+0030 E500        R     MOV     A,DIV10+01H
+0032 2401              ADD     A,#01H
+0034 FF                MOV     R7,A
+0035 E4                CLR     A
+0036 3500        R     ADDC    A,DIV10
+0038 FE                MOV     R6,A
+0039 8004              SJMP    ?C0002
+003B         ?C0001:
+003B 7E00              MOV     R6,#00H
+003D 7F00              MOV     R7,#00H
+003F         ?C0002:
+003F 8E00        R     MOV     DIV10,R6
+0041 8F00        R     MOV     DIV10+01H,R7
+                                           ; SOURCE LINE # 32
+0043 E500        R     MOV     A,DIV10+01H
+0045 4500        R     ORL     A,DIV10
+0047 6003              JZ      $ + 5H
+0049 020000      R     LJMP    ?C0013
+                                           ; SOURCE LINE # 33
+004C FF                MOV     R7,A
+004D FE                MOV     R6,A
+004E 7D80              MOV     R5,#080H
+0050 FC                MOV     R4,A
+0051 AB00        R     MOV     R3,had+03H
+0053 AA00        R     MOV     R2,had+02H
+0055 A900        R     MOV     R1,had+01H
+0057 A800        R     MOV     R0,had
+0059 C3                CLR     C
+005A 120000      E     LCALL   ?C?SLCMP
+005D 7007              JNZ     ?C0004
+                                           ; SOURCE LINE # 34
+005F F500        R     MOV     smer,A
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 18  
+
+0061 750001      R     MOV     smer+01H,#01H
+                                           ; SOURCE LINE # 35
+0064 8018              SJMP    ?C0005
+0066         ?C0004:
+                                           ; SOURCE LINE # 36
+0066 E4                CLR     A
+0067 7F01              MOV     R7,#01H
+0069 FE                MOV     R6,A
+006A FD                MOV     R5,A
+006B FC                MOV     R4,A
+006C AB00        R     MOV     R3,had+03H
+006E AA00        R     MOV     R2,had+02H
+0070 A900        R     MOV     R1,had+01H
+0072 A800        R     MOV     R0,had
+0074 C3                CLR     C
+0075 120000      E     LCALL   ?C?SLCMP
+0078 7004              JNZ     ?C0005
+                                           ; SOURCE LINE # 37
+007A F500        R     MOV     smer,A
+007C F500        R     MOV     smer+01H,A
+                                           ; SOURCE LINE # 39
+007E         ?C0005:
+                                           ; SOURCE LINE # 40
+007E E500        R     MOV     A,smer+01H
+0080 4500        R     ORL     A,smer
+0082 AF00        R     MOV     R7,had+03H
+0084 AE00        R     MOV     R6,had+02H
+0086 AD00        R     MOV     R5,had+01H
+0088 AC00        R     MOV     R4,had
+008A 7801              MOV     R0,#01H
+008C 7005              JNZ     ?C0007
+008E 120000      E     LCALL   ?C?LSHL
+0091 8003              SJMP    ?C0034
+0093         ?C0007:
+                                           ; SOURCE LINE # 41
+0093 120000      E     LCALL   ?C?SLSHR
+0096         ?C0034:
+0096 8F00        R     MOV     had+03H,R7
+0098 8E00        R     MOV     had+02H,R6
+009A 8D00        R     MOV     had+01H,R5
+009C 8C00        R     MOV     had,R4
+009E         ?C0008:
+                                           ; SOURCE LINE # 48
+009E 90A003            MOV     DPTR,#LED_P1
+00A1 E500        R     MOV     A,had+03H
+00A3 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 49
+00A4 FF                MOV     R7,A
+00A5 AE00        R     MOV     R6,had+02H
+00A7 AD00        R     MOV     R5,had+01H
+00A9 AC00        R     MOV     R4,had
+00AB 7808              MOV     R0,#08H
+00AD 120000      E     LCALL   ?C?SLSHR
+00B0 A3                INC     DPTR
+00B1 EF                MOV     A,R7
+00B2 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 50
+00B3 A3                INC     DPTR
+00B4 E4                CLR     A
+00B5 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 51
+00B6 F500        R     MOV     i,A
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 19  
+
+00B8 F500        R     MOV     i+01H,A
+00BA         ?C0009:
+                                           ; SOURCE LINE # 52
+00BA AF00        R     MOV     R7,had+03H
+00BC AE00        R     MOV     R6,had+02H
+00BE AD00        R     MOV     R5,had+01H
+00C0 AC00        R     MOV     R4,had
+00C2 7810              MOV     R0,#010H
+00C4 120000      E     LCALL   ?C?SLSHR
+00C7 C004              PUSH    AR4
+00C9 C005              PUSH    AR5
+00CB C006              PUSH    AR6
+00CD C007              PUSH    AR7
+00CF E4                CLR     A
+00D0 7F01              MOV     R7,#01H
+00D2 FE                MOV     R6,A
+00D3 FD                MOV     R5,A
+00D4 FC                MOV     R4,A
+00D5 A900        R     MOV     R1,i+01H
+00D7 A801              MOV     R0,AR1
+00D9 120000      E     LCALL   ?C?LSHL
+00DC D003              POP     AR3
+00DE D002              POP     AR2
+00E0 D001              POP     AR1
+00E2 D000              POP     AR0
+00E4 EF                MOV     A,R7
+00E5 5B                ANL     A,R3
+00E6 FF                MOV     R7,A
+00E7 EE                MOV     A,R6
+00E8 5A                ANL     A,R2
+00E9 FE                MOV     R6,A
+00EA ED                MOV     A,R5
+00EB 59                ANL     A,R1
+00EC FD                MOV     R5,A
+00ED EC                MOV     A,R4
+00EE 58                ANL     A,R0
+00EF FC                MOV     R4,A
+00F0 4D                ORL     A,R5
+00F1 4E                ORL     A,R6
+00F2 4F                ORL     A,R7
+00F3 6015              JZ      ?C0011
+                                           ; SOURCE LINE # 53
+00F5 C3                CLR     C
+00F6 7408              MOV     A,#08H
+00F8 9500        R     SUBB    A,i+01H
+00FA FF                MOV     R7,A
+00FB 7401              MOV     A,#01H
+00FD A807              MOV     R0,AR7
+00FF 08                INC     R0
+0100 8002              SJMP    ?C0030
+0102         ?C0029:
+0102 C3                CLR     C
+0103 33                RLC     A
+0104         ?C0030:
+0104 D8FC              DJNZ    R0,?C0029
+0106 90A005            MOV     DPTR,#LED_P3
+0109 F0                MOVX    @DPTR,A
+010A         ?C0011:
+010A 0500        R     INC     i+01H
+010C E500        R     MOV     A,i+01H
+010E 7002              JNZ     ?C0031
+0110 0500        R     INC     i
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 20  
+
+0112         ?C0031:
+0112 6408              XRL     A,#08H
+0114 4500        R     ORL     A,i
+0116 70A2              JNZ     ?C0009
+                                           ; SOURCE LINE # 56
+                                           ; SOURCE LINE # 57
+0118         ?C0013:
+0118 D007              POP     AR7
+011A D006              POP     AR6
+011C D005              POP     AR5
+011E D004              POP     AR4
+0120 D003              POP     AR3
+0122 D002              POP     AR2
+0124 D001              POP     AR1
+0126 D000              POP     AR0
+0128 D0D0              POP     PSW
+012A D082              POP     DPL
+012C D083              POP     DPH
+012E D0F0              POP     B
+0130 D0E0              POP     ACC
+0132 32                RETI    
+             ; FUNCTION timer_IT (END)
+
+             ; FUNCTION INIT_T2_clock (BEGIN)
+                                           ; SOURCE LINE # 62
+                                           ; SOURCE LINE # 66
+0000 750000      R     MOV     HH,#00H
+0003 7500B1      R     MOV     HH+01H,#0B1H
+                                           ; SOURCE LINE # 67
+;---- Variable 'LL' assigned to Register 'R2/R3' ----
+                                           ; SOURCE LINE # 72
+0006 750000      R     MOV     HH,#00H
+0009 750047      R     MOV     HH+01H,#047H
+                                           ; SOURCE LINE # 73
+000C 7BFF              MOV     R3,#0FFH
+                                           ; SOURCE LINE # 95
+000E E4                CLR     A
+000F F500        R     MOV     had+03H,A
+0011 F500        R     MOV     had+02H,A
+0013 750080      R     MOV     had+01H,#080H
+0016 F500        R     MOV     had,A
+                                           ; SOURCE LINE # 97
+0018 C2AD              CLR     ET2
+                                           ; SOURCE LINE # 100
+001A 90A003            MOV     DPTR,#LED_P1
+001D E500        R     MOV     A,had+03H
+001F F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 101
+0020 E4                CLR     A
+0021 A3                INC     DPTR
+0022 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 102
+0023 A3                INC     DPTR
+0024 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 103
+0025 C2CA              CLR     TR2
+                                           ; SOURCE LINE # 105
+0027 D2AF              SETB    EA
+                                           ; SOURCE LINE # 107
+0029 C2C9              CLR     CT2
+                                           ; SOURCE LINE # 108
+002B D2CA              SETB    TR2
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 21  
+
+                                           ; SOURCE LINE # 111
+002D AF00        R     MOV     R7,HH+01H
+002F 8FCB              MOV     RCAP2H,R7
+                                           ; SOURCE LINE # 112
+0031 8BCA              MOV     RCAP2L,R3
+                                           ; SOURCE LINE # 114
+0033 8FCD              MOV     TH2,R7
+                                           ; SOURCE LINE # 115
+0035 8BCC              MOV     TL2,R3
+                                           ; SOURCE LINE # 118
+0037 75C901            MOV     T2MOD,#01H
+                                           ; SOURCE LINE # 119
+003A D2CA              SETB    TR2
+                                           ; SOURCE LINE # 120
+003C D2AD              SETB    ET2
+003E         ?C0014:
+                                           ; SOURCE LINE # 122
+003E 80FE              SJMP    ?C0014
+             ; FUNCTION INIT_T2_clock (END)
+
+             ; FUNCTION main (BEGIN)
+                                           ; SOURCE LINE # 128
+                                           ; SOURCE LINE # 129
+0000 E4                CLR     A
+0001 F500        R     MOV     i,A
+0003 F500        R     MOV     i+01H,A
+                                           ; SOURCE LINE # 131
+0005 120000      E     LCALL   disp_init
+                                           ; SOURCE LINE # 132
+0008 120000      E     LCALL   clrscr
+                                           ; SOURCE LINE # 142
+000B 120000      E     LCALL   INIT_kb
+000E         ?C0017:
+                                           ; SOURCE LINE # 143
+                                           ; SOURCE LINE # 146
+000E 120000      R     LCALL   DBG_tryKb
+                                           ; SOURCE LINE # 147
+0011 80FB              SJMP    ?C0017
+             ; FUNCTION main (END)
+
+             ; FUNCTION DBG_tryKb (BEGIN)
+                                           ; SOURCE LINE # 174
+                                           ; SOURCE LINE # 175
+                                           ; SOURCE LINE # 179
+0000 E4                CLR     A
+0001 F500        R     MOV     r,A
+0003 F500        R     MOV     r+01H,A
+                                           ; SOURCE LINE # 180
+0005 F500        R     MOV     c,A
+0007 F500        R     MOV     c+01H,A
+                                           ; SOURCE LINE # 182
+0009 120000      E     LCALL   clrscr
+000C         ?C0020:
+                                           ; SOURCE LINE # 183
+                                           ; SOURCE LINE # 184
+                                           ; SOURCE LINE # 185
+000C 120000      E     LCALL   KB_scanPressedKeys
+                                           ; SOURCE LINE # 186
+000F 120000      E     LCALL   KB_scanPressedBtns
+                                           ; SOURCE LINE # 188
+0012 120000      E     LCALL   KB_printPressedKeys
+                                           ; SOURCE LINE # 190
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 22  
+
+0015 80F5              SJMP    ?C0020
+             ; FUNCTION DBG_tryKb (END)
+
+             ; FUNCTION DBG_snake (BEGIN)
+                                           ; SOURCE LINE # 194
+                                           ; SOURCE LINE # 195
+                                           ; SOURCE LINE # 196
+;---- Variable 'i' assigned to Register 'R4/R5' ----
+0000 E4                CLR     A
+0001 FD                MOV     R5,A
+0002 FC                MOV     R4,A
+                                           ; SOURCE LINE # 197
+0003 120000      R     LCALL   INIT_T2_clock
+0006         ?C0023:
+                                           ; SOURCE LINE # 198
+                                           ; SOURCE LINE # 199
+                                           ; SOURCE LINE # 200
+0006 0D                INC     R5
+0007 BD0001            CJNE    R5,#00H,?C0032
+000A 0C                INC     R4
+000B         ?C0032:
+                                           ; SOURCE LINE # 201
+000B 80F9              SJMP    ?C0023
+             ; FUNCTION DBG_snake (END)
+
+             ; FUNCTION DBG_passed (BEGIN)
+                                           ; SOURCE LINE # 203
+                                           ; SOURCE LINE # 204
+                                           ; SOURCE LINE # 205
+0000 E4                CLR     A
+0001 F500        R     MOV     i,A
+0003 F500        R     MOV     i+01H,A
+0005         ?C0026:
+                                           ; SOURCE LINE # 206
+                                           ; SOURCE LINE # 207
+0005 120000      E     LCALL   clrscr
+                                           ; SOURCE LINE # 208
+0008 7BFF              MOV     R3,#0FFH
+000A 7A00        R     MOV     R2,#HIGH ?SC_0
+000C 7900        R     MOV     R1,#LOW ?SC_0
+000E 0500        R     INC     i+01H
+0010 E500        R     MOV     A,i+01H
+0012 850000      E     MOV     ?_printf?BYTE+03H,i
+0015 7002              JNZ     ?C0033
+0017 0500        R     INC     i
+0019         ?C0033:
+0019 14                DEC     A
+001A F500        E     MOV     ?_printf?BYTE+04H,A
+001C 120000      E     LCALL   _printf
+                                           ; SOURCE LINE # 209
+001F 7F64              MOV     R7,#064H
+0021 7E00              MOV     R6,#00H
+0023 120000      E     LCALL   _pause10
+                                           ; SOURCE LINE # 210
+0026 80DD              SJMP    ?C0026
+             ; FUNCTION DBG_passed (END)
+
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 23  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+uint16_t . . . . . . . . . . . . . . .  TYPEDEF  -----  U_INT    -----  2
+CCF2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DAH  1
+CCF3 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DBH  1
+P0 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0080H  1
+CCF4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DCH  1
+P1 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0090H  1
+P2 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A0H  1
+P3 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B0H  1
+AC . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D6H  1
+T0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B4H  1
+T1 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B5H  1
+EA . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AFH  1
+T2 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0090H  1
+int32_t. . . . . . . . . . . . . . . .  TYPEDEF  -----  LONG     -----  4
+EC . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AEH  1
+int16_t. . . . . . . . . . . . . . . .  TYPEDEF  -----  INT      -----  2
+CF . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DFH  1
+KB_scanPressedBtns . . . . . . . . . .  EXTERN   CODE   PROC     -----  -----
+FE . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009FH  1
+INIT_T2_clock. . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  HH . . . . . . . . . . . . . . . . .  AUTO     DATA   U_INT    0000H  2
+  LL . . . . . . . . . . . . . . . . .  * REG *  DATA   U_INT    0002H  2
+clrscr . . . . . . . . . . . . . . . .  EXTERN   CODE   PROC     -----  -----
+IE . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A8H  1
+KB_scanPressedKeys . . . . . . . . . .  EXTERN   CODE   PROC     -----  -----
+P0_0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0080H  1
+CEX0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0093H  1
+P1_0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0090H  1
+P0_1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0081H  1
+P2_0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A0H  1
+CEX1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0094H  1
+P1_1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0091H  1
+P0_2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0082H  1
+size_t . . . . . . . . . . . . . . . .  TYPEDEF  -----  U_INT    -----  2
+P3_0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B0H  1
+P2_1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A1H  1
+CEX2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0095H  1
+P1_2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0092H  1
+P0_3 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0083H  1
+P3_1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B1H  1
+P2_2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A2H  1
+CEX3 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0096H  1
+P1_3 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0093H  1
+P0_4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0084H  1
+CR . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DEH  1
+P3_2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B2H  1
+P2_3 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A3H  1
+CEX4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0097H  1
+P1_4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0094H  1
+P0_5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0085H  1
+EXF2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CEH  1
+RD . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B7H  1
+P3_3 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B3H  1
+P2_4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A4H  1
+P1_5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0095H  1
+P0_6 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0086H  1
+P3_4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B4H  1
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 24  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+P2_5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A5H  1
+P1_6 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0096H  1
+P0_7 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0087H  1
+P3_5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B5H  1
+ES . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ACH  1
+P2_6 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A6H  1
+P1_7 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0097H  1
+KB_printPressedKeys. . . . . . . . . .  EXTERN   CODE   PROC     -----  -----
+UD . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D1H  1
+P3_6 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B6H  1
+P2_7 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A7H  1
+P3_7 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B7H  1
+RI . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0098H  1
+CY . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D7H  1
+INT0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B2H  1
+INT1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B3H  1
+TI . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0099H  1
+IE0_ . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0089H  1
+IE1_ . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008BH  1
+timer_IT . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  DIV10. . . . . . . . . . . . . . . .  STATIC   DATA   INT      0000H  2
+  i. . . . . . . . . . . . . . . . . .  AUTO     DATA   INT      0000H  2
+RCAP2H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CBH  1
+PS . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BCH  1
+CCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D8H  1
+T2EX . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0091H  1
+OV . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D2H  1
+RCAP2L . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CAH  1
+main . . . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  i. . . . . . . . . . . . . . . . . .  AUTO     DATA   INT      0000H  2
+WR . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B6H  1
+line . . . . . . . . . . . . . . . . .  PUBLIC   XDATA  ARRAY    0000H  84
+RCLK . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CDH  1
+had. . . . . . . . . . . . . . . . . .  PUBLIC   DATA   LONG     0002H  4
+TCLK . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CCH  1
+DBG_passed . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  i. . . . . . . . . . . . . . . . . .  AUTO     DATA   INT      0000H  2
+SCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0098H  1
+TCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0088H  1
+LED_P1 . . . . . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   A003H  1
+LED_P2 . . . . . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   A004H  1
+smer . . . . . . . . . . . . . . . . .  PUBLIC   DATA   INT      0006H  2
+LED_P3 . . . . . . . . . . . . . . . .  PUBLIC   XDATA  U_CHAR   A005H  1
+DBG_tryKb. . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  r. . . . . . . . . . . . . . . . . .  AUTO     DATA   U_INT    0000H  2
+  c. . . . . . . . . . . . . . . . . .  AUTO     DATA   U_INT    0002H  2
+DBG_snake. . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  i. . . . . . . . . . . . . . . . . .  * REG *  DATA   INT      0004H  2
+disp_init. . . . . . . . . . . . . . .  EXTERN   CODE   PROC     -----  -----
+CT2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C9H  1
+ET0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A9H  1
+ET1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ABH  1
+TF0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008DH  1
+ET2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ADH  1
+TF1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008FH  1
+TF2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CFH  1
+RB8. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009AH  1
+C51 COMPILER V6.20c  MAIN                                                                  04/10/2014 14:13:51 PAGE 25  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+EX0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A8H  1
+IT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0088H  1
+TH2. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CDH  1
+EX1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AAH  1
+TB8. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009BH  1
+IT1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008AH  1
+uint8_t. . . . . . . . . . . . . . . .  TYPEDEF  -----  U_INT    -----  2
+P. . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D0H  1
+SM0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009FH  1
+SM1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009EH  1
+ECI. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0092H  1
+TL2. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CCH  1
+SM2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009DH  1
+PT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B9H  1
+RS0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D3H  1
+PT1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BBH  1
+RS1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D4H  1
+PT2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BDH  1
+TR0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008CH  1
+TR1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008EH  1
+TR2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CAH  1
+PX0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B8H  1
+int8_t . . . . . . . . . . . . . . . .  TYPEDEF  -----  INT      -----  2
+PX1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BAH  1
+_pause10 . . . . . . . . . . . . . . .  EXTERN   CODE   PROC     -----  -----
+INIT_kb. . . . . . . . . . . . . . . .  EXTERN   CODE   PROC     -----  -----
+EXEN2. . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CBH  1
+PPC. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BEH  1
+CPRL2. . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C8H  1
+IPL. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B8H  1
+REN. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009CH  1
+T2MOD. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C9H  1
+T2CON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C8H  1
+RXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B0H  1
+TXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B1H  1
+F0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D5H  1
+_printf. . . . . . . . . . . . . . . .  EXTERN   CODE   PROC     -----  -----
+PSW. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D0H  1
+uint32_t . . . . . . . . . . . . . . .  TYPEDEF  -----  U_LONG   -----  4
+CCF0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D8H  1
+CCF1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D9H  1
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    466    ----
+   CONSTANT SIZE    =     11    ----
+   XDATA SIZE       =     84    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      8      12
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

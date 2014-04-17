@@ -1,0 +1,7 @@
+"main.obj",
+".\disp.LIB",
+"cv1.obj",
+"kb.obj",
+"waitin.obj" 
+TO "cv1_display hello" 
+RAMSIZE(256) 

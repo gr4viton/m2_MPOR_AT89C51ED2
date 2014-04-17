@@ -1,0 +1,762 @@
+C51 COMPILER V6.20c  WAITIN                                                                04/10/2014 14:09:43 PAGE 1   
+
+
+C51 COMPILER V6.20c, COMPILATION OF MODULE WAITIN
+OBJECT MODULE PLACED IN waitin.OBJ
+COMPILER INVOKED BY: C:\Program Files (x86)\Keil\C51\BIN\C51.EXE waitin.c DEBUG OBJECTEXTEND CODE LISTINCLUDE SYMBOLS
+
+stmt level    source
+
+   1          // Daniel Davidek
+   2          // MPOR
+   3          // 2014_02_20
+   4          // t2L1
+   5          // MCU: AT89C51ED2
+   6          // fMCU: 11.059MHz
+   7          
+   8          #include "waitin.h"
+   1      =1  #ifndef _WAITIN_H_
+   2      =1  #define _WAITIN_H_
+   3      =1  
+   4      =1  #include "defines.h"
+   1      =2  #ifndef _DEFINES_H_
+   2      =2  #define _DEFINES_H_
+   3      =2  
+   4      =2  #include <intrins.h>
+   1      =3  /*--------------------------------------------------------------------------
+   2      =3  INTRINS.H
+   3      =3  
+   4      =3  Intrinsic functions for C51.
+   5      =3  Copyright (c) 1988-2001 Keil Elektronik GmbH and Keil Software, Inc.
+   6      =3  All rights reserved.
+   7      =3  --------------------------------------------------------------------------*/
+   8      =3  
+   9      =3  extern void          _nop_     (void);
+  10      =3  extern bit           _testbit_ (bit);
+  11      =3  extern unsigned char _cror_    (unsigned char, unsigned char);
+  12      =3  extern unsigned int  _iror_    (unsigned int,  unsigned char);
+  13      =3  extern unsigned long _lror_    (unsigned long, unsigned char);
+  14      =3  extern unsigned char _crol_    (unsigned char, unsigned char);
+  15      =3  extern unsigned int  _irol_    (unsigned int,  unsigned char);
+  16      =3  extern unsigned long _lrol_    (unsigned long, unsigned char);
+  17      =3  extern unsigned char _chkfloat_(float);
+   5      =2  #include <stdio.h>
+   1      =3  /*--------------------------------------------------------------------------
+   2      =3  STDIO.H
+   3      =3  
+   4      =3  Prototypes for standard I/O functions.
+   5      =3  Copyright (c) 1988-2001 Keil Elektronik GmbH and Keil Software, Inc.
+   6      =3  All rights reserved.
+   7      =3  --------------------------------------------------------------------------*/
+   8      =3  
+   9      =3  #ifndef EOF
+  10      =3   #define EOF -1
+  11      =3  #endif
+  12      =3  
+  13      =3  #ifndef NULL
+  14      =3   #define NULL ((void *) 0)
+  15      =3  #endif
+  16      =3  
+  17      =3  #ifndef _SIZE_T
+  18      =3   #define _SIZE_T
+  19      =3   typedef unsigned int size_t;
+  20      =3  #endif
+  21      =3  
+C51 COMPILER V6.20c  WAITIN                                                                04/10/2014 14:09:43 PAGE 2   
+
+  22      =3  #pragma SAVE
+  23      =3  #pragma REGPARMS
+  24      =3  extern char _getkey (void);
+  25      =3  extern char getchar (void);
+  26      =3  extern char ungetchar (char);
+  27      =3  extern char putchar (char);
+  28      =3  extern int printf   (const char *, ...);
+  29      =3  extern int sprintf  (char *, const char *, ...);
+  30      =3  extern int vprintf  (const char *, char *);
+  31      =3  extern int vsprintf (char *, const char *, char *);
+  32      =3  extern char *gets (char *, int n);
+  33      =3  extern int scanf (const char *, ...);
+  34      =3  extern int sscanf (char *, const char *, ...);
+  35      =3  extern int puts (const char *);
+  36      =3  
+  37      =3  #pragma RESTORE
+   6      =2  //#include <atmelWM\89C51RD2.h>
+   7      =2  #include <89c51rd2.H>
+   1      =3  /*-------------------------------------------------------------------------
+   2      =3  R89c51rd2.H
+   3      =3  
+   4      =3  Header file for AtmelWM T89C51RD2
+   5      =3    
+   6      =3  Copyright (c) 1988-1999 Keil Elektronik GmbH and Keil Software, Inc.
+   7      =3  All rights reserved.
+   8      =3  -------------------------------------------------------------------------*/
+   9      =3  sfr  P0      =   0x80;			 
+  10      =3  
+  11      =3  sbit  P0_7    =   P0^7;
+  12      =3  sbit  P0_6    =   P0^6;
+  13      =3  sbit  P0_5    =   P0^5;
+  14      =3  sbit  P0_4    =   P0^4;
+  15      =3  sbit  P0_3    =   P0^3;
+  16      =3  sbit  P0_2    =   P0^2;
+  17      =3  sbit  P0_1    =   P0^1;
+  18      =3  sbit  P0_0    =   P0^0;
+  19      =3  
+  20      =3  sfr  SP      =   0x81;
+  21      =3  sfr  DPL     =   0x82;
+  22      =3  sfr  DPH     =   0x83;
+  23      =3  
+  24      =3  sfr  PCON    =   0x87;			 
+  25      =3  
+  26      =3  sfr  TCON    =   0x88;             
+  27      =3  
+  28      =3  sbit  TF1    =   TCON^7;
+  29      =3  sbit  TR1    =   TCON^6;
+  30      =3  sbit  TF0    =   TCON^5;
+  31      =3  sbit  TR0    =   TCON^4;
+  32      =3  sbit  IE1_   =   TCON^3;
+  33      =3  sbit  IT1    =   TCON^2;
+  34      =3  sbit  IE0_   =   TCON^1;
+  35      =3  sbit  IT0    =   TCON^0;
+  36      =3  
+  37      =3  sfr  TMOD    =   0x89;			 
+  38      =3  
+  39      =3  sfr  TL0     =   0x8A;			 
+  40      =3  
+  41      =3  sfr  TL1     =   0x8B;			 
+  42      =3  
+  43      =3  sfr  TH0     =   0x8C;			 
+  44      =3  
+C51 COMPILER V6.20c  WAITIN                                                                04/10/2014 14:09:43 PAGE 3   
+
+  45      =3  sfr  TH1     =   0x8D;			 
+  46      =3  
+  47      =3  sfr  CKCON      =   0x8F;			 
+  48      =3  
+  49      =3  
+  50      =3  sfr  P1      =   0x90;			 
+  51      =3  
+  52      =3  sbit  P1_7    =   P1^7;
+  53      =3  sbit  P1_6    =   P1^6;
+  54      =3  sbit  P1_5    =   P1^5;
+  55      =3  sbit  P1_4    =   P1^4;
+  56      =3  sbit  P1_3    =   P1^3;
+  57      =3  sbit  P1_2    =   P1^2;
+  58      =3  sbit  P1_1    =   P1^1;
+  59      =3  sbit  P1_0    =   P1^0;
+  60      =3  
+  61      =3  sbit  CEX4    =   P1^7;
+  62      =3  sbit  CEX3    =   P1^6;
+  63      =3  sbit  CEX2    =   P1^5;
+  64      =3  sbit  CEX1    =   P1^4;
+  65      =3  sbit  CEX0    =   P1^3;
+  66      =3  sbit  ECI     =   P1^2;
+  67      =3  sbit  T2EX    =   P1^1;
+  68      =3  sbit  T2      =   P1^0;
+  69      =3  
+  70      =3  sfr  SCON    =   0x98;			 
+  71      =3  
+  72      =3  sfr  SCON_1    =   0xC0;			 
+  73      =3  
+  74      =3  sbit  SM0    =   SCON^7;
+  75      =3  sbit  FE     =   SCON^7;
+  76      =3  sbit  SM1    =   SCON^6;
+  77      =3  sbit  SM2    =   SCON^5;
+  78      =3  sbit  REN    =   SCON^4;
+  79      =3  sbit  TB8    =   SCON^3;
+  80      =3  sbit  RB8    =   SCON^2;
+  81      =3  sbit  TI     =   SCON^1;
+  82      =3  sbit  RI     =   SCON^0;
+  83      =3  
+  84      =3  sfr  SBUF    =   0x99;			 
+  85      =3  
+  86      =3  sfr  SBUF_1  =   0xC1;             
+  87      =3  
+  88      =3  sfr  BRL  =     0x9A;                
+  89      =3  
+  90      =3  sfr  P2      =   0xA0;			 
+  91      =3  
+  92      =3  sbit  P2_7    =   P2^7;
+  93      =3  sbit  P2_6    =   P2^6;
+  94      =3  sbit  P2_5    =   P2^5;
+  95      =3  sbit  P2_4    =   P2^4;
+  96      =3  sbit  P2_3    =   P2^3;
+  97      =3  sbit  P2_2    =   P2^2;
+  98      =3  sbit  P2_1    =   P2^1;
+  99      =3  sbit  P2_0    =   P2^0;
+ 100      =3  
+ 101      =3  sfr  WDTRST  =   0xA6;			 
+ 102      =3  sfr  WDTPRG  =   0xA7;			 
+ 103      =3  
+ 104      =3  sfr  AUXR1  =   0xA2;              
+ 105      =3  
+ 106      =3  sfr  IE     =   0xA8;			     
+C51 COMPILER V6.20c  WAITIN                                                                04/10/2014 14:09:43 PAGE 4   
+
+ 107      =3  sfr  IE0    =   0xA8;
+ 108      =3  
+ 109      =3  sbit  EA     =   IE^7;
+ 110      =3  sbit  EC     =   IE^6;
+ 111      =3  sbit  ET2    =   IE^5;
+ 112      =3  sbit  ES     =   IE^4;
+ 113      =3  sbit  ET1    =   IE^3;
+ 114      =3  sbit  EX1    =   IE^2;
+ 115      =3  sbit  ET0    =   IE^1;
+ 116      =3  sbit  EX0    =   IE^0;
+ 117      =3  
+ 118      =3  sfr  SADDR   =   0xA9;			 
+ 119      =3  
+ 120      =3  
+ 121      =3  sfr  SADDR_1   =   0xAA;			 
+ 122      =3  
+ 123      =3  sfr  P3      =   0xB0;			 
+ 124      =3  
+ 125      =3  sbit  P3_7    =   P3^7;
+ 126      =3  sbit  P3_6    =   P3^6;
+ 127      =3  sbit  P3_5    =   P3^5;
+ 128      =3  sbit  P3_4    =   P3^4;
+ 129      =3  sbit  P3_3    =   P3^3;
+ 130      =3  sbit  P3_2    =   P3^2;
+ 131      =3  sbit  P3_1    =   P3^1;
+ 132      =3  sbit  P3_0    =   P3^0;
+ 133      =3  
+ 134      =3  sbit  RD      =   P3^7;
+ 135      =3  sbit  WR      =   P3^6;
+ 136      =3  sbit  T1      =   P3^5;
+ 137      =3  sbit  T0      =   P3^4;
+ 138      =3  sbit  INT1    =   P3^3;
+ 139      =3  sbit  INT0    =   P3^2;
+ 140      =3  sbit  TXD     =   P3^1;
+ 141      =3  sbit  RXD     =   P3^0;
+ 142      =3  
+ 143      =3  
+ 144      =3  sfr  AUXR    =   0x8E; 			 
+ 145      =3  
+ 146      =3  sfr  SADEN   =   0xB9;			 
+ 147      =3  
+ 148      =3  sfr  SADEN_1 =   0xBA;			  
+ 149      =3  
+ 150      =3  sfr  IPH     =   0xB7;			     
+ 151      =3  sfr  IPH0    =   0xB7;
+ 152      =3  
+ 153      =3  sfr  IPL     =   0xB8;			     
+ 154      =3  sfr  IPL0    =   0xB8;	
+ 155      =3  
+ 156      =3  sbit PPC  = IPL^6;
+ 157      =3  sbit PT2  = IPL^5;
+ 158      =3  sbit PS   = IPL^4;
+ 159      =3  sbit PT1  = IPL^3;
+ 160      =3  sbit PX1  = IPL^2;
+ 161      =3  sbit PT0  = IPL^1;
+ 162      =3  sbit PX0  = IPL^0;
+ 163      =3  
+ 164      =3  sfr  T2CON   =   0xC8;             
+ 165      =3  
+ 166      =3  sbit  TF2    =   T2CON^7;
+ 167      =3  sbit  EXF2   =   T2CON^6;
+ 168      =3  sbit  RCLK   =   T2CON^5;
+C51 COMPILER V6.20c  WAITIN                                                                04/10/2014 14:09:43 PAGE 5   
+
+ 169      =3  sbit  TCLK   =   T2CON^4;
+ 170      =3  sbit  EXEN2  =   T2CON^3;
+ 171      =3  sbit  TR2    =   T2CON^2;
+ 172      =3  sbit  CT2    =   T2CON^1;
+ 173      =3  sbit  CPRL2  =   T2CON^0;
+ 174      =3  
+ 175      =3  sfr  T2MOD   =   0xC9;			 
+ 176      =3  
+ 177      =3  sfr  RCAP2L  =   0xCA;			 
+ 178      =3  sfr  RCAP2H  =   0xCB;			 
+ 179      =3  sfr  TL2     =   0xCC;			 
+ 180      =3  sfr  TH2     =   0xCD;			 
+ 181      =3  
+ 182      =3  sfr  BDRCON  =   0x9B;			 
+ 183      =3  
+ 184      =3  sfr  BDRCON_1  =   0x9C;			 
+ 185      =3  
+ 186      =3  
+ 187      =3  sfr  PSW     =   0xD0;			 
+ 188      =3  sbit  CY     =   PSW^7;
+ 189      =3  sbit  AC     =   PSW^6;
+ 190      =3  sbit  F0     =   PSW^5;
+ 191      =3  sbit  RS1    =   PSW^4;
+ 192      =3  sbit  RS0    =   PSW^3;
+ 193      =3  sbit  OV     =   PSW^2;
+ 194      =3  sbit  UD     =   PSW^1;
+ 195      =3  sbit  P      =   PSW^0;
+ 196      =3  
+ 197      =3  sfr  CCON    =   0xD8;			 
+ 198      =3  
+ 199      =3  sbit  CF      =   CCON^7;
+ 200      =3  sbit  CR      =   CCON^6;
+ 201      =3  sbit  CCF4    =   CCON^4;
+ 202      =3  sbit  CCF3    =   CCON^3;
+ 203      =3  sbit  CCF2    =   CCON^2;
+ 204      =3  sbit  CCF1    =   CCON^1;
+ 205      =3  sbit  CCF0    =   CCON^0;
+ 206      =3  
+ 207      =3  sfr  CMOD    =   0xD9;			 
+ 208      =3  
+ 209      =3  sfr  CCAPM0  =   0xDA;			 
+ 210      =3  sfr  CCAPM1  =   0xDB;			 
+ 211      =3  sfr  CCAPM2  =   0xDC;			 
+ 212      =3  sfr  CCAPM3  =   0xDD;			 
+ 213      =3  sfr  CCAPM4  =   0xDE;			 
+ 214      =3  
+ 215      =3  sfr  CL      =   0xE9;			 
+ 216      =3  
+ 217      =3  sfr  CCAP0L  =   0xEA;			 
+ 218      =3  
+ 219      =3  sfr  CCAP1L  =   0xEB;			 
+ 220      =3  
+ 221      =3  sfr  CCAP2L  =   0xEC;			 
+ 222      =3  
+ 223      =3  sfr  CCAP3L  =   0xED;			 
+ 224      =3  
+ 225      =3  sfr  CCAP4L  =   0xEE;			 
+ 226      =3  
+ 227      =3  sfr  ACC     =   0xE0;			 
+ 228      =3  sfr  B       =   0xF0;			 
+ 229      =3  
+ 230      =3  sfr  CH      =   0xF9;			 
+C51 COMPILER V6.20c  WAITIN                                                                04/10/2014 14:09:43 PAGE 6   
+
+ 231      =3  
+ 232      =3  sfr  CCAP0H  =   0xFA;			 
+ 233      =3  sfr  CCAP1H  =   0xFB;			  
+ 234      =3  sfr  CCAP2H  =   0xFC;			 
+ 235      =3  sfr  CCAP3H  =   0xFD;			 
+ 236      =3  sfr  CCAP4H  =   0xFE;			 
+ 237      =3  
+ 238      =3  sfr  ICON  =   0xFF;               
+ 239      =3  sfr  CKSEL  =   0x85;               
+ 240      =3  sfr  OSCCON  =   0x86;               
+ 241      =3  
+ 242      =3  sfr FCON 	= 0xD1;
+ 243      =3  sfr EECON	= 0xD2;
+ 244      =3  sfr EETIM	= 0xD3;
+ 245      =3  
+ 246      =3  
+ 247      =3  
+ 248      =3  
+   8      =2  //#include "reg51.h"
+   9      =2  
+  10      =2  
+  11      =2  
+  12      =2  #define INT_MAX 0xffff
+  13      =2  #define B32_MAX 0x8000
+  14      =2  //#define CYCLES_WHILE 0x0df
+  15      =2  #define CYCLES_WHILE 0x001
+  16      =2  
+  17      =2  #define GET_MBYTE(BYTE,BIT) ((BYTE) & 1<<(BIT))
+  18      =2  #define GET_BIT(BYTE,BIT) ( !(!( GET_MBYTE(BYTE,BIT) )) )
+  19      =2  #define BIT(b) (1LU<<(b))
+  20      =2  #define NBIT(b) (~(1LU<<(b)))
+  21      =2  #define SET_BIT(BYTE,b) ( (BYTE) | (BIT(b)) )
+  22      =2  #define CLR_BIT(BYTE,b) ( (BYTE) & (NBIT(b)) )
+  23      =2  //#define SET_BIT(BYTE,BIT) (BYTE & LU1<<BIT)
+  24      =2  
+  25      =2  
+  26      =2  //p3b3
+  27      =2  //p1b5
+  28      =2  //p3b4
+  29      =2  #define BT1 !(P3&(0x04)); 
+  30      =2  #define BT2 !(P1&(0x10));
+  31      =2  #define BT3 !(P3&(0x08));
+  32      =2  
+  33      =2  #define BT(num) \
+  34      =2  ( switch (num) \
+  35      =2    {             \ 
+  36      =2      case 1:  return BT1;  \
+  37      =2      case 2:  return BT2;  \
+  38      =2      case 3:  return BT3;  \
+  39      =2    }              \
+  40      =2  )
+  41      =2  
+  42      =2  
+  43      =2  
+  44      =2  // number of bit in byte
+  45      =2  // T2MOD
+  46      =2  #define T2OE	1
+  47      =2  #define DCEN	0
+  48      =2  
+  49      =2  
+  50      =2  typedef short int 	int8_t ;
+  51      =2  typedef int 		int16_t ;
+C51 COMPILER V6.20c  WAITIN                                                                04/10/2014 14:09:43 PAGE 7   
+
+  52      =2  typedef long int 	int32_t ;
+  53      =2  
+  54      =2  typedef unsigned short int 	uint8_t ;
+  55      =2  typedef unsigned int		uint16_t ;
+  56      =2  typedef unsigned long int 	uint32_t ;
+  57      =2  
+  58      =2  
+  59      =2  #endif
+   5      =1  
+   6      =1  
+   7      =1  void wwwait(int w);
+   8      =1  void mwait(int cycles);
+   9      =1  void swait(int cycles);
+  10      =1  
+  11      =1  void INIT_T0m1();
+  12      =1  void pause(unsigned int doba);
+  13      =1  void pause10(unsigned int doba);
+  14      =1  
+  15      =1  #endif
+   9          
+  10          uint8_t STARTED_T0 = 0;
+  11          
+  12          void INIT_T0m1()
+  13          {
+  14   1      
+  15   1      /*
+  16   1      standartne delena dvema
+  17   1      PERIF CLOCK = XTAL/2
+  18   1      MODE1
+  19   1      PERIPH /6 --> citac
+  20   1      */
+  21   1      
+  22   1      // unsigned int _TMOD = TMOD & !BIT(4);
+  23   1      // set T0 mode 1 = 16bit tim/cnt
+  24   1      	TMOD = TMOD | BIT(0);
+  25   1      	TMOD = TMOD & NBIT(1);
+  26   1      
+  27   1      // reset counter
+  28   1      	TH0 = 0;
+  29   1      	TL0 = 0;
+  30   1      
+  31   1      // turn on timer 0
+  32   1      	TR0 = 1;
+  33   1      //	TCON = TCON | BIT(4);
+  34   1      	
+  35   1      }
+  36          
+  37          
+  38          // doba v nasobcich 50us
+  39          void pause(unsigned int doba)
+  40          {
+  41   1      	// if started for the first time - initialize timer
+  42   1      	if(STARTED_T0 == 0) INIT_T0m1();
+  43   1      //50us = 50e-6 
+  44   1      //1/50us = 1/50 e6 = 0.02e6 = 20kHz 
+  45   1      // fcpu = 11059 kHz
+  46   1      // n = f_T / f_CPU = 552,95 .= 553
+  47   1      
+  48   1      // f_Periph = 11.059MHz/12 = 921.583_ kHz
+  49   1      // 1/921.5833333
+  50   1      	TH0 = 0;
+  51   1      	TL0 = 0;
+C51 COMPILER V6.20c  WAITIN                                                                04/10/2014 14:09:43 PAGE 8   
+
+  52   1      	TR0 = 1;
+  53   1      	for(;doba>0; doba--){
+  54   2      		while(1)
+  55   2      			if( (TL0 + TH0<<4) >= 46 ) break;
+  56   2      		TH0 = 0;
+  57   2      		TL0 = 0;
+  58   2      	}
+  59   1      }
+  60          
+  61          //doba v nasobcich 10ms
+  62          void pause10(unsigned int doba)
+  63          {
+  64   1      	for(;doba>0; doba--)
+  65   1      		pause(200);
+  66   1      }
+C51 COMPILER V6.20c  WAITIN                                                                04/10/2014 14:09:43 PAGE 9   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION INIT_T0m1 (BEGIN)
+                                           ; SOURCE LINE # 12
+                                           ; SOURCE LINE # 13
+                                           ; SOURCE LINE # 24
+0000 438901            ORL     TMOD,#01H
+                                           ; SOURCE LINE # 25
+0003 AF89              MOV     R7,TMOD
+0005 EF                MOV     A,R7
+0006 54FD              ANL     A,#0FDH
+0008 FF                MOV     R7,A
+0009 E4                CLR     A
+000A 8F89              MOV     TMOD,R7
+                                           ; SOURCE LINE # 28
+000C F58C              MOV     TH0,A
+                                           ; SOURCE LINE # 29
+000E F58A              MOV     TL0,A
+                                           ; SOURCE LINE # 32
+0010 D28C              SETB    TR0
+                                           ; SOURCE LINE # 35
+0012 22                RET     
+             ; FUNCTION INIT_T0m1 (END)
+
+             ; FUNCTION _pause (BEGIN)
+                                           ; SOURCE LINE # 39
+;---- Variable 'doba' assigned to Register 'R4/R5' ----
+0000 AD07              MOV     R5,AR7
+0002 AC06              MOV     R4,AR6
+                                           ; SOURCE LINE # 40
+                                           ; SOURCE LINE # 42
+0004 E500        R     MOV     A,STARTED_T0+01H
+0006 4500        R     ORL     A,STARTED_T0
+0008 7003              JNZ     ?C0002
+000A 120000      R     LCALL   INIT_T0m1
+000D         ?C0002:
+                                           ; SOURCE LINE # 50
+000D E4                CLR     A
+000E F58C              MOV     TH0,A
+                                           ; SOURCE LINE # 51
+0010 F58A              MOV     TL0,A
+                                           ; SOURCE LINE # 52
+0012 D28C              SETB    TR0
+                                           ; SOURCE LINE # 53
+0014         ?C0003:
+0014 D3                SETB    C
+0015 ED                MOV     A,R5
+0016 9400              SUBB    A,#00H
+0018 EC                MOV     A,R4
+0019 9400              SUBB    A,#00H
+001B 402F              JC      ?C0009
+001D         ?C0006:
+                                           ; SOURCE LINE # 54
+                                           ; SOURCE LINE # 55
+001D AF8C              MOV     R7,TH0
+001F AB8A              MOV     R3,TL0
+0021 EB                MOV     A,R3
+0022 2F                ADD     A,R7
+0023 FF                MOV     R7,A
+0024 E4                CLR     A
+0025 33                RLC     A
+C51 COMPILER V6.20c  WAITIN                                                                04/10/2014 14:09:43 PAGE 10  
+
+0026 FE                MOV     R6,A
+0027 EF                MOV     A,R7
+0028 C4                SWAP    A
+0029 F8                MOV     R0,A
+002A 540F              ANL     A,#0FH
+002C C8                XCH     A,R0
+002D 68                XRL     A,R0
+002E FF                MOV     R7,A
+002F EE                MOV     A,R6
+0030 C4                SWAP    A
+0031 54F0              ANL     A,#0F0H
+0033 48                ORL     A,R0
+0034 FE                MOV     R6,A
+0035 C3                CLR     C
+0036 EF                MOV     A,R7
+0037 942E              SUBB    A,#02EH
+0039 EE                MOV     A,R6
+003A 6480              XRL     A,#080H
+003C 9480              SUBB    A,#080H
+003E 40DD              JC      ?C0006
+0040         ?C0007:
+                                           ; SOURCE LINE # 56
+0040 E4                CLR     A
+0041 F58C              MOV     TH0,A
+                                           ; SOURCE LINE # 57
+0043 F58A              MOV     TL0,A
+                                           ; SOURCE LINE # 58
+0045 ED                MOV     A,R5
+0046 1D                DEC     R5
+0047 70CB              JNZ     ?C0003
+0049 1C                DEC     R4
+004A         ?C0014:
+004A 80C8              SJMP    ?C0003
+                                           ; SOURCE LINE # 59
+004C         ?C0009:
+004C 22                RET     
+             ; FUNCTION _pause (END)
+
+             ; FUNCTION _pause10 (BEGIN)
+                                           ; SOURCE LINE # 62
+;---- Variable 'doba' assigned to Register 'DPTR' ----
+0000 8F82              MOV     DPL,R7
+0002 8E83              MOV     DPH,R6
+                                           ; SOURCE LINE # 63
+                                           ; SOURCE LINE # 64
+0004         ?C0010:
+0004 D3                SETB    C
+0005 E582              MOV     A,DPL
+0007 9400              SUBB    A,#00H
+0009 E583              MOV     A,DPH
+000B 9400              SUBB    A,#00H
+000D 4011              JC      ?C0013
+                                           ; SOURCE LINE # 65
+000F 7FC8              MOV     R7,#0C8H
+0011 7E00              MOV     R6,#00H
+0013 120000      R     LCALL   _pause
+0016 E582              MOV     A,DPL
+0018 1582              DEC     DPL
+001A 70E8              JNZ     ?C0010
+001C 1583              DEC     DPH
+001E         ?C0015:
+001E 80E4              SJMP    ?C0010
+C51 COMPILER V6.20c  WAITIN                                                                04/10/2014 14:09:43 PAGE 11  
+
+                                           ; SOURCE LINE # 66
+0020         ?C0013:
+0020 22                RET     
+             ; FUNCTION _pause10 (END)
+
+C51 COMPILER V6.20c  WAITIN                                                                04/10/2014 14:09:43 PAGE 12  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+STARTED_T0 . . . . . . . . . . . . . .  PUBLIC   DATA   U_INT    0000H  2
+uint16_t . . . . . . . . . . . . . . .  TYPEDEF  -----  U_INT    -----  2
+CCF2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DAH  1
+CCF3 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DBH  1
+P0 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0080H  1
+_pause . . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  doba . . . . . . . . . . . . . . . .  * REG *  DATA   U_INT    0004H  2
+CCF4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DCH  1
+P1 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0090H  1
+P2 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A0H  1
+P3 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B0H  1
+AC . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D6H  1
+T0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B4H  1
+T1 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B5H  1
+EA . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AFH  1
+T2 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0090H  1
+int32_t. . . . . . . . . . . . . . . .  TYPEDEF  -----  LONG     -----  4
+EC . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AEH  1
+int16_t. . . . . . . . . . . . . . . .  TYPEDEF  -----  INT      -----  2
+CF . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DFH  1
+FE . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009FH  1
+IE . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A8H  1
+P0_0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0080H  1
+CEX0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0093H  1
+P1_0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0090H  1
+P0_1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0081H  1
+P2_0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A0H  1
+CEX1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0094H  1
+P1_1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0091H  1
+P0_2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0082H  1
+size_t . . . . . . . . . . . . . . . .  TYPEDEF  -----  U_INT    -----  2
+P3_0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B0H  1
+P2_1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A1H  1
+CEX2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0095H  1
+P1_2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0092H  1
+P0_3 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0083H  1
+P3_1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B1H  1
+P2_2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A2H  1
+CEX3 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0096H  1
+P1_3 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0093H  1
+P0_4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0084H  1
+CR . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DEH  1
+P3_2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B2H  1
+P2_3 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A3H  1
+CEX4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0097H  1
+P1_4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0094H  1
+P0_5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0085H  1
+EXF2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CEH  1
+RD . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B7H  1
+P3_3 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B3H  1
+P2_4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A4H  1
+P1_5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0095H  1
+P0_6 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0086H  1
+P3_4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B4H  1
+P2_5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A5H  1
+P1_6 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0096H  1
+P0_7 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0087H  1
+C51 COMPILER V6.20c  WAITIN                                                                04/10/2014 14:09:43 PAGE 13  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+P3_5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B5H  1
+ES . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ACH  1
+P2_6 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A6H  1
+P1_7 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0097H  1
+UD . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D1H  1
+P3_6 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B6H  1
+P2_7 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A7H  1
+P3_7 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B7H  1
+RI . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0098H  1
+CY . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D7H  1
+INT0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B2H  1
+INT1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B3H  1
+TI . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0099H  1
+IE0_ . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0089H  1
+IE1_ . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008BH  1
+PS . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BCH  1
+CCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D8H  1
+T2EX . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0091H  1
+OV . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D2H  1
+WR . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B6H  1
+RCLK . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CDH  1
+TCLK . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CCH  1
+SCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0098H  1
+TMOD . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0089H  1
+TCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0088H  1
+INIT_T0m1. . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+CT2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C9H  1
+ET0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A9H  1
+ET1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ABH  1
+TF0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008DH  1
+ET2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ADH  1
+TF1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008FH  1
+TF2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CFH  1
+RB8. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009AH  1
+TH0. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008CH  1
+EX0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A8H  1
+IT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0088H  1
+EX1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AAH  1
+TB8. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009BH  1
+IT1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008AH  1
+uint8_t. . . . . . . . . . . . . . . .  TYPEDEF  -----  U_INT    -----  2
+P. . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D0H  1
+SM0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009FH  1
+TL0. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008AH  1
+SM1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009EH  1
+ECI. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0092H  1
+SM2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009DH  1
+PT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B9H  1
+RS0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D3H  1
+PT1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BBH  1
+RS1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D4H  1
+PT2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BDH  1
+TR0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008CH  1
+TR1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008EH  1
+TR2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CAH  1
+PX0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B8H  1
+int8_t . . . . . . . . . . . . . . . .  TYPEDEF  -----  INT      -----  2
+C51 COMPILER V6.20c  WAITIN                                                                04/10/2014 14:09:43 PAGE 14  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+PX1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BAH  1
+_pause10 . . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  doba . . . . . . . . . . . . . . . .  * REG *  DATA   U_INT    0082H  2
+EXEN2. . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CBH  1
+PPC. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BEH  1
+CPRL2. . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C8H  1
+IPL. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B8H  1
+REN. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009CH  1
+T2CON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C8H  1
+RXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B0H  1
+TXD. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B1H  1
+F0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D5H  1
+PSW. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D0H  1
+uint32_t . . . . . . . . . . . . . . .  TYPEDEF  -----  U_LONG   -----  4
+CCF0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D8H  1
+CCF1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D9H  1
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    129    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
