@@ -1,18 +1,19 @@
 /***********
-\project    MPOR - AT89 kit
-\author 	xdavid10
+\project    MRBT - Robotický den 2014
+\author 	xdavid10, xslizj00, xdvora0u @ FEEC-VUTBR
 \filename	.h
 \contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
-\date		17-04-2014
-\brief      Drivers and demos on kit with AT89
-    MCU: AT89C51ED2
-    fMCU: 11.059MHz
+            Bc. Jiri SLIZ       <xslizj00@stud.feec.vutbr.cz>
+            Bc. Michal Dvorak   <xdvora0u@stud.feec.vutbr.cz>
+\date		2014_03_30
+\brief      Initialization and state machine of Line follower
+\descrptn
 \license    LGPL License Terms \ref lgpl_license
 ***********/
 /* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
+#ifndef MAIN_H_INCLUDED
+#define MAIN_H_INCLUDED
 
-#ifndef _KB_H_
-#define _KB_H_
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INCLUDES
@@ -20,12 +21,32 @@
 //_________> project includes
 //_________> local includes
 //_________> forward includes
+
+#include <libopencm3/stm32/gpio.h>
+
+#include <errno.h>
+#include <sys/stat.h>
+#include <sys/times.h>
+#include <sys/unistd.h>
+#include <sys/types.h>
+
+#include <stdio.h>
+#include <stddef.h>
+
+//#include <string.h>
+
 #include "defines.h"
+#include "led_f4.h"
+#include "dev_serial.h"
+
+// LCD
+#include "dev_LCD_HD44780.h"
+#include "LCD_HD44780.h"
+
+#include "sensor_ultrasonic.h"
 #include "waitin.h"
 
-#define nRows 4
-#define nCols 4
-#define nButtons 4
+#if __NOT_IMPLEMENTED_YET
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // MACRO DEFINITIONS
@@ -47,35 +68,18 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL VARIABLE DECLARATIONS
 
-extern unsigned char xdata kbCW;
-extern unsigned char xdata kbRow;
-extern unsigned char xdata kbCol;
-
-extern uint8_t xdata key[nRows][nCols];
-extern uint8_t xdata btn[nButtons];
-
-extern char xdata keyChar[nRows][nCols];
-
-extern char xdata btnChar[nButtons];
-
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INLINE FUNCTION DEFINITIONS
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // STATIC FUNCTION DEFINITIONS
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // OTHER FUNCTION DECLARATIONS
-    //____________________________________________________
-    // ..
-
-void KB_scanPressedKeys(void);
-void KB_scanPressedBtns(void);
-void KB_printPressedKeys(void);
-void KB_printPressedBtns(void);
-
-void INIT_kb();
-
-
+int main_line(void);
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL REFERENCES
+
+
+
+#endif // MAIN_H_INCLUDED
 
 #endif

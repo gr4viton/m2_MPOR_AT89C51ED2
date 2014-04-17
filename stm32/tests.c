@@ -1,23 +1,26 @@
 /***********
-\project    MPOR - AT89 kit
-\author 	xdavid10
-\filename	.h
+\project    MRBT - Robotický den 2014
+\author 	xdavid10, xslizj00, xdvora0u @ FEEC-VUTBR
+\filename	.c
 \contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
-\date		17-04-2014
-\brief      Drivers and demos on kit with AT89
-    MCU: AT89C51ED2
-    fMCU: 11.059MHz
+            Bc. Jiri SLIZ       <xslizj00@stud.feec.vutbr.cz>
+            Bc. Michal Dvorak   <xdvora0u@stud.feec.vutbr.cz>
+\date		2014_03_30
+\brief
+\descrptn
 \license    LGPL License Terms \ref lgpl_license
 ***********/
 /* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
 
-
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INCLUDES
+//_________> system includes
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/cm3/nvic.h>
+#include <libopencm3/cm3/systick.h>
 //_________> project includes
 #include "waitin.h"
-
-
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // TYPE DEFINITIONS
@@ -33,76 +36,47 @@
 // static variables
 //____________________________________________________
 // other variables
-uint8_t STARTED_T0 = 0;
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL VARIABLE DECLARATIONS
+
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-// STATIC FUNCTION DECLARATIONS
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-// STATIC FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
+// FUNCTION DECLARATIONS - as this file does not have headerfile
+void TRY_buzzer(void);
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INLINE FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// STATIC FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // OTHER FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
+
+void TRY_buzzer(void){
+    // setup gpio buzzer PE0
+    rcc_periph_clock_enable(RCC_GPIOE);
+    gpio_mode_setup(GPIOE, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO1);
+    gpio_clear(GPIOE, GPIO1);
+
+    uint32_t nC =0;
+    uint32_t i =0;
+
+    for(nC = 1;nC<100;nC++)
+    {
+        i = 40000/nC/nC;
+        while(i>1)
+        {
+            //LCD_clear(lcd_dev);
+            //fprintf(flcd,"%isec",i);
+            gpio_toggle(GPIOE,GPIO1);
+            //ns100(nC); // T = 2*100 ns; f = 1/0.2ms = 5kHz = 5000Hz
+            mswait(nC);
+            i--;
+        }
+
+    }
+}
+
     //____________________________________________________
     // ..
-
-
-void INIT_T0m1()
-{
-
-/*
-standartne delena dvema
-PERIF CLOCK = XTAL/2
-MODE1
-PERIPH /6 --> citac
-*/
-
-// unsigned int _TMOD = TMOD & !BIT(4);
-// set T0 mode 1 = 16bit tim/cnt
-	TMOD = TMOD | BIT(0);
-	TMOD = TMOD & NBIT(1);
-
-// reset counter
-	TH0 = 0;
-	TL0 = 0;
-
-// turn on timer 0
-	TR0 = 1;
-//	TCON = TCON | BIT(4);
-
-}
-
-
-// doba v nasobcich 50us
-void pause(unsigned int doba)
-{
-	// if started for the first time - initialize timer
-	if(STARTED_T0 == 0) INIT_T0m1();
-//50us = 50e-6
-//1/50us = 1/50 e6 = 0.02e6 = 20kHz
-// fcpu = 11059 kHz
-// n = f_T / f_CPU = 552,95 .= 553
-
-// f_Periph = 11.059MHz/12 = 921.583_ kHz
-// 1/921.5833333
-	TH0 = 0;
-	TL0 = 0;
-	TR0 = 1;
-	for(;doba>0; doba--){
-		while(1)
-			if( (TL0 + TH0<<4) >= 46 ) break;
-		TH0 = 0;
-		TL0 = 0;
-	}
-}
-
-//doba v nasobcich 10ms
-void pause10(unsigned int doba)
-{
-	for(;doba>0; doba--)
-		pause(200);
-}
-
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL REFERENCES
+
+

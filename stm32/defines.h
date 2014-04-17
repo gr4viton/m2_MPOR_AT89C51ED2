@@ -1,18 +1,20 @@
 /***********
-\project    MPOR - AT89 kit
-\author 	xdavid10
+\project    MRBT - Robotický den 2014
+\author 	xdavid10, xslizj00, xdvora0u @ FEEC-VUTBR
 \filename	.h
 \contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
-\date		17-04-2014
-\brief      Drivers and demos on kit with AT89
-    MCU: AT89C51ED2
-    fMCU: 11.059MHz
+            Bc. Jiri SLIZ       <xslizj00@stud.feec.vutbr.cz>
+            Bc. Michal Dvorak   <xdvora0u@stud.feec.vutbr.cz>
+\date		2014_03_30
+\brief
+\descrptn
 \license    LGPL License Terms \ref lgpl_license
 ***********/
 /* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
 
-#ifndef _KB_H_
-#define _KB_H_
+#ifndef _DEFINES_H_INCLUDED_
+#define _DEFINES_H_INCLUDED_
+
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INCLUDES
@@ -20,12 +22,6 @@
 //_________> project includes
 //_________> local includes
 //_________> forward includes
-#include "defines.h"
-#include "waitin.h"
-
-#define nRows 4
-#define nCols 4
-#define nButtons 4
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // MACRO DEFINITIONS
@@ -33,6 +29,20 @@
 //constants (user-defined)
 //____________________________________________________
 //constants (do not change)
+
+#define UNUSED(x) (void)(x);
+
+#define __NOT_IMPLEMENTED_YET       0
+#define __NOT_IMPORTANT             0
+#define __NOT_USED_ANYMORE          0
+#define __LEGACY                    0
+#define __IS_BUGGY                  0
+#define __PREMATURE_OPTIMALIZATION  0
+
+// later for interrupt timer wait contra current not active noping
+#define __NOT_IMPLEMENTED_YET__INTERRUPT_WAITING_TOBE 0
+
+
 //____________________________________________________
 // macro functions (do not use often!)
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -47,17 +57,6 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL VARIABLE DECLARATIONS
 
-extern unsigned char xdata kbCW;
-extern unsigned char xdata kbRow;
-extern unsigned char xdata kbCol;
-
-extern uint8_t xdata key[nRows][nCols];
-extern uint8_t xdata btn[nButtons];
-
-extern char xdata keyChar[nRows][nCols];
-
-extern char xdata btnChar[nButtons];
-
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INLINE FUNCTION DEFINITIONS
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -66,16 +65,9 @@ extern char xdata btnChar[nButtons];
 // OTHER FUNCTION DECLARATIONS
     //____________________________________________________
     // ..
-
-void KB_scanPressedKeys(void);
-void KB_scanPressedBtns(void);
-void KB_printPressedKeys(void);
-void KB_printPressedBtns(void);
-
-void INIT_kb();
-
-
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL REFERENCES
 
-#endif
+
+
+#endif // _DEFINES_H_INCLUDED_

@@ -1,31 +1,29 @@
 /***********
-\project    MPOR - AT89 kit
-\author 	xdavid10
+\project    MRBT - Robotický den 2014
+\author 	xdavid10, xslizj00, xdvora0u @ FEEC-VUTBR
 \filename	.h
 \contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
-\date		17-04-2014
-\brief      Drivers and demos on kit with AT89
-    MCU: AT89C51ED2
-    fMCU: 11.059MHz
+            Bc. Jiri SLIZ       <xslizj00@stud.feec.vutbr.cz>
+            Bc. Michal Dvorak   <xdvora0u@stud.feec.vutbr.cz>
+\date		2014_03_30
+\brief
+\descrptn
 \license    LGPL License Terms \ref lgpl_license
 ***********/
 /* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
 
-#ifndef _KB_H_
-#define _KB_H_
+#ifndef LED_F4_H_INCLUDED
+#define LED_F4_H_INCLUDED
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INCLUDES
 //_________> system includes
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/gpio.h>
 //_________> project includes
 //_________> local includes
 //_________> forward includes
-#include "defines.h"
-#include "waitin.h"
 
-#define nRows 4
-#define nCols 4
-#define nButtons 4
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // MACRO DEFINITIONS
@@ -33,6 +31,23 @@
 //constants (user-defined)
 //____________________________________________________
 //constants (do not change)
+// for STM32-F4-DISCOVERY KIT
+#define PLED        GPIOD
+#define RCC_PLED    RCC_GPIOD
+
+#define LED0 GPIO12
+#define LED1 GPIO13
+#define LED2 GPIO14
+#define LED3 GPIO15
+
+#define LEDS (LED0|LED1|LED2|LED3)
+#define LED_ALL LEDS
+
+#define LEDGREEN0 LED0
+#define LEDORANGE1 LED1
+#define LEDRED2 LED2
+#define LEDBLUE3 LED3
+
 //____________________________________________________
 // macro functions (do not use often!)
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -47,35 +62,20 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL VARIABLE DECLARATIONS
 
-extern unsigned char xdata kbCW;
-extern unsigned char xdata kbRow;
-extern unsigned char xdata kbCol;
-
-extern uint8_t xdata key[nRows][nCols];
-extern uint8_t xdata btn[nButtons];
-
-extern char xdata keyChar[nRows][nCols];
-
-extern char xdata btnChar[nButtons];
-
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INLINE FUNCTION DEFINITIONS
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // STATIC FUNCTION DEFINITIONS
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // OTHER FUNCTION DECLARATIONS
-    //____________________________________________________
-    // ..
-
-void KB_scanPressedKeys(void);
-void KB_scanPressedBtns(void);
-void KB_printPressedKeys(void);
-void KB_printPressedBtns(void);
-
-void INIT_kb();
-
-
+/****************
+ \brief
+ \param
+ \retval
+ ****************/
+void INIT_leds(void);
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL REFERENCES
 
-#endif
+
+#endif // LED_F4_H_INCLUDED

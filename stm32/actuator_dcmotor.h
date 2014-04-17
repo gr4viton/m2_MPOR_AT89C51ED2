@@ -1,31 +1,34 @@
 /***********
-\project    MPOR - AT89 kit
-\author 	xdavid10
-\filename	.h
+\project    MRBT - Robotický den 2014
+\author 	xdavid10, xslizj00, xdvora0u @ FEEC-VUTBR
+\filename	actuator_dcmotor.h
 \contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
-\date		17-04-2014
-\brief      Drivers and demos on kit with AT89
-    MCU: AT89C51ED2
-    fMCU: 11.059MHz
+            Bc. Jiri SLIZ       <xslizj00@stud.feec.vutbr.cz>
+            Bc. Michal Dvorak   <xdvora0u@stud.feec.vutbr.cz>
+\date		2014_03_30
+\brief
+\descrptn
 \license    LGPL License Terms \ref lgpl_license
 ***********/
 /* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
 
-#ifndef _KB_H_
-#define _KB_H_
+#ifndef _ACTUATOR_DCMOTOR_H_
+#define _ACTUATOR_DCMOTOR_H_
+
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INCLUDES
 //_________> system includes
+#include <libopencm3/stm32/timer.h>
+#include <libopencm3/cm3/nvic.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/gpio.h>
 //_________> project includes
-//_________> local includes
-//_________> forward includes
 #include "defines.h"
 #include "waitin.h"
+//_________> local includes
+//_________> forward includes
 
-#define nRows 4
-#define nCols 4
-#define nButtons 4
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // MACRO DEFINITIONS
@@ -41,41 +44,36 @@
 // enumerations
 //____________________________________________________
 // structs
+typedef struct _S_actuator_dcmotor
+{
+    uint32_t pclk; // button port RCC
+    uint32_t port; // button port address
+    uint8_t pull; // button pull resistor
+    uint16_t pin; // button pin
+
+    uint16_t dutyCycle; // will be used?
+    uint32_t pwm; // not sure yet
+}S_actuator_dcmotor;
 //____________________________________________________
 // unions
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL VARIABLE DECLARATIONS
 
-extern unsigned char xdata kbCW;
-extern unsigned char xdata kbRow;
-extern unsigned char xdata kbCol;
-
-extern uint8_t xdata key[nRows][nCols];
-extern uint8_t xdata btn[nButtons];
-
-extern char xdata keyChar[nRows][nCols];
-
-extern char xdata btnChar[nButtons];
+extern S_actuator_dcmotor dcmotor_predef[4];
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-// INLINE FUNCTION DEFINITIONS
+// INLINE FUNCTION DECLARATIONS
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-// STATIC FUNCTION DEFINITIONS
+// STATIC FUNCTION DECLARATIONS
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // OTHER FUNCTION DECLARATIONS
     //____________________________________________________
     // ..
-
-void KB_scanPressedKeys(void);
-void KB_scanPressedBtns(void);
-void KB_printPressedKeys(void);
-void KB_printPressedBtns(void);
-
-void INIT_kb();
-
+S_actuator_dcmotor* INIT_dcmotorPredef(uint8_t index);
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL REFERENCES
 
-#endif
+#endif  // _ACTUATOR_DCMOTOR_H_
+

@@ -1,3 +1,53 @@
+/***********
+\project    MPOR - AT89 kit
+\author 	xdavid10
+\filename	.h
+\contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
+\date		17-04-2014
+\brief      Drivers and demos on kit with AT89
+    MCU: AT89C51ED2
+    fMCU: 11.059MHz
+\license    LGPL License Terms \ref lgpl_license
+***********/
+/* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
+
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// INCLUDES
+//_________> project includes
+//#include "XX.h"
+
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// TYPE DEFINITIONS
+//____________________________________________________
+// enumerations
+//____________________________________________________
+// structs
+//____________________________________________________
+// unions
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// VARIABLE DEFINITIONS
+//____________________________________________________
+// static variables
+//____________________________________________________
+// other variables
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// EXTERNAL VARIABLE DECLARATIONS
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// STATIC FUNCTION DECLARATIONS
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// STATIC FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// INLINE FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// OTHER FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
+    //____________________________________________________
+    // ..
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// EXTERNAL REFERENCES
+
+
 #include "defines.h"
 /*
 unsigned char xdata xram[32768] _at_ 0x00;
@@ -15,20 +65,20 @@ ymax = 3+1;
 
 int RESOLVE_memory(){
 	// kvuli prekryvu adresoveho prostoru vnitrni pameti a vnejsi.. musime zakazat vnitrni..
-	// nastavenim XXX0001X 
-	
+	// nastavenim XXX0001X
+
 	// (AUX & 0b11100001) | 0x00000010
 	AUXR = (AUXR & 0xE3) | 0x02;
 }
 
-void mwait(int cycles){	
+void mwait(int cycles){
 	int i = 1;
 	for(;cycles!=0;cycles--)
 		for(;i!=0;i++)
 			_nop_();
 }
 
-void swait(int cycles){	
+void swait(int cycles){
 	for(;cycles!=0;cycles--)
 		_nop_();
 }
@@ -66,7 +116,7 @@ int CHECK_memory(){
 	}
 	gotoxy(0,2);
 	printf("- MEMORY'SBEEN READ!\n");
-	
+
 	return(0);
 }
 
@@ -92,7 +142,7 @@ void RUN_string(unsigned char str[]){
 	int p = 0;
 	while(str[p++]!=0) if(p>20) str[20] = 0;
 	while(1){
-		
+
 		clrscr();
 		gotoxy(x,y);
 			wwait();
@@ -101,12 +151,12 @@ void RUN_string(unsigned char str[]){
 
 		// next round
 		x++;
-		if(x==xmax) { 
+		if(x==xmax) {
 			x = 0;
 			y++;
 		}
-		if(y==ymax) 
-			return; 
+		if(y==ymax)
+			return;
 	}
 }
 
@@ -121,13 +171,13 @@ void FLASH_mob(){
 "M    MMM M '\\  M   M"
 );
 			wwwait(5);
-		
+
 		RUN_string("www.mutty.brb.cz");
 }
 
 void BUTTON_push(){
 
-	
+
 	int b1,b2,b3;
 	int b1p,b2p,b3p; // previous
 	long int ctr ,ctr_min, ctr_max;
@@ -151,12 +201,12 @@ void BUTTON_push(){
 		if(b1 && !b1p) ctr = ctr-1;
 		if(b2 && !b2p) ctr = 0;
 		if(b3 && !b3p) ctr = ctr+1;
-		
+
 		if(ctr<ctr_min) ctr = ctr_min;
 		if(ctr>ctr_max) ctr = ctr_max;
 //		for(i=0;i<3;i++)
 //			ctr = ctr + b[i]*i -1;
-		
+
 		printf("=%li=0x%08lX\n", ctr, ctr );
 
 		swait(0xFFF);

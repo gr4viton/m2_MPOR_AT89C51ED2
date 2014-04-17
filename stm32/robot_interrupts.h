@@ -1,32 +1,56 @@
 /***********
-\project    MPOR - AT89 kit
-\author 	xdavid10
-\filename	.h
+\project    MRBT - Robotický den 2014
+\author 	xdavid10, xslizj00, xdvora0u @ FEEC-VUTBR
+\filename	robot_interrupts.h
 \contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
-\date		17-04-2014
-\brief      Drivers and demos on kit with AT89
-    MCU: AT89C51ED2
-    fMCU: 11.059MHz
+            Bc. Jiri SLIZ       <xslizj00@stud.feec.vutbr.cz>
+            Bc. Michal Dvorak   <xdvora0u@stud.feec.vutbr.cz>
+\date		2014_03_30
+\brief
+\descrptn
 \license    LGPL License Terms \ref lgpl_license
 ***********/
 /* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
+#ifndef _ROBOT_INTERRUPTS_H_
+#define _ROBOT_INTERRUPTS_H_
 
-#ifndef _KB_H_
-#define _KB_H_
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INCLUDES
 //_________> system includes
 //_________> project includes
+
 //_________> local includes
 //_________> forward includes
+#include "robot_config.h"
+/*
+#include <libopencm3/cm3/nvic.h>
+#include <libopencm3/stm32/gpio.h>
+#include <libopencm3/stm32/exti.h>
+
+#include <stdlib.h>
+
 #include "defines.h"
 #include "waitin.h"
 
-#define nRows 4
-#define nCols 4
-#define nButtons 4
+//#include "robot_config.h"
 
+// devices = I/O
+#include "dev_serial.h"
+#include "dev_LCD_HD44780.h"
+#include "LCD_HD44780.h"
+#include "dev_buzzer.h"
+#include "led_f4.h"
+
+// sensors
+#include "sensor_button.h"
+#include "sensor_ultrasonic.h"
+#include "sensor_lineCamera.h"
+#include "sensor_infrared.h"
+
+// actuators
+#include "actuator_dcmotor.h"
+*/
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // MACRO DEFINITIONS
 //____________________________________________________
@@ -47,35 +71,32 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL VARIABLE DECLARATIONS
 
-extern unsigned char xdata kbCW;
-extern unsigned char xdata kbRow;
-extern unsigned char xdata kbCol;
-
-extern uint8_t xdata key[nRows][nCols];
-extern uint8_t xdata btn[nButtons];
-
-extern char xdata keyChar[nRows][nCols];
-
-extern char xdata btnChar[nButtons];
-
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INLINE FUNCTION DEFINITIONS
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // STATIC FUNCTION DEFINITIONS
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // OTHER FUNCTION DECLARATIONS
-    //____________________________________________________
-    // ..
 
-void KB_scanPressedKeys(void);
-void KB_scanPressedBtns(void);
-void KB_printPressedKeys(void);
-void KB_printPressedBtns(void);
+/****************
+ \brief Go through all ultras and check wheter their exti is the one being triggered
+ \param exti line from caller interrupt which is being triggered
+ ****************/
+void ROBOT_handleUltraEchoOnExti(uint8_t exti);
 
-void INIT_kb();
+/****************
+ \brief Enable interrupt on selected line
+ \param
+ ****************/
+void ROBOT_initIsr(uint32_t port, uint32_t exti, uint8_t irqn, uint8_t priority, enum exti_trigger_type trig);
 
-
+/****************
+ \brief Start clock of SYSCFG setup register - exti line port selection
+ must be called before ROBOT_initIsr for it to work!
+ ****************/
+void ROBOT_initClkIsr(void);
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL REFERENCES
 
-#endif
+#endif  // _ROBOT_INTERRUPTS_H_
+

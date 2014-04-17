@@ -1,18 +1,20 @@
 /***********
-\project    MPOR - AT89 kit
-\author 	xdavid10
+\project    MRBT - Robotický den 2014
+\author 	xdavid10, xslizj00, xdvora0u @ FEEC-VUTBR
 \filename	.h
 \contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
-\date		17-04-2014
-\brief      Drivers and demos on kit with AT89
-    MCU: AT89C51ED2
-    fMCU: 11.059MHz
+            Bc. Jiri SLIZ       <xslizj00@stud.feec.vutbr.cz>
+            Bc. Michal Dvorak   <xdvora0u@stud.feec.vutbr.cz>
+\date		2014_03_30
+\brief      Initialization and state machine of Mini-sumo warrior
+\descrptn
 \license    LGPL License Terms \ref lgpl_license
 ***********/
 /* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
 
-#ifndef _KB_H_
-#define _KB_H_
+#ifndef MAIN_H_INCLUDED
+#define MAIN_H_INCLUDED
+
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INCLUDES
@@ -20,12 +22,12 @@
 //_________> project includes
 //_________> local includes
 //_________> forward includes
+
+#include <libopencm3/stm32/gpio.h>
+
 #include "defines.h"
 #include "waitin.h"
-
-#define nRows 4
-#define nCols 4
-#define nButtons 4
+#include "robot_config.h"
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // MACRO DEFINITIONS
@@ -47,35 +49,43 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL VARIABLE DECLARATIONS
 
-extern unsigned char xdata kbCW;
-extern unsigned char xdata kbRow;
-extern unsigned char xdata kbCol;
-
-extern uint8_t xdata key[nRows][nCols];
-extern uint8_t xdata btn[nButtons];
-
-extern char xdata keyChar[nRows][nCols];
-
-extern char xdata btnChar[nButtons];
-
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INLINE FUNCTION DEFINITIONS
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // STATIC FUNCTION DEFINITIONS
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // OTHER FUNCTION DECLARATIONS
-    //____________________________________________________
-    // ..
+/****************
+ \brief
+ \param
+ \retval
+ ****************/
+int main_sumo(S_robot* r);
 
-void KB_scanPressedKeys(void);
-void KB_scanPressedBtns(void);
-void KB_printPressedKeys(void);
-void KB_printPressedBtns(void);
+/****************
+ \brief Wait for 5*one_sec with led effects
+ \param one_sec lenght of one sec in ms
+ ****************/
+void SUMO_wait5sec(uint16_t one_sec);
 
-void INIT_kb();
+/****************
+ \brief   Wait for one sec with led effect of index-th second
+ \param uint16_t lenght of one sec in ms
+ \param uint8_t which second led effect to do
+ \retval
+ ****************/
+void SUMO_waitSec(uint16_t one_sec, uint8_t index);
 
-
+/****************
+ \brief  During 5 seconds, counts mean from measure of free-space color
+ For robosumo the free-space color is black
+ \param
+ \retval
+ ****************/
+void SUMO_wait5secAndSample(S_robot* r);
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL REFERENCES
 
-#endif
+
+
+#endif // MAIN_H_INCLUDED

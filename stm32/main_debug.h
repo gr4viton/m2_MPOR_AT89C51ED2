@@ -1,18 +1,20 @@
 /***********
-\project    MPOR - AT89 kit
-\author 	xdavid10
-\filename	.h
+\project    MRBT - Robotický den 2014
+\author 	xdavid10, xslizj00, xdvora0u @ FEEC-VUTBR
+\filename	main_debug.h
 \contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
-\date		17-04-2014
-\brief      Drivers and demos on kit with AT89
-    MCU: AT89C51ED2
-    fMCU: 11.059MHz
+            Bc. Jiri SLIZ       <xslizj00@stud.feec.vutbr.cz>
+            Bc. Michal Dvorak   <xdvora0u@stud.feec.vutbr.cz>
+\date		2014_03_30
+\brief      Debugging main function for development
+\descrptn
 \license    LGPL License Terms \ref lgpl_license
 ***********/
 /* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
 
-#ifndef _KB_H_
-#define _KB_H_
+#ifndef _MAIN_DEBUG_H_
+#define _MAIN_DEBUG_H_
+
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INCLUDES
@@ -20,12 +22,38 @@
 //_________> project includes
 //_________> local includes
 //_________> forward includes
-#include "defines.h"
-#include "waitin.h"
 
-#define nRows 4
-#define nCols 4
-#define nButtons 4
+#include "robot_config.h"
+/*
+#include <libopencm3/stm32/gpio.h>
+
+#include <errno.h>
+#include <sys/stat.h>
+#include <sys/times.h>
+#include <sys/unistd.h>
+#include <sys/types.h>
+
+#include <stdio.h>
+#include <stddef.h>
+
+//#include <string.h>
+
+#include "defines.h"
+#include "robot_config.h"
+
+#include "led_f4.h"
+#include "dev_serial.h"
+
+// LCD
+#include "dev_LCD_HD44780.h"
+#include "sensor_ultrasonic.h"
+#include "LCD_HD44780.h"
+
+#include "sensor_ultrasonic.h"
+#include "waitin.h"
+*/
+
+//#include "main.h" // externs & macros of LCD, USART
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // MACRO DEFINITIONS
@@ -47,16 +75,6 @@
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL VARIABLE DECLARATIONS
 
-extern unsigned char xdata kbCW;
-extern unsigned char xdata kbRow;
-extern unsigned char xdata kbCol;
-
-extern uint8_t xdata key[nRows][nCols];
-extern uint8_t xdata btn[nButtons];
-
-extern char xdata keyChar[nRows][nCols];
-
-extern char xdata btnChar[nButtons];
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INLINE FUNCTION DEFINITIONS
@@ -64,18 +82,26 @@ extern char xdata btnChar[nButtons];
 // STATIC FUNCTION DEFINITIONS
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // OTHER FUNCTION DECLARATIONS
-    //____________________________________________________
-    // ..
+typedef struct _S_robot S_robot; // forward declaration
+int main_debug(S_robot* r);
+/****************
+ @brief
+ ****************/
+void DBG_ultraTest(void);
+void DBG_adc_finish(void);
+void DBG_tryADC(S_robot* r);
+void DBG_tryCNY70(S_robot* r);
 
-void KB_scanPressedKeys(void);
-void KB_scanPressedBtns(void);
-void KB_printPressedKeys(void);
-void KB_printPressedBtns(void);
+void DBG_ticTocSumoWait(S_robot* r);
 
-void INIT_kb();
-
+void DBG_touchD7blink(void);
+void DBG_testButtonState(S_robot* r, uint32_t repeats,uint32_t ms);
+void DBG_testUltraDistanceOld(S_robot* r,uint32_t repeats);
+void DBG_testUltraDistance(S_robot* r,uint32_t repeats);
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL REFERENCES
 
-#endif
+
+
+#endif // _MAIN_DEBUG_H_

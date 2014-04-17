@@ -1,36 +1,39 @@
 /***********
-\project    MPOR - AT89 kit
-\author 	xdavid10
-\filename	.h
+\project    MRBT - Robotický den 2014
+\author 	xdavid10, xslizj00, xdvora0u @ FEEC-VUTBR
+\filename	sensor_lineCamera.h
 \contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
-\date		17-04-2014
-\brief      Drivers and demos on kit with AT89
-    MCU: AT89C51ED2
-    fMCU: 11.059MHz
+            Bc. Jiri SLIZ       <xslizj00@stud.feec.vutbr.cz>
+            Bc. Michal Dvorak   <xdvora0u@stud.feec.vutbr.cz>
+\date		2014_03_30
+\brief
+\descrptn
 \license    LGPL License Terms \ref lgpl_license
 ***********/
 /* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
+#ifndef _SENSOR_LINECAMERA_H_
+#define _SENSOR_LINECAMERA_H_
 
-#ifndef _KB_H_
-#define _KB_H_
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INCLUDES
 //_________> system includes
+#include <libopencm3/stm32/timer.h>
+#include <libopencm3/cm3/nvic.h>
+#include <libopencm3/stm32/rcc.h>
+#include <libopencm3/stm32/gpio.h>
 //_________> project includes
-//_________> local includes
-//_________> forward includes
 #include "defines.h"
 #include "waitin.h"
-
-#define nRows 4
-#define nCols 4
-#define nButtons 4
+//_________> local includes
+//_________> forward includes
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // MACRO DEFINITIONS
 //____________________________________________________
 //constants (user-defined)
+// number of pixels
+#define LINECAM_PIXELS 128
 //____________________________________________________
 //constants (do not change)
 //____________________________________________________
@@ -41,22 +44,27 @@
 // enumerations
 //____________________________________________________
 // structs
+/****************
+ @brief Structure encapsulating line camera sensor
+ ****************/
+typedef struct _S_sensor_lincam
+{
+    uint32_t clk;
+    uint32_t txport;
+    uint32_t rxport;
+    uint16_t txpin;
+    uint16_t rxpin;
+
+
+    uint8_t vals[LINECAM_PIXELS];
+} S_sensor_lincam;
+
+
 //____________________________________________________
 // unions
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL VARIABLE DECLARATIONS
-
-extern unsigned char xdata kbCW;
-extern unsigned char xdata kbRow;
-extern unsigned char xdata kbCol;
-
-extern uint8_t xdata key[nRows][nCols];
-extern uint8_t xdata btn[nButtons];
-
-extern char xdata keyChar[nRows][nCols];
-
-extern char xdata btnChar[nButtons];
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INLINE FUNCTION DEFINITIONS
@@ -65,17 +73,15 @@ extern char xdata btnChar[nButtons];
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // OTHER FUNCTION DECLARATIONS
     //____________________________________________________
-    // ..
-
-void KB_scanPressedKeys(void);
-void KB_scanPressedBtns(void);
-void KB_printPressedKeys(void);
-void KB_printPressedBtns(void);
-
-void INIT_kb();
-
+/****************
+ \brief   Initializes line camera ports from linecams_predef[index]
+ \param
+ \retval
+ ****************/
+S_sensor_lincam* INIT_lincamPredef(uint8_t index);
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL REFERENCES
 
-#endif
+#endif  // _SENSOR_LINECAMERA_H_
+

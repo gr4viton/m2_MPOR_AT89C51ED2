@@ -1,23 +1,21 @@
 /***********
-\project    MPOR - AT89 kit
-\author 	xdavid10
-\filename	.h
+\project    MRBT - Robotický den 2014
+\author 	xdavid10, xslizj00, xdvora0u @ FEEC-VUTBR
+\filename	sensor_button.c
 \contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
-\date		17-04-2014
-\brief      Drivers and demos on kit with AT89
-    MCU: AT89C51ED2
-    fMCU: 11.059MHz
+            Bc. Jiri SLIZ       <xslizj00@stud.feec.vutbr.cz>
+            Bc. Michal Dvorak   <xdvora0u@stud.feec.vutbr.cz>
+\date		2014_03_30
+\brief
+\descrptn
 \license    LGPL License Terms \ref lgpl_license
 ***********/
 /* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
 
-
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INCLUDES
 //_________> project includes
-#include "waitin.h"
-
-
+#include "sensor_button.h"
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // TYPE DEFINITIONS
@@ -33,75 +31,46 @@
 // static variables
 //____________________________________________________
 // other variables
-uint8_t STARTED_T0 = 0;
+S_sensor_button buttons_predef[] =
+{
+/*0*/{.pin=GPIO0, .port=GPIOA, .pclk=RCC_GPIOA, .pull=GPIO_PUPD_NONE, .state=0,
+ .irq=NVIC_EXTI0_IRQ, .exti=EXTI0,  .exti_triggerDir=EXTI_TRIGGER_RISING},
+/*1*/{.pin=GPIO7, .port=GPIOC, .pclk=RCC_GPIOC, .pull=GPIO_PUPD_PULLUP, .state=0},
+/*2*/{.pin=GPIO6, .port=GPIOC, .pclk=RCC_GPIOC, .pull=GPIO_PUPD_PULLUP, .state=0},
+/*3*/{.pin=GPIO0, .port=GPIOH, .pclk=RCC_GPIOH, .pull=GPIO_PUPD_NONE, .state=0,
+ .irq=NVIC_EXTI0_IRQ, .exti=EXTI0,  .exti_triggerDir=EXTI_TRIGGER_BOTH}
+};
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL VARIABLE DECLARATIONS
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-// STATIC FUNCTION DECLARATIONS
+// INLINE FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // STATIC FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-// INLINE FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // OTHER FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
-    //____________________________________________________
-    // ..
 
 
-void INIT_T0m1()
+S_sensor_button* INIT_buttonPredef(uint8_t index)
 {
+    S_sensor_button* btn = &(buttons_predef[index]);
 
-/*
-standartne delena dvema
-PERIF CLOCK = XTAL/2
-MODE1
-PERIPH /6 --> citac
-*/
-
-// unsigned int _TMOD = TMOD & !BIT(4);
-// set T0 mode 1 = 16bit tim/cnt
-	TMOD = TMOD | BIT(0);
-	TMOD = TMOD & NBIT(1);
-
-// reset counter
-	TH0 = 0;
-	TL0 = 0;
-
-// turn on timer 0
-	TR0 = 1;
-//	TCON = TCON | BIT(4);
-
+    rcc_periph_clock_enable(btn->pclk);
+	gpio_mode_setup(btn->port, GPIO_MODE_INPUT, btn->pull, btn->pin);
+	return btn;
 }
 
-
-// doba v nasobcich 50us
-void pause(unsigned int doba)
+void REFRESH_buttonState(S_sensor_button* btn)
 {
-	// if started for the first time - initialize timer
-	if(STARTED_T0 == 0) INIT_T0m1();
-//50us = 50e-6
-//1/50us = 1/50 e6 = 0.02e6 = 20kHz
-// fcpu = 11059 kHz
-// n = f_T / f_CPU = 552,95 .= 553
-
-// f_Periph = 11.059MHz/12 = 921.583_ kHz
-// 1/921.5833333
-	TH0 = 0;
-	TL0 = 0;
-	TR0 = 1;
-	for(;doba>0; doba--){
-		while(1)
-			if( (TL0 + TH0<<4) >= 46 ) break;
-		TH0 = 0;
-		TL0 = 0;
-	}
-}
-
-//doba v nasobcich 10ms
-void pause10(unsigned int doba)
-{
-	for(;doba>0; doba--)
-		pause(200);
+    btn->state = GPIO_IDR(btn->port) & btn->pin;
+    // maybe add variable active_zero / active_one to S_sensor_button
+    if(btn->pull == GPIO_PUPD_PULLUP)
+    {
+        btn->state = btn->state > 0 ? 0: 1;
+    }
+    else
+    {
+        btn->state = btn->state > 0 ? 1: 0;
+    }
 }
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

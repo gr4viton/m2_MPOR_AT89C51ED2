@@ -1,3 +1,53 @@
+/***********
+\project    MPOR - AT89 kit
+\author 	xdavid10
+\filename	.h
+\contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
+\date		17-04-2014
+\brief      Drivers and demos on kit with AT89
+    MCU: AT89C51ED2
+    fMCU: 11.059MHz
+\license    LGPL License Terms \ref lgpl_license
+***********/
+/* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
+
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// INCLUDES
+//_________> project includes
+//#include "XX.h"
+
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// TYPE DEFINITIONS
+//____________________________________________________
+// enumerations
+//____________________________________________________
+// structs
+//____________________________________________________
+// unions
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// VARIABLE DEFINITIONS
+//____________________________________________________
+// static variables
+//____________________________________________________
+// other variables
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// EXTERNAL VARIABLE DECLARATIONS
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// STATIC FUNCTION DECLARATIONS
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// STATIC FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// INLINE FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// OTHER FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
+    //____________________________________________________
+    // ..
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// EXTERNAL REFERENCES
+
+
 // Daniel Davidek
 // MPOR
 // 2014_02_20
@@ -36,15 +86,15 @@ void timer_IT(void) interrupt 5{
 		LED_P1 = had ;
 		LED_P2 = had ;
 		LED_P3 = had ;*/
-	
-		
+
+
 		LED_P1 = had>>0 & (0xFF);
 		LED_P2 = had>>8 & (0xFF);
 		LED_P3 = 0x00;
 		for(i=0;i<8;i++)
 			if( (had>>16) & BIT(i) )
 				LED_P3 = BIT(8-i);
-	
+
 	//			SET_BIT(LED_P3, 8-i);
 	}
 }
@@ -52,7 +102,7 @@ void timer_IT(void) interrupt 5{
 
 void INIT_T2_clock(){
 
-	
+
 	//CLK = FCLK/(12*(65536 - RCAP2H/RCAP2L));
 	unsigned int HH = 0xB1;//20000 impulzu - zaokrouhlene
 	unsigned int LL = 0xDF;
@@ -65,10 +115,10 @@ void INIT_T2_clock(){
 
 	//
 	// Timer2 perioda 20ms - a hada treba
-	// 16b, Up,Dn , 
+	// 16b, Up,Dn ,
 	// CLK - figure 2-17
 	// 		periph/6 = clk/12
-	// autoreload 
+	// autoreload
 	// chci inkrementalni s automatickym prednastavenim a vyvolanim interruptu
 
 
@@ -76,7 +126,7 @@ void INIT_T2_clock(){
 	// T2MOD
 	T2MOD = SET_BIT(T2MOD,T2OE); // Set to program P1.0/T2 as clock output.
 	T2MOD = SET_BIT(T2MOD,DCEN); // Set to enable Timer 2 as up/down counter.
-	
+
 	// T2CON
 	T2CON = CLR_BIT(T2CON,1); // C/T2# - Cleared for timer operation (input from internal clock system: FCLK PERIPH)
 	*/
@@ -84,7 +134,7 @@ void INIT_T2_clock(){
 
 	//	had = 0x1;
 	had = 0x800000;
-	
+
 	ET2 = 0; // zakaz preruseni od timeru
 
 
@@ -92,16 +142,16 @@ void INIT_T2_clock(){
 	LED_P2 = 0x00;
 	LED_P3 = 0x00;
 	TR2=0; // vypnti timeru 2
-	
+
 	EA=1;  // enable global interrupt
-	
+
 	CT2=0; // T2con^1
 	TR2=1; // T2con^1
 
 
 	RCAP2H=HH;
-	RCAP2L=LL; 
-	
+	RCAP2L=LL;
+
 	TH2 = HH;
 	TL2 = LL;// nastaveni timer 2
 
@@ -109,9 +159,9 @@ void INIT_T2_clock(){
 	T2MOD=0x01; //timer 2 mod 1
 	TR2=1;
 	ET2=1;
-	
+
 	while(1) {}
-	
+
 
 }
 
@@ -147,7 +197,7 @@ do radku pisu - postupna nula
 ze sloupce ctu
 
 bity z nibblu
-sloupce = 
+sloupce =
 7654|3210 - led|klavesnice
 
 radky
@@ -156,7 +206,7 @@ radky
 6
 7
 - = pod tim klavesnice
-0 
+0
 1
 2
 3
@@ -169,13 +219,13 @@ void DBG_tryKb(void)
 
 	uint8_t r=0;
 	uint8_t c=0;
-	
-		clrscr();	
+
+		clrscr();
 	while(1)
 	{
 		KB_scanPressedKeys();
 		KB_scanPressedBtns();
-		//clrscr();	
+		//clrscr();
 		KB_printPressedKeys();
 //		KB_printPressedBtns();
 	}
@@ -195,7 +245,7 @@ void DBG_passed(void)
 {
 	int i = 0;
 	while(1){
-		clrscr();		
+		clrscr();
 		printf("UBEHLO %is",i++);
 		pause10(100);
 	}
@@ -247,7 +297,7 @@ void DBG_passed(void)
 /*
 
 // variable baud rate
-// SM1 = 1; 
+// SM1 = 1;
 SCON = SCON | BIT(6);
 // SM0 = 1;
 SCON = SCON | BIT(7);
@@ -322,7 +372,7 @@ EA = 1;
 	TR1 = 1;
 //	TCON = TCON | BIT(4);
 
-// ** transmission enable 
+// ** transmission enable
 //REN = 1;
 SCON = SCON | BIT(4);
 
