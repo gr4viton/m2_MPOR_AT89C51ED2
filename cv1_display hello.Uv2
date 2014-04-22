@@ -12,6 +12,7 @@ File 1,1,<.\kb.c><kb.c>
 File 1,1,<.\waitin.c><waitin.c>
 File 1,1,<.\lcd.c><lcd.c>
 File 1,1,<.\LCD_HD44780.c><LCD_HD44780.c>
+File 1,1,<.\dev_LCD_HD44780.c><dev_LCD_HD44780.c>
 
 
 Options 1,0,0  // Target 'Target 1'

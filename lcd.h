@@ -8,9 +8,10 @@
 
 
 
-void gpio_clear(uint32_t port, uint8_t bits);
-void gpio_set(uint32_t port, uint8_t bits);
-void gpio_port_write(uint32_t port, uint8_t bits);
+void gpio_enter(uint8_t port, uint8_t bits, uint8_t val);
+void gpio_clear(uint8_t port, uint8_t bits);
+void gpio_set(uint8_t port, uint8_t bits);
+void gpio_port_write(uint8_t port, uint8_t portVal);
 
 void LCD_initPredef(void);
 #endif

@@ -33,7 +33,8 @@
 /****************
  \brief Predefined mapping of [LCD data pins] to [MCU port pins]
  ****************/
-static uint16_t lcd_device_data_predef[][8] =
+ 
+static uint16_t xdata lcd_device_data_predef[][8] =
 {
     { GPIO8, GPIO10, GPIO12, GPIO14, GPIO7, GPIO9, GPIO11, GPIO13 },
     { GPIO0, GPIO1, GPIO2, GPIO3, GPIO4, GPIO5, GPIO6, GPIO7 }
@@ -42,7 +43,8 @@ static uint16_t lcd_device_data_predef[][8] =
  \brief Predefined LCD ports & clocks for CMD(control-command) and DATA buses
  ****************/
 // later on this could be static as you probably want to use the LCD only through cookie
-S_dev_lcd lcds_predef[1];
+S_dev_lcd xdata lcds_predef[1];
+S_dev_lcd* xdata dlcd;
 //____________________________________________________
 // other variables
 
@@ -60,8 +62,6 @@ static void _txsignal(struct ringbuf *rb);
 #if __NOT_IMPLEMENTED_YET__INTERRUPT_WAITING_TOBE
 static void _isru(S_dev_lcd *dev);
 #endif // __NOT_IMPLEMENTED_YET__BUSY_WAITING
-
-void usa_rxb(uint8_t ch);
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INLINE FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
@@ -294,14 +294,6 @@ static int _ioclose(void *_cookie)
     return EINVAL;
 }
 */
-
-#if __NOT_IMPLEMENTED_YET
-
-struct ringbuf *ser_txbuf(uint8_t index)
-{
-    return &uarts[index].tx_ring;
-}
-#endif // __NOT_IMPLEMENTED_YET
 
 #if __NOT_IMPLEMENTED_YET__INTERRUPT_WAITING_TOBE
 static void _isru(uart_device_t *dev)

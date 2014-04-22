@@ -87,9 +87,9 @@ uint8_t LCD_gotoxy(S_dev_lcd *dev, uint8_t x, uint8_t y)
     dev->actY = y;
     switch(y){
         case(0):
-            LCD_writeCmd(dev, LCD_C_CUR_ADDRESS_L1+x); break;
+            LCD_writeCmd(dev, lcd_add_line1+x); break;
         case(1):
-            LCD_writeCmd(dev, LCD_C_CUR_ADDRESS_L2+x); break;
+            LCD_writeCmd(dev, lcd_add_line2+x); break;
         default:
             return('y');
     }
@@ -104,7 +104,6 @@ void LCD_writeChar(S_dev_lcd *dev,uint8_t ch)
 void LCD_writeCmd(S_dev_lcd *dev,uint8_t cmd_data)
 {
     LCD_write(dev, cmd_data, sendCmd);
-
 }
 
 void LCD_write(S_dev_lcd *dev, uint8_t dat, E_waitType wType)
@@ -122,19 +121,6 @@ void LCD_write(S_dev_lcd *dev, uint8_t dat, E_waitType wType)
         dev->actX++;
     }
 }
-
-#if __NOT_USED_ANYMORE
-void LCD_exposePortValue(uint8_t dat){
-    uint16_t LCD_port = 0x0000;
-    if( dat & GPIO4) LCD_port |= LCD_D4;
-    if( dat & GPIO5) LCD_port |= LCD_D5;
-    if( dat & GPIO6) LCD_port |= LCD_D6;
-    if( dat & GPIO7) LCD_port |= LCD_D7;
-
-    gpio_port_write(PLCD_DATA,LCD_port);
-}
-#endif // __NOT_USED_ANYMORE
-
 
 void LCD_writeByte(S_dev_lcd *dev, uint8_t dat, E_waitType wType)
 {
@@ -157,7 +143,7 @@ void LCD_writeByte(S_dev_lcd *dev, uint8_t dat, E_waitType wType)
 
 void LCD_saveSettings(S_dev_lcd* dev, uint8_t cmd_data)
 {
-    if( (cmd_data&nBit_functionSet) != 0 && (cmd_data&zeroBits_functionSet)==0 )
+    if( (cmd_data & nBit_functionSet) != 0 && (cmd_data&zeroBits_functionSet)==0 )
     { // now we know that the signal was functionSet setting
         dev->i_functionSet = cmd_data;
         // number of lines
@@ -187,13 +173,16 @@ void LCD_exposePortValue(S_dev_lcd *dev, uint8_t dat)
 {
     uint8_t i=0;
     dev->dportVal = 0x0000;
+	/*
     if((dev->i_functionSet & nBit_bus_8bit) == 0)
     { // 4bit data bus mode
         i=4; // start to expose from 4th bit
-    }
+    }*/
+	
     for(i=0;i<8;i++)
         if( dat & ((1LU)<<i))
             dev->dportVal |= dev->data_pins[i];
+			
     gpio_port_write(dev->data_port, dev->dportVal); // expose data/cmd on data bus
 }
 

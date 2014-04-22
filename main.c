@@ -241,6 +241,7 @@ void DBG_snake(void)
 		i++;
 	}
 }
+
 void DBG_passed(void)
 {
 	int i = 0;

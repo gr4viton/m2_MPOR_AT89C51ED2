@@ -1,4 +1,4 @@
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 1   
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 1   
 
 
 C51 COMPILER V6.20c, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ stmt level    source
   53          // 2014_02_20
   54          // t2L1
   55          // MCU: AT89C51ED2
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 2   
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 2   
 
   56          // fMCU: 11.059MHz
   57          
@@ -126,7 +126,7 @@ stmt level    source
   15      =2  #endif
   16      =2  
   17      =2  #ifndef _SIZE_T
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 3   
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 3   
 
   18      =2   #define _SIZE_T
   19      =2   typedef unsigned int size_t;
@@ -190,7 +190,7 @@ stmt level    source
   13      =3  extern unsigned long _lror_    (unsigned long, unsigned char);
   14      =3  extern unsigned char _crol_    (unsigned char, unsigned char);
   15      =3  extern unsigned int  _irol_    (unsigned int,  unsigned char);
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 4   
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 4   
 
   16      =3  extern unsigned long _lrol_    (unsigned long, unsigned char);
   17      =3  extern unsigned char _chkfloat_(float);
@@ -254,7 +254,7 @@ stmt level    source
   19      =3  
   20      =3  sfr  SP      =   0x81;
   21      =3  sfr  DPL     =   0x82;
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 5   
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 5   
 
   22      =3  sfr  DPH     =   0x83;
   23      =3  
@@ -318,7 +318,7 @@ stmt level    source
   81      =3  sbit  TI     =   SCON^1;
   82      =3  sbit  RI     =   SCON^0;
   83      =3  
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 6   
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 6   
 
   84      =3  sfr  SBUF    =   0x99;			 
   85      =3  
@@ -382,7 +382,7 @@ stmt level    source
  143      =3  
  144      =3  sfr  AUXR    =   0x8E; 			 
  145      =3  
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 7   
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 7   
 
  146      =3  sfr  SADEN   =   0xB9;			 
  147      =3  
@@ -446,7 +446,7 @@ stmt level    source
  205      =3  sbit  CCF0    =   CCON^0;
  206      =3  
  207      =3  sfr  CMOD    =   0xD9;			 
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 8   
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 8   
 
  208      =3  
  209      =3  sfr  CCAPM0  =   0xDA;			 
@@ -510,7 +510,7 @@ stmt level    source
   45      =2  #define BIT(b) (1LU<<(b))
   46      =2  #define NBIT(b) (~(1LU<<(b)))
   47      =2  #define SET_BIT(BYTE,b) ( (BYTE) | (BIT(b)) )
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 9   
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 9   
 
   48      =2  #define CLR_BIT(BYTE,b) ( (BYTE) & (NBIT(b)) )
   49      =2  //#define SET_BIT(BYTE,BIT) (BYTE & LU1<<BIT)
@@ -574,7 +574,7 @@ stmt level    source
  107      =2  //____________________________________________________
  108      =2  // enumerations
  109      =2  //____________________________________________________
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 10  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 10  
 
  110      =2  // structs
  111      =2  //____________________________________________________
@@ -638,7 +638,7 @@ stmt level    source
   13      =2  
   14      =2  #ifndef _KB_H_
   15      =2  #define _KB_H_
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 11  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 11  
 
   16      =2  
   17      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -702,7 +702,7 @@ stmt level    source
            =3 #define BT2 !(P1&(1<<4)); //p1b5
            =3 #define BT3 !(P3&(1<<3)); //p3b4
            =3 
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 12  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 12  
 
            =3 #define BT(num) \
            =3 ( switch (num) \
@@ -766,7 +766,7 @@ stmt level    source
            =3 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
            =3 // EXTERNAL VARIABLE DECLARATIONS
            =3 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 13  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 13  
 
            =3 // INLINE FUNCTION DEFINITIONS
            =3 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -830,7 +830,7 @@ stmt level    source
            =4 //_________> forward includes
            =4 
            =4 #include <intrins.h>
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 14  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 14  
 
            =4 #include <stdio.h>
            =4 #include <89c51rd2.H>
@@ -894,7 +894,7 @@ stmt level    source
            =4 typedef long off_t;
            =4 //____________________________________________________
            =4 #define __NOT_IMPLEMENTED_YET 	0
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 15  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 15  
 
            =4 #define __NOT_USED_ANYMORE		0
            =4 
@@ -958,7 +958,7 @@ stmt level    source
   41      =3  // unions
   42      =3  
   43      =3  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 16  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 16  
 
   44      =3  // EXTERNAL VARIABLE DECLARATIONS
   45      =3  extern volatile uint32_t tic_toc_start;
@@ -1022,7 +1022,7 @@ stmt level    source
  103      =3  
  104      =3  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  105      =3  // EXTERNAL REFERENCES
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 17  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 17  
 
  106      =3  
  107      =3  #endif
@@ -1086,7 +1086,7 @@ stmt level    source
   31      =1  #include "waitin.h"
    1      =2  /***********
    2      =2  \project    MPOR - AT89 kit
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 18  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 18  
 
    3      =2  \author 	xdavid10
    4      =2  \filename	.h
@@ -1150,7 +1150,7 @@ stmt level    source
            =2 void INIT_clk(void);
            =2 
            =2 /****************
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 19  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 19  
 
            =2  \brief
            =2  \param
@@ -1214,7 +1214,7 @@ stmt level    source
   48      =1  // unions
   49      =1  
   50      =1  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 20  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 20  
 
   51      =1  // EXTERNAL VARIABLE DECLARATIONS
   52      =1  
@@ -1278,7 +1278,7 @@ stmt level    source
   93   2      		LED_P3 = 0x00;
   94   2      		for(i=0;i<8;i++)
   95   2      			if( (had>>16) & BIT(i) )
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 21  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 21  
 
   96   2      				LED_P3 = BIT(8-i);
   97   2      
@@ -1342,7 +1342,7 @@ stmt level    source
  154   1      
  155   1      	TH2 = HH;
  156   1      	TL2 = LL;// nastaveni timer 2
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 22  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 22  
 
  157   1      
  158   1      
@@ -1406,7 +1406,7 @@ stmt level    source
  216          {
  217   1      //	const uint8_t nRows = 5;
  218   1      //	const uint8_t nCols = 5;
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 23  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 23  
 
  219   1      
  220   1      	uint8_t r=0;
@@ -1433,16 +1433,16 @@ stmt level    source
  241   2      		i++;
  242   2      	}
  243   1      }
- 244          void DBG_passed(void)
- 245          {
- 246   1      	int i = 0;
- 247   1      	while(1){
- 248   2      		clrscr();
- 249   2      		printf("UBEHLO %is",i++);
- 250   2      		pause10(100);
- 251   2      	}
- 252   1      }
- 253          
+ 244          
+ 245          void DBG_passed(void)
+ 246          {
+ 247   1      	int i = 0;
+ 248   1      	while(1){
+ 249   2      		clrscr();
+ 250   2      		printf("UBEHLO %is",i++);
+ 251   2      		pause10(100);
+ 252   2      	}
+ 253   1      }
  254          
  255          
  256          
@@ -1470,7 +1470,7 @@ stmt level    source
  278          
  279          
  280          
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 24  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 24  
 
  281          
  282          
@@ -1488,94 +1488,95 @@ stmt level    source
  294          
  295          
  296          
- 297          /*
- 298          
- 299          // variable baud rate
- 300          // SM1 = 1;
- 301          SCON = SCON | BIT(6);
- 302          // SM0 = 1;
- 303          SCON = SCON | BIT(7);
- 304          
- 305          // ** interrupt flags clear
- 306          //RI = 0;
- 307          SCON = SCON & NBIT(0);
- 308          //TI = 0;
- 309          SCON = SCON & NBIT(1);
- 310          
- 311          // ** transmitter last bit before STOP bit = pry je to jednicka
- 312          //SCON[3] = TB8 = 1
- 313          //Transmitter Bit 8 / Ninth bit to transmit in modes 2 and 3
- 314          //Clear to transmit a logic 0 in the 9th bit.
- 315          //Set to transmit a logic 1 in the 9th bit.
- 316          //TB8 = 1;
- 317          SCON = SCON | BIT(3);
- 318          
+ 297          
+ 298          /*
+ 299          
+ 300          // variable baud rate
+ 301          // SM1 = 1;
+ 302          SCON = SCON | BIT(6);
+ 303          // SM0 = 1;
+ 304          SCON = SCON | BIT(7);
+ 305          
+ 306          // ** interrupt flags clear
+ 307          //RI = 0;
+ 308          SCON = SCON & NBIT(0);
+ 309          //TI = 0;
+ 310          SCON = SCON & NBIT(1);
+ 311          
+ 312          // ** transmitter last bit before STOP bit = pry je to jednicka
+ 313          //SCON[3] = TB8 = 1
+ 314          //Transmitter Bit 8 / Ninth bit to transmit in modes 2 and 3
+ 315          //Clear to transmit a logic 0 in the 9th bit.
+ 316          //Set to transmit a logic 1 in the 9th bit.
+ 317          //TB8 = 1;
+ 318          SCON = SCON | BIT(3);
  319          
- 320          // ** ask UART to use tim1 as for his baud rate
- 321          // Receive Clock bit for UART
- 322          // Cleared to use timer 1 overflow as receive clock for serial port in mode 1 or 3.
- 323          // RCLK = 0
- 324          T2CON = T2CON & NBIT(5);
- 325          
- 326          //Transmit Clock bit for UART
- 327          // Cleared to use timer 1 overflow as transmit clock for serial port in mode 1 or 3.
- 328          // TCLK = 0
- 329          T2CON = T2CON & NBIT(4);
- 330          
- 331          // ***** TIMER1
- 332          
+ 320          
+ 321          // ** ask UART to use tim1 as for his baud rate
+ 322          // Receive Clock bit for UART
+ 323          // Cleared to use timer 1 overflow as receive clock for serial port in mode 1 or 3.
+ 324          // RCLK = 0
+ 325          T2CON = T2CON & NBIT(5);
+ 326          
+ 327          //Transmit Clock bit for UART
+ 328          // Cleared to use timer 1 overflow as transmit clock for serial port in mode 1 or 3.
+ 329          // TCLK = 0
+ 330          T2CON = T2CON & NBIT(4);
+ 331          
+ 332          // ***** TIMER1
  333          
- 334          //In the most typical applications, it is configured for “timer” operation, in the auto-reload mode
- 335          //(high nibble of TMOD = 0010B).
- 336          // set T1 mode 2 = 8bit tim - autoreload TL1 from TH1 at overflow
- 337          // M01 = 0;
- 338          	TMOD = TMOD & NBIT(4);
- 339          // M11 = 0;
- 340          	TMOD = TMOD & NBIT(5);
- 341          
+ 334          
+ 335          //In the most typical applications, it is configured for “timer” operation, in the auto-reload mode
+ 336          //(high nibble of TMOD = 0010B).
+ 337          // set T1 mode 2 = 8bit tim - autoreload TL1 from TH1 at overflow
+ 338          // M01 = 0;
+ 339          	TMOD = TMOD & NBIT(4);
+ 340          // M11 = 0;
+ 341          	TMOD = TMOD & NBIT(5);
  342          
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 25  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 25  
 
  343          
- 344          // The Timer 1 interrupt should be disabled in this application
- 345          	//T asi je vyply..
- 346          
+ 344          
+ 345          // The Timer 1 interrupt should be disabled in this application
+ 346          	//T asi je vyply..
  347          
- 348          // Figure 2-21. Timer 1 Generated Commonly Used Baud Rates\
- 349          // 9-bit UARTVariable
- 350          //SM0 = 1;
- 351          SCON = SCON  &~ NBIT(7);
- 352          //SM1 = 0;
- 353          SCON = SCON  | NBIT(6);
- 354          
+ 348          
+ 349          // Figure 2-21. Timer 1 Generated Commonly Used Baud Rates\
+ 350          // 9-bit UARTVariable
+ 351          //SM0 = 1;
+ 352          SCON = SCON  &~ NBIT(7);
+ 353          //SM1 = 0;
+ 354          SCON = SCON  | NBIT(6);
  355          
- 356          // 9600Bd = autoreload SMOD = 0
- 357          // autoreload t1 set to 0xFD
- 358          // for 9600Bd on 11.0592 MHz
- 359          // Fperif = Fcpu/2?
- 360          	TH1 = 0xFD;
- 361          	TL1 = 0;
- 362          //SMOD1 = 0;
- 363          PCON = PCON &~ NBIT(7);
- 364          //SMOD0 = 0;
- 365          PCON = PCON &~ NBIT(6);
- 366          
+ 356          
+ 357          // 9600Bd = autoreload SMOD = 0
+ 358          // autoreload t1 set to 0xFD
+ 359          // for 9600Bd on 11.0592 MHz
+ 360          // Fperif = Fcpu/2?
+ 361          	TH1 = 0xFD;
+ 362          	TL1 = 0;
+ 363          //SMOD1 = 0;
+ 364          PCON = PCON &~ NBIT(7);
+ 365          //SMOD0 = 0;
+ 366          PCON = PCON &~ NBIT(6);
  367          
- 368          // enable serial
- 369          ES = 1;
- 370          EA = 1;
- 371          // turn on timer 1
- 372          	TR1 = 1;
- 373          //	TCON = TCON | BIT(4);
- 374          
- 375          // ** transmission enable
- 376          //REN = 1;
- 377          SCON = SCON | BIT(4);
- 378          
- 379          // ted by mel byt zaply UART 9600b tak jak je popsany nahore
- 380          */
- 381          //nefunkcni
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 26  
+ 368          
+ 369          // enable serial
+ 370          ES = 1;
+ 371          EA = 1;
+ 372          // turn on timer 1
+ 373          	TR1 = 1;
+ 374          //	TCON = TCON | BIT(4);
+ 375          
+ 376          // ** transmission enable
+ 377          //REN = 1;
+ 378          SCON = SCON | BIT(4);
+ 379          
+ 380          // ted by mel byt zaply UART 9600b tak jak je popsany nahore
+ 381          */
+ 382          //nefunkcni
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 26  
 
 ASSEMBLY LISTING OF GENERATED OBJECT CODE
 
@@ -1639,7 +1640,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 005D 7007              JNZ     ?C0004
                                            ; SOURCE LINE # 77
 005F F500        R     MOV     smer,A
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 27  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 27  
 
 0061 750001      R     MOV     smer+01H,#01H
                                            ; SOURCE LINE # 78
@@ -1703,7 +1704,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 00B5 F0                MOVX    @DPTR,A
                                            ; SOURCE LINE # 94
 00B6 F500        R     MOV     i,A
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 28  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 28  
 
 00B8 F500        R     MOV     i+01H,A
 00BA         ?C0009:
@@ -1767,7 +1768,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 010C E500        R     MOV     A,i+01H
 010E 7002              JNZ     ?C0031
 0110 0500        R     INC     i
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 29  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 29  
 
 0112         ?C0031:
 0112 6408              XRL     A,#08H
@@ -1831,7 +1832,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0029 C2C9              CLR     CT2
                                            ; SOURCE LINE # 149
 002B D2CA              SETB    TR2
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 30  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 30  
 
                                            ; SOURCE LINE # 152
 002D AF00        R     MOV     R7,HH+01H
@@ -1895,7 +1896,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
                                            ; SOURCE LINE # 229
 0012 120000      E     LCALL   KB_printPressedKeys
                                            ; SOURCE LINE # 231
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 31  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 31  
 
 0015 80F5              SJMP    ?C0020
              ; FUNCTION DBG_tryKb (END)
@@ -1923,17 +1924,17 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
              ; FUNCTION DBG_snake (END)
 
              ; FUNCTION DBG_passed (BEGIN)
-                                           ; SOURCE LINE # 244
                                            ; SOURCE LINE # 245
                                            ; SOURCE LINE # 246
+                                           ; SOURCE LINE # 247
 0000 E4                CLR     A
 0001 F500        R     MOV     i,A
 0003 F500        R     MOV     i+01H,A
 0005         ?C0026:
-                                           ; SOURCE LINE # 247
                                            ; SOURCE LINE # 248
-0005 120000      E     LCALL   clrscr
                                            ; SOURCE LINE # 249
+0005 120000      E     LCALL   clrscr
+                                           ; SOURCE LINE # 250
 0008 7BFF              MOV     R3,#0FFH
 000A 7A00        R     MOV     R2,#HIGH ?SC_0
 000C 7900        R     MOV     R1,#LOW ?SC_0
@@ -1946,15 +1947,15 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0019 14                DEC     A
 001A F500        E     MOV     ?_printf?BYTE+04H,A
 001C 120000      E     LCALL   _printf
-                                           ; SOURCE LINE # 250
+                                           ; SOURCE LINE # 251
 001F 7F64              MOV     R7,#064H
 0021 7E00              MOV     R6,#00H
 0023 120000      E     LCALL   _pause10
-                                           ; SOURCE LINE # 251
+                                           ; SOURCE LINE # 252
 0026 80DD              SJMP    ?C0026
              ; FUNCTION DBG_passed (END)
 
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 32  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 32  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -2017,7 +2018,7 @@ RD . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B7H  1
 P3_3 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B3H  1
 P2_4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A4H  1
 P1_5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0095H  1
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 33  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 33  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -2080,7 +2081,7 @@ ET1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ABH  1
 TF0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008DH  1
 ET2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ADH  1
 TF1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008FH  1
-C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 09:33:55 PAGE 34  
+C51 COMPILER V6.20c  MAIN                                                                  04/22/2014 11:19:25 PAGE 34  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====

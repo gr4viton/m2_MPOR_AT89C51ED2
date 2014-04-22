@@ -91,43 +91,6 @@ Read/Write ASCII to the Display
 //constants (do not change)
 
 // CONTROL COMMANDS
-#define LCD_C_CLR0                  0x01
-#define LCD_C_POS0                  0x02
-
-#if __NOT_USED_ANYMORE
-#define LCD_C_ENTRY_LEFT_CMOVE      0x04
-#define LCD_C_ENTRY_RIGHT_CSTAY     0x05
-#define LCD_C_ENTRY_RIGHT_CMOVE     0x06
-#define LCD_C_ENTRY_LEFT_CSTAY      0x07
-
-#define LCD_C_CUR_MOV_LEFT          0x10
-#define LCD_C_CUR_MOV_RIGHT         0x14
-#define LCD_C_CUR_VIS_NO            0x0C
-#define LCD_C_CUR_VIS_STATIC        0x0E
-#define LCD_C_CUR_VIS_BLINK         0x0F
-
-#define LCD_C_8BIT_1L_5x7_LIGHT     0x30
-#define LCD_C_8BIT_1L_5x10_LIGHT    0x34
-#define LCD_C_8BIT_1L_5x7           0x38
-#define LCD_C_8BIT_1L_5x10          0x3C
-
-#define LCD_C_8BIT_2L_5x7_LIGHT     0x3A
-#define LCD_C_8BIT_2L_DARK          0x38
-
-#define LCD_C_4BIT_2L_5x7_LIGHT     0x32
-
-
-
-#define LCD_C_CUR_ADDRESS_L1        0x80
-#define LCD_C_CUR_ADDRESS_L2        0xC0
-#define LCD_C_CHAR_GENERATOR_ADD    0x40
-
-// REWRITE TO ENUMS
-//#define LCD_C_INIT                  0x30
-
-#define LCD_C_DISP_BLANK        0x08
-#define LCD_C_SCROLL_LEFT       0x18
-#define LCD_C_SCROLL_RIGHT      0x1E
 #endif // __NOT_USED_ANYMORE
 
 //____________________________________________________

@@ -155,22 +155,24 @@ typedef enum _E_lcdEntryModeBits
     cursor_notBlinking = nBit_cursorMode                       //=0x08
  }E_lcdCursorMode;
 
+ 
+/****************
+ @brief LCD ports
+ ****************/
+
+enum _E_LCDat89
+{
+	portLCD_cmd = 0,
+	portLCD_data = 1,
+	pinRS = 0,
+	pinRW = 1,
+	pinE = 2
+};
 /****************
  @brief LCD function basic function addresses
  ****************/
 typedef enum _E_lcdBasicFunctionAddresses
 {
-
-#define LCD_C_CUR_ADDRESS_L1        0x80
-#define LCD_C_CUR_ADDRESS_L2        0xC0
-#define LCD_C_CHAR_GENERATOR_ADD    0x40
-
-// REWRITE TO ENUMS
-//#define LCD_C_INIT                  0x30
-
-#define LCD_C_DISP_BLANK        0x08
-#define LCD_C_SCROLL_LEFT       0x18
-#define LCD_C_SCROLL_RIGHT      0x1E
     lcd_add_line1   = 1<<7, //=0x80,
     lcd_add_line2   = 0xC0, //=1<<7|1<<6
     lcd_add_chargen = 1<<6, //=0x40 //=64
@@ -241,7 +243,8 @@ typedef struct _S_lcdDevice{
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL VARIABLE DECLARATIONS
-extern S_dev_lcd lcds_predef[];
+extern S_dev_lcd xdata lcds_predef[];
+extern S_dev_lcd* xdata dlcd;
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INLINE FUNCTION DEFINITIONS
@@ -277,11 +280,12 @@ void LCD_displayWriteCheck(S_dev_lcd *dev);
  \param
  \retval
  ****************/
+ /*
 FILE* fopenLCD(uint8_t index, uint8_t indexPins, uint8_t nCharsPerLine,
                uint8_t writeInsideOnly, uint8_t functionSet,
                uint8_t entryMode, uint8_t cursorMode,
                uint8_t *dbuf, size_t dbufsz);
-
+*/
 /****************
  \brief
  \param

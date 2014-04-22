@@ -11,6 +11,7 @@ File 1,1,<.\cv1.c><cv1.c>
 File 1,1,<.\kb.c><kb.c>
 File 1,1,<.\waitin.c><waitin.c>
 File 1,1,<.\lcd.c><lcd.c>
+File 1,1,<.\LCD_HD44780.c><LCD_HD44780.c>
 
 
 Options 1,0,0  // Target 'Target 1'
@@ -29,7 +30,7 @@ Options 1,0,0  // Target 'Target 1'
  EnvLib ()
  EnvReg (ÿAtmelWM\)
  OrgReg (ÿAtmelWM\)
- TgStat=0
+ TgStat=11
  OutDir (.\)
  OutName (cv1_display hello)
  GenApp=1
