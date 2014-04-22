@@ -42,30 +42,7 @@ static uint16_t lcd_device_data_predef[][8] =
  \brief Predefined LCD ports & clocks for CMD(control-command) and DATA buses
  ****************/
 // later on this could be static as you probably want to use the LCD only through cookie
-S_dev_lcd lcds_predef[] =
-{
-    { .cmd_port=GPIOD, .cmdp_clk=RCC_GPIOD, .data_port=GPIOE,  .datap_clk=RCC_GPIOE },
-    { .cmd_port=GPIOB, .cmdp_clk=RCC_GPIOB, .data_port=GPIOE,  .datap_clk=RCC_GPIOE }
-};
-
-#if __NOT_USED_ANYMORE
-static lcd_device_data_port_t lcd_device_data_predef[] = {
-    { .D0= GPIO7,   .D1= GPIO9,   .D2= GPIO11,  .D3= GPIO13,
-      .D4= GPIO8,   .D5= GPIO10,  .D6= GPIO12,  .D7= GPIO14 },
-    { .D0= GPIO0,   .D1= GPIO1,   .D2= GPIO2,  .D3= GPIO3,
-      .D4= GPIO4,   .D5= GPIO5,  .D6= GPIO6,  .D7= GPIO7 }
-};
-#endif // __NOT_USED_ANYMORE
-
-#if __NOT_IMPLEMENTED_YET__INTERRUPT_WAITING_TOBE
-void gpiod_isr(void) { _isru(&uarts[0]); }
-void usart2_isr(void) { _isru(&uarts[1]); }
-void usart3_isr(void) { _isru(&uarts[2]); }
-void uart4_isr(void)  { _isru(&uarts[3]); }
-void uart5_isr(void)  { _isru(&uarts[4]); }
-void usart6_isr(void) { _isru(&uarts[5]); }
-#endif // __NOT_IMPLEMENTED_YET__BUSY_WAITING
-
+S_dev_lcd lcds_predef[1];
 //____________________________________________________
 // other variables
 
@@ -73,11 +50,13 @@ void usart6_isr(void) { _isru(&uarts[5]); }
 // EXTERNAL VARIABLE DECLARATIONS
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // STATIC FUNCTION DECLARATIONS
-static ssize_t _iord(void *_cookie, char *_buf,size_t _n);
+/*
+static ssize_t _iord(void *_cookie, char *_buf, size_t _n);
 static ssize_t _iowr(void *_cookie,const char *_buf, size_t _n);
 static int _ioseek(void *_cookie, off_t *_off,int _whence);
 static int _ioclose(void *_cookie);
 static void _txsignal(struct ringbuf *rb);
+*/
 #if __NOT_IMPLEMENTED_YET__INTERRUPT_WAITING_TOBE
 static void _isru(S_dev_lcd *dev);
 #endif // __NOT_IMPLEMENTED_YET__BUSY_WAITING
@@ -86,7 +65,7 @@ void usa_rxb(uint8_t ch);
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // INLINE FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
-static inline size_t min(const size_t a,const size_t b)
+static size_t min(const size_t a,const size_t b)
 {
     return a < b ? a : b;
 }
@@ -118,6 +97,7 @@ uint16_t LCD_getMaskDataPins(S_dev_lcd *dev)
 }
     //____________________________________________________
     // cookie - file access to lcd
+	/*
 FILE *fopenLCD(uint8_t index, uint8_t indexPins, uint8_t nCharsPerLine,
                uint8_t writeInsideOnly, uint8_t functionSet,
                uint8_t entryMode, uint8_t cursorMode,
@@ -126,9 +106,9 @@ FILE *fopenLCD(uint8_t index, uint8_t indexPins, uint8_t nCharsPerLine,
     S_dev_lcd *dev = &lcds_predef[index];
 
     // initialize ring buffers - not using for lcd yet
-    ringbuf_init(&(dev->data_ring),dbuf,dbufsz);
+//    ringbuf_init(&(dev->data_ring),dbuf,dbufsz);
     //ringbuf_init(&(dev->rx_ring),rbuf,rbufsz);
-    dev->data_ring.signal = _txsignal;
+  //  dev->data_ring.signal = _txsignal;
 
     //____________________________________________________
     // SW interface
@@ -197,6 +177,7 @@ FILE *fopenLCD(uint8_t index, uint8_t indexPins, uint8_t nCharsPerLine,
     setvbuf(fp, NULL, _IONBF, 0);
     return fp;
 }
+*/
     //____________________________________________________
     // testin'
 void LCD_displayWriteCheck(S_dev_lcd *dev)
@@ -223,15 +204,15 @@ void dev_LCD_checkSeek(FILE* flcd)
     uint8_t b = 0;
     while(b!=32) // b reset value should be nCharsPerLine * nLines
     {
-        fseek(flcd,b,SEEK_SET);
-        fputc('x',flcd);
+//        fseek(flcd,b,SEEK_SET);
+        putchar('x');
         twait(10);
         b++;
     }
 }
     //____________________________________________________
     // low level
-
+/*
 static ssize_t _iord(void *_cookie, char *_buf,size_t _n)
 {
     // dont support reading now
@@ -285,7 +266,7 @@ static int _ioseek(void *_cookie, off_t *_off,int _whence)
     uint16_t pos = 0;
     switch(_whence){
         case(SEEK_SET): pos = 0; break;
-        case(SEEK_CUR): /*GET_POS..*/; break;
+        case(SEEK_CUR): ; break;
         case(SEEK_END): pos = 0x20; break;
         default: break;
     }
@@ -312,6 +293,7 @@ static int _ioclose(void *_cookie)
     UNUSED(_cookie);
     return EINVAL;
 }
+*/
 
 #if __NOT_IMPLEMENTED_YET
 
@@ -352,19 +334,6 @@ static void _isru(uart_device_t *dev)
     }
 }
 #endif // __NOT_IMPLEMENTED_YET__BUSY_WAITING
-
-static void _txsignal(struct ringbuf *rb)
-{
-    UNUSED(rb);
-    /*
-    for (int i=0; i< 6; i++)
-    {
-        if (rb != &uarts[i].tx_ring)
-            continue;
-
-        usart_enable_tx_interrupt(uarts[i].device);
-    }*/
-}
 
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

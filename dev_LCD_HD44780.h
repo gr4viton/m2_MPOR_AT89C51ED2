@@ -39,12 +39,13 @@ TODO:
 //_________> local includes
 //_________> forward includes
 #include <stdio.h>
+#include "stdio.h"
 #include <errno.h>
 
 //#include <libopencm3/stm32/gpio.h>
 
 #include "defines.h"
-#include "primitives/ringbuf.h"
+//#include "primitives/ringbuf.h"
 
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -63,19 +64,6 @@ TODO:
 // TYPE DEFINITIONS
 //____________________________________________________
 // enumerations
-#if __NOT_USED_ANYMORE
-/****************
- @brief
- ****************/
-typedef enum _E_lcdBaseAddresses
-{
-    bAdd_functionSet    = 0x20, // = 1<<5
-    b_functionSet       = 5,
-    ba_entryMode        = 0x04,
-    ba_cursorMode       = 0x08
-}E_lcdBaseAddresses;
-#endif // __NOT_USED_ANYMORE
-
 
 /****************
  @brief LCD function set bit predefs
@@ -222,7 +210,7 @@ typedef struct _S_lcdDevice{
     uint16_t cmd_pins_all;
 
 
-    struct ringbuf data_ring;
+ //   struct ringbuf data_ring;
     //struct ringbuf rx_ring;
     //____________________________________________________
     // interface = prefix i_
@@ -289,7 +277,7 @@ void LCD_displayWriteCheck(S_dev_lcd *dev);
  \param
  \retval
  ****************/
-FILE *fopenLCD(uint8_t index, uint8_t indexPins, uint8_t nCharsPerLine,
+FILE* fopenLCD(uint8_t index, uint8_t indexPins, uint8_t nCharsPerLine,
                uint8_t writeInsideOnly, uint8_t functionSet,
                uint8_t entryMode, uint8_t cursorMode,
                uint8_t *dbuf, size_t dbufsz);
@@ -308,6 +296,7 @@ struct ringbuf *ser_txbuf(uint8_t index);
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL REFERENCES
+#include "lcd.h"
 #include "LCD_HD44780.h"
 
 

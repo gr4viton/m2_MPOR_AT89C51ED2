@@ -24,6 +24,7 @@
 #include <intrins.h>
 #include <stdio.h>
 #include <89c51rd2.H>
+//#include <sys/types.h>
 //#include <atmelWM\89C51RD2.h>
 //#include "reg51.h"
 
@@ -75,6 +76,34 @@ typedef long int 	int32_t ;
 typedef unsigned short int 	uint8_t ;
 typedef unsigned int		uint16_t ;
 typedef unsigned long int 	uint32_t ;
+
+typedef unsigned short int 	FILE ;
+
+//typedef unsigned int size_t;
+typedef signed int ssize_t;
+typedef long off_t;
+//____________________________________________________
+#define __NOT_IMPLEMENTED_YET 	0
+#define __NOT_USED_ANYMORE		0
+
+#define GPIO0	1<<0
+#define GPIO1	1<<1
+#define GPIO2	1<<2
+#define GPIO3	1<<3
+#define GPIO4	1<<4
+#define GPIO5	1<<5
+#define GPIO6	1<<6
+#define GPIO7	1<<7
+#define GPIO8	1<<8
+#define GPIO9	1<<9
+#define GPIO10	1<<10
+#define GPIO11	1<<11
+#define GPIO12	1<<12
+#define GPIO13	1<<13
+#define GPIO14	1<<14
+
+
+#define UNUSED(var) (void)(var);
 //____________________________________________________
 // enumerations
 //____________________________________________________

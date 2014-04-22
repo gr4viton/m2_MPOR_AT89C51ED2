@@ -70,10 +70,9 @@ Read/Write ASCII to the Display
 //_________> forward includes
 
 //#include <stdio.h>
-#include <libopencm3/stm32/gpio.h>
-
-#include "primitives/ringbuf.h"
+#include "defines.h"
 #include "waitin.h"
+#include "lcd.h"
 
 #include "dev_LCD_HD44780.h"
 
@@ -216,7 +215,7 @@ void LCD_printChar(S_dev_lcd *dev, char ch);
  \param
  \retval
  ****************/
-void LCD_write(S_dev_lcd *dev, uint8_t data, E_waitType wType);
+void LCD_write(S_dev_lcd *dev, uint8_t dat, E_waitType wType);
 
 /****************
  \brief  Write char with data bit set
@@ -237,27 +236,27 @@ void LCD_writeCmd(S_dev_lcd *dev, uint8_t cmd_data);
  \param
  \retval
  ****************/
-void LCD_writePort(S_dev_lcd *dev, uint8_t data, E_waitType wType);
+void LCD_writePort(S_dev_lcd *dev, uint8_t dat, E_waitType wType);
 
 /****************
  \brief  Exposes individual pin values on lcd output port
  \param
  \retval
  ****************/
-void LCD_exposePortValue(S_dev_lcd *dev, uint8_t data);
+void LCD_exposePortValue(S_dev_lcd *dev, uint8_t dat);
 
 /****************
  \brief
  \param
  \retval
  ****************/
-void LCD_writeByte(S_dev_lcd *dev, uint8_t data, E_waitType wType);
+void LCD_writeByte(S_dev_lcd *dev, uint8_t dat, E_waitType wType);
 
 /****************
  \brief Refresh i_functionSet, i_entryMode & cursorMode from actual command
  \param
  ****************/
-void LCD_saveSettings(S_dev_lcd* dev, uint8_t data);
+void LCD_saveSettings(S_dev_lcd* dev, uint8_t dat);
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL REFERENCES

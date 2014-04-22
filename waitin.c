@@ -17,6 +17,9 @@
 //_________> project includes
 #include "waitin.h"
 
+volatile uint32_t system_tick;
+volatile uint32_t tic_toc_start;
+
 
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -73,6 +76,35 @@ PERIPH /6 --> citac
 
 }
 
+/*
+void sys_tick_handler(void)
+{   // Called when systick fires 
+	system_tick++;
+}*/
+
+uint32_t _tic(void)
+{
+    tic_toc_start = system_tick;
+    return tic_toc_start;
+}
+
+uint32_t _toc(void)
+{
+    return system_tick - tic_toc_start;
+}
+
+uint32_t _tocFrom(uint32_t start)
+{
+    return system_tick - start;
+}
+
+// sleep for delay milliseconds
+void mswait(uint32_t delay)
+{
+	uint32_t wake = system_tick + delay;
+	while (wake > system_tick);
+}
+
 
 // doba v nasobcich 50us
 void pause(unsigned int doba)
@@ -104,5 +136,10 @@ void pause10(unsigned int doba)
 		pause(200);
 }
 
+void twait(uint16_t times)
+{
+	for(;times>0; times--)
+		pause(200);
+}
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL REFERENCES

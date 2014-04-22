@@ -107,51 +107,51 @@ void LCD_writeCmd(S_dev_lcd *dev,uint8_t cmd_data)
 
 }
 
-void LCD_write(S_dev_lcd *dev, uint8_t data, E_waitType wType)
+void LCD_write(S_dev_lcd *dev, uint8_t dat, E_waitType wType)
 {
     gpio_clear(dev->cmd_port, dev->cmdRW); // cmd: writing
     if(wType == sendCmd){
         gpio_clear(dev->cmd_port, dev->cmdRS); // cmd: sending cmd
         LCD_waitBusy(setRS);
-        LCD_writeByte(dev,data, sendCmd);
+        LCD_writeByte(dev,dat, sendCmd);
     }
     else {
         gpio_set(dev->cmd_port, dev->cmdRS); // cmd: sending data
         LCD_waitBusy(setRS);
-        LCD_writeByte(dev, data, sendData);
+        LCD_writeByte(dev, dat, sendData);
         dev->actX++;
     }
 }
 
 #if __NOT_USED_ANYMORE
-void LCD_exposePortValue(uint8_t data){
+void LCD_exposePortValue(uint8_t dat){
     uint16_t LCD_port = 0x0000;
-    if( data & GPIO4) LCD_port |= LCD_D4;
-    if( data & GPIO5) LCD_port |= LCD_D5;
-    if( data & GPIO6) LCD_port |= LCD_D6;
-    if( data & GPIO7) LCD_port |= LCD_D7;
+    if( dat & GPIO4) LCD_port |= LCD_D4;
+    if( dat & GPIO5) LCD_port |= LCD_D5;
+    if( dat & GPIO6) LCD_port |= LCD_D6;
+    if( dat & GPIO7) LCD_port |= LCD_D7;
 
     gpio_port_write(PLCD_DATA,LCD_port);
 }
 #endif // __NOT_USED_ANYMORE
 
 
-void LCD_writeByte(S_dev_lcd *dev, uint8_t data, E_waitType wType)
+void LCD_writeByte(S_dev_lcd *dev, uint8_t dat, E_waitType wType)
 {
     gpio_clear(dev->cmd_port,dev->cmdEN);
     if( (dev->i_functionSet & nBit_bus_8bit) != 0)
     { // 8bit dataBus mode
-        LCD_writePort(dev, data, wType);
+        LCD_writePort(dev, dat, wType);
     }
     else
     { // 4bit dataBus mode - Lower then Higher nibble ? OR THE OTHER WAY!!
-        LCD_writePort(dev, (data & 0xF0),      wType); // Higher nibble
-        LCD_writePort(dev, ((data<<4) & 0xF0), wType); // Lower nibble
+        LCD_writePort(dev, (dat & 0xF0),      wType); // Higher nibble
+        LCD_writePort(dev, ((dat<<4) & 0xF0), wType); // Lower nibble
     }
 
     if(wType == sendCmd)
     {
-        LCD_saveSettings(dev,data);
+        LCD_saveSettings(dev,dat);
     }
 }
 
@@ -174,25 +174,25 @@ void LCD_saveSettings(S_dev_lcd* dev, uint8_t cmd_data)
     }
 }
 
-void LCD_writePort(S_dev_lcd *dev,uint8_t data, E_waitType wType)
+void LCD_writePort(S_dev_lcd *dev,uint8_t dat, E_waitType wType)
 {
-    LCD_exposePortValue( dev, data );
+    LCD_exposePortValue( dev, dat );
         gpio_set(dev->cmd_port, dev->cmdEN);
             LCD_waitBusy(setEnable);
         gpio_clear(dev->cmd_port, dev->cmdEN);
     LCD_waitBusy(wType);
 }
 
-void LCD_exposePortValue(S_dev_lcd *dev, uint8_t data)
+void LCD_exposePortValue(S_dev_lcd *dev, uint8_t dat)
 {
-    dev->dportVal = 0x0000;
     uint8_t i=0;
+    dev->dportVal = 0x0000;
     if((dev->i_functionSet & nBit_bus_8bit) == 0)
     { // 4bit data bus mode
         i=4; // start to expose from 4th bit
     }
     for(i=0;i<8;i++)
-        if( data & ((1LU)<<i))
+        if( dat & ((1LU)<<i))
             dev->dportVal |= dev->data_pins[i];
     gpio_port_write(dev->data_port, dev->dportVal); // expose data/cmd on data bus
 }

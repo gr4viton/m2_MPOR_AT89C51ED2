@@ -1,4 +1,4 @@
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 1   
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 1   
 
 
 C51 COMPILER V6.20c, COMPILATION OF MODULE KB
@@ -7,23 +7,73 @@ COMPILER INVOKED BY: C:\Program Files (x86)\Keil\C51\BIN\C51.EXE kb.c DEBUG OBJE
 
 stmt level    source
 
-   1          // Daniel Davidek
-   2          // MPOR
-   3          // 2014_02_20
-   4          // t2L1
-   5          // MCU: AT89C51ED2
-   6          // fMCU: 11.059MHz
-   7          
-   8          #include "kb.h"
-   1      =1  #ifndef _KB_H_
-   2      =1  #define _KB_H_
-   3      =1  
-   4      =1  
-   5      =1  #include "defines.h"
-   1      =2  #ifndef _DEFINES_H_
-   2      =2  #define _DEFINES_H_
-   3      =2  
-   4      =2  #include <intrins.h>
+   1          /***********
+   2          \project    MPOR - AT89 kit
+   3          \author 	xdavid10
+   4          \filename	.h
+   5          \contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
+   6          \date		17-04-2014
+   7          \brief      Drivers and demos on kit with AT89
+   8              MCU: AT89C51ED2
+   9              fMCU: 11.059MHz
+  10          \license    LGPL License Terms \ref lgpl_license
+  11          ***********/
+  12          /* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
+  13          
+  14          
+  15          //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  16          // INCLUDES
+  17          //_________> project includes
+  18          #include "kb.h"
+   1      =1  /***********
+   2      =1  \project    MPOR - AT89 kit
+   3      =1  \author 	xdavid10
+   4      =1  \filename	.h
+   5      =1  \contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
+   6      =1  \date		17-04-2014
+   7      =1  \brief      Drivers and demos on kit with AT89
+   8      =1      MCU: AT89C51ED2
+   9      =1      fMCU: 11.059MHz
+  10      =1  \license    LGPL License Terms \ref lgpl_license
+  11      =1  ***********/
+  12      =1  /* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
+  13      =1  
+  14      =1  #ifndef _KB_H_
+  15      =1  #define _KB_H_
+  16      =1  
+  17      =1  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  18      =1  // INCLUDES
+  19      =1  //_________> system includes
+  20      =1  //_________> project includes
+  21      =1  //_________> local includes
+  22      =1  //_________> forward includes
+  23      =1  #include "defines.h"
+   1      =2  /***********
+   2      =2  \project    MPOR - AT89 kit
+   3      =2  \author 	xdavid10
+   4      =2  \filename	.h
+   5      =2  \contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
+   6      =2  \date		17-04-2014
+   7      =2  \brief      Drivers and demos on kit with AT89
+   8      =2      MCU: AT89C51ED2
+   9      =2      fMCU: 11.059MHz
+  10      =2  \license    LGPL License Terms \ref lgpl_license
+  11      =2  ***********/
+  12      =2  /* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
+  13      =2  
+  14      =2  #ifndef _DEFINES_H_
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 2   
+
+  15      =2  #define _DEFINES_H_
+  16      =2  
+  17      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  18      =2  // INCLUDES
+  19      =2  //_________> system includes
+  20      =2  //_________> project includes
+  21      =2  //_________> local includes
+  22      =2  //_________> forward includes
+  23      =2  
+  24      =2  #include <intrins.h>
    1      =3  /*--------------------------------------------------------------------------
    2      =3  INTRINS.H
    3      =3  
@@ -41,7 +91,7 @@ stmt level    source
   15      =3  extern unsigned int  _irol_    (unsigned int,  unsigned char);
   16      =3  extern unsigned long _lrol_    (unsigned long, unsigned char);
   17      =3  extern unsigned char _chkfloat_(float);
-   5      =2  #include <stdio.h>
+  25      =2  #include <stdio.h>
    1      =3  /*--------------------------------------------------------------------------
    2      =3  STDIO.H
    3      =3  
@@ -62,8 +112,6 @@ stmt level    source
   18      =3   #define _SIZE_T
   19      =3   typedef unsigned int size_t;
   20      =3  #endif
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 2   
-
   21      =3  
   22      =3  #pragma SAVE
   23      =3  #pragma REGPARMS
@@ -78,11 +126,12 @@ stmt level    source
   32      =3  extern char *gets (char *, int n);
   33      =3  extern int scanf (const char *, ...);
   34      =3  extern int sscanf (char *, const char *, ...);
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 3   
+
   35      =3  extern int puts (const char *);
   36      =3  
   37      =3  #pragma RESTORE
-   6      =2  //#include <atmelWM\89C51RD2.h>
-   7      =2  #include <89c51rd2.H>
+  26      =2  #include <89c51rd2.H>
    1      =3  /*-------------------------------------------------------------------------
    2      =3  R89c51rd2.H
    3      =3  
@@ -126,8 +175,6 @@ stmt level    source
   41      =3  sfr  TL1     =   0x8B;			 
   42      =3  
   43      =3  sfr  TH0     =   0x8C;			 
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 3   
-
   44      =3  
   45      =3  sfr  TH1     =   0x8D;			 
   46      =3  
@@ -143,6 +190,8 @@ stmt level    source
   56      =3  sbit  P1_3    =   P1^3;
   57      =3  sbit  P1_2    =   P1^2;
   58      =3  sbit  P1_1    =   P1^1;
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 4   
+
   59      =3  sbit  P1_0    =   P1^0;
   60      =3  
   61      =3  sbit  CEX4    =   P1^7;
@@ -190,8 +239,6 @@ stmt level    source
  103      =3  
  104      =3  sfr  AUXR1  =   0xA2;              
  105      =3  
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 4   
-
  106      =3  sfr  IE     =   0xA8;			     
  107      =3  sfr  IE0    =   0xA8;
  108      =3  
@@ -207,6 +254,8 @@ stmt level    source
  118      =3  sfr  SADDR   =   0xA9;			 
  119      =3  
  120      =3  
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 5   
+
  121      =3  sfr  SADDR_1   =   0xAA;			 
  122      =3  
  123      =3  sfr  P3      =   0xB0;			 
@@ -254,8 +303,6 @@ stmt level    source
  165      =3  
  166      =3  sbit  TF2    =   T2CON^7;
  167      =3  sbit  EXF2   =   T2CON^6;
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 5   
-
  168      =3  sbit  RCLK   =   T2CON^5;
  169      =3  sbit  TCLK   =   T2CON^4;
  170      =3  sbit  EXEN2  =   T2CON^3;
@@ -271,6 +318,8 @@ stmt level    source
  180      =3  sfr  TH2     =   0xCD;			 
  181      =3  
  182      =3  sfr  BDRCON  =   0x9B;			 
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 6   
+
  183      =3  
  184      =3  sfr  BDRCON_1  =   0x9C;			 
  185      =3  
@@ -318,8 +367,6 @@ stmt level    source
  227      =3  sfr  ACC     =   0xE0;			 
  228      =3  sfr  B       =   0xF0;			 
  229      =3  
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 6   
-
  230      =3  sfr  CH      =   0xF9;			 
  231      =3  
  232      =3  sfr  CCAP0H  =   0xFA;			 
@@ -335,80 +382,181 @@ stmt level    source
  242      =3  sfr FCON 	= 0xD1;
  243      =3  sfr EECON	= 0xD2;
  244      =3  sfr EETIM	= 0xD3;
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 7   
+
  245      =3  
  246      =3  
  247      =3  
  248      =3  
-   8      =2  //#include "reg51.h"
-   9      =2  
-  10      =2  
-  11      =2  
-  12      =2  #define INT_MAX 0xffff
-  13      =2  #define B32_MAX 0x8000
-  14      =2  //#define CYCLES_WHILE 0x0df
-  15      =2  #define CYCLES_WHILE 0x001
-  16      =2  
-  17      =2  #define GET_MBYTE(BYTE,BIT) ((BYTE) & 1<<(BIT))
-  18      =2  #define GET_BIT(BYTE,BIT) ( !(!( GET_MBYTE(BYTE,BIT) )) )
-  19      =2  #define BIT(b) (1LU<<(b))
-  20      =2  #define NBIT(b) (~(1LU<<(b)))
-  21      =2  #define SET_BIT(BYTE,b) ( (BYTE) | (BIT(b)) )
-  22      =2  #define CLR_BIT(BYTE,b) ( (BYTE) & (NBIT(b)) )
-  23      =2  //#define SET_BIT(BYTE,BIT) (BYTE & LU1<<BIT)
-  24      =2  
-  25      =2  
-  26      =2  //p3b3
-  27      =2  //p1b5
-  28      =2  //p3b4
-  29      =2  #define BT1 !(P3&(0x04)); 
-  30      =2  #define BT2 !(P1&(0x10));
-  31      =2  #define BT3 !(P3&(0x08));
-  32      =2  
-  33      =2  #define BT(num) \
-  34      =2  ( switch (num) \
-  35      =2    {             \ 
-  36      =2      case 1:  return BT1;  \
-  37      =2      case 2:  return BT2;  \
-  38      =2      case 3:  return BT3;  \
-  39      =2    }              \
-  40      =2  )
-  41      =2  
+  27      =2  //#include <sys/types.h>
+  28      =2  //#include <atmelWM\89C51RD2.h>
+  29      =2  //#include "reg51.h"
+  30      =2  
+  31      =2  
+  32      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  33      =2  // MACRO DEFINITIONS
+  34      =2  //____________________________________________________
+  35      =2  //constants (user-defined)
+  36      =2  //____________________________________________________
+  37      =2  //constants (do not change)
+  38      =2  #define INT_MAX 0xffff
+  39      =2  #define B32_MAX 0x8000
+  40      =2  //#define CYCLES_WHILE 0x0df
+  41      =2  #define CYCLES_WHILE 0x001
   42      =2  
-  43      =2  
-  44      =2  // number of bit in byte
-  45      =2  // T2MOD
-  46      =2  #define T2OE	1
-  47      =2  #define DCEN	0
-  48      =2  
-  49      =2  
-  50      =2  typedef short int 	int8_t ;
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 7   
+  43      =2  #define GET_MBYTE(BYTE,BIT) ((BYTE) & 1<<(BIT))
+  44      =2  #define GET_BIT(BYTE,BIT) ( !(!( GET_MBYTE(BYTE,BIT) )) )
+  45      =2  #define BIT(b) (1LU<<(b))
+  46      =2  #define NBIT(b) (~(1LU<<(b)))
+  47      =2  #define SET_BIT(BYTE,b) ( (BYTE) | (BIT(b)) )
+  48      =2  #define CLR_BIT(BYTE,b) ( (BYTE) & (NBIT(b)) )
+  49      =2  //#define SET_BIT(BYTE,BIT) (BYTE & LU1<<BIT)
+  50      =2  
+  51      =2  #define BT1 !(P3&(1<<2)); //p3b3=1<<3-1
+  52      =2  #define BT2 !(P1&(1<<4)); //p1b5
+  53      =2  #define BT3 !(P3&(1<<3)); //p3b4
+  54      =2  
+  55      =2  #define BT(num) \
+  56      =2  ( switch (num) \
+  57      =2    {             \
+  58      =2      case 1:  return BT1;  \
+  59      =2      case 2:  return BT2;  \
+  60      =2      case 3:  return BT3;  \
+  61      =2    }              \
+  62      =2  )
+  63      =2  
+  64      =2  // number of bit in byte
+  65      =2  // T2MOD
+  66      =2  #define T2OE	1
+  67      =2  #define DCEN	0
+  68      =2  //____________________________________________________
+  69      =2  // macro functions (do not use often!)
+  70      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  71      =2  // TYPE DEFINITIONS
+  72      =2  typedef short int 	int8_t ;
+  73      =2  typedef int 		int16_t ;
+  74      =2  typedef long int 	int32_t ;
+  75      =2  
+  76      =2  typedef unsigned short int 	uint8_t ;
+  77      =2  typedef unsigned int		uint16_t ;
+  78      =2  typedef unsigned long int 	uint32_t ;
+  79      =2  
+  80      =2  typedef unsigned short int 	FILE ;
+  81      =2  
+  82      =2  //typedef unsigned int size_t;
+  83      =2  typedef signed int ssize_t;
+  84      =2  typedef long off_t;
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 8   
 
-  51      =2  typedef int 		int16_t ;
-  52      =2  typedef long int 	int32_t ;
-  53      =2  
-  54      =2  typedef unsigned short int 	uint8_t ;
-  55      =2  typedef unsigned int		uint16_t ;
-  56      =2  typedef unsigned long int 	uint32_t ;
-  57      =2  
-  58      =2  
-  59      =2  #endif
-   6      =1  #include "waitin.h"
-   1      =2  #ifndef _WAITIN_H_
-   2      =2  #define _WAITIN_H_
-   3      =2  
-   4      =2  #include "defines.h"
-   1      =3  #ifndef _DEFINES_H_
+  85      =2  //____________________________________________________
+  86      =2  #define __NOT_IMPLEMENTED_YET 	0
+  87      =2  #define __NOT_USED_ANYMORE		0
+  88      =2  
+  89      =2  #define GPIO0	1<<0
+  90      =2  #define GPIO1	1<<1
+  91      =2  #define GPIO2	1<<2
+  92      =2  #define GPIO3	1<<3
+  93      =2  #define GPIO4	1<<4
+  94      =2  #define GPIO5	1<<5
+  95      =2  #define GPIO6	1<<6
+  96      =2  #define GPIO7	1<<7
+  97      =2  #define GPIO8	1<<8
+  98      =2  #define GPIO9	1<<9
+  99      =2  #define GPIO10	1<<10
+ 100      =2  #define GPIO11	1<<11
+ 101      =2  #define GPIO12	1<<12
+ 102      =2  #define GPIO13	1<<13
+ 103      =2  #define GPIO14	1<<14
+ 104      =2  
+ 105      =2  
+ 106      =2  #define UNUSED(var) (void)(var);
+ 107      =2  //____________________________________________________
+ 108      =2  // enumerations
+ 109      =2  //____________________________________________________
+ 110      =2  // structs
+ 111      =2  //____________________________________________________
+ 112      =2  // unions
+ 113      =2  
+ 114      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 115      =2  // EXTERNAL VARIABLE DECLARATIONS
+ 116      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 117      =2  // INLINE FUNCTION DEFINITIONS
+ 118      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 119      =2  // STATIC FUNCTION DEFINITIONS
+ 120      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 121      =2  // OTHER FUNCTION DECLARATIONS
+ 122      =2      //____________________________________________________
+ 123      =2      // ..
+ 124      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 125      =2  // EXTERNAL REFERENCES
+ 126      =2  
+ 127      =2  
+ 128      =2  
+ 129      =2  #endif
+  24      =1  #include "waitin.h"
+   1      =2  /***********
+   2      =2  \project    MPOR - AT89 kit
+   3      =2  \author 	xdavid10
+   4      =2  \filename	.h
+   5      =2  \contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
+   6      =2  \date		17-04-2014
+   7      =2  \brief      Drivers and demos on kit with AT89
+   8      =2      MCU: AT89C51ED2
+   9      =2      fMCU: 11.059MHz
+  10      =2  \license    LGPL License Terms \ref lgpl_license
+  11      =2  ***********/
+  12      =2  /* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
+  13      =2  
+  14      =2  #ifndef _WAITIN_H_
+  15      =2  #define _WAITIN_H_
+  16      =2  
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 9   
+
+  17      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  18      =2  // INCLUDES
+  19      =2  //_________> system includes
+  20      =2  //_________> project includes
+  21      =2  //_________> local includes
+  22      =2  //_________> forward includes
+  23      =2  
+  24      =2  #include "defines.h"
+   1      =3  /***********
+   2      =3  \project    MPOR - AT89 kit
+   3      =3  \author 	xdavid10
+   4      =3  \filename	.h
+   5      =3  \contacts	Bc. Daniel DAVIDEK	<danieldavidek@gmail.com>
+   6      =3  \date		17-04-2014
+   7      =3  \brief      Drivers and demos on kit with AT89
+   8      =3      MCU: AT89C51ED2
+   9      =3      fMCU: 11.059MHz
+  10      =3  \license    LGPL License Terms \ref lgpl_license
+  11      =3  ***********/
+  12      =3  /* DOCSTYLE: gr4viton_2014_A <goo.gl/1deDBa> */
+  13      =3  
+  14      =3  #ifndef _DEFINES_H_
            =3 #define _DEFINES_H_
+           =3 
+           =3 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           =3 // INCLUDES
+           =3 //_________> system includes
+           =3 //_________> project includes
+           =3 //_________> local includes
+           =3 //_________> forward includes
            =3 
            =3 #include <intrins.h>
            =3 #include <stdio.h>
-           =3 //#include <atmelWM\89C51RD2.h>
            =3 #include <89c51rd2.H>
+           =3 //#include <sys/types.h>
+           =3 //#include <atmelWM\89C51RD2.h>
            =3 //#include "reg51.h"
            =3 
            =3 
-           =3 
+           =3 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           =3 // MACRO DEFINITIONS
+           =3 //____________________________________________________
+           =3 //constants (user-defined)
+           =3 //____________________________________________________
+           =3 //constants (do not change)
            =3 #define INT_MAX 0xffff
            =3 #define B32_MAX 0x8000
            =3 //#define CYCLES_WHILE 0x0df
@@ -422,33 +570,29 @@ stmt level    source
            =3 #define CLR_BIT(BYTE,b) ( (BYTE) & (NBIT(b)) )
            =3 //#define SET_BIT(BYTE,BIT) (BYTE & LU1<<BIT)
            =3 
+           =3 #define BT1 !(P3&(1<<2)); //p3b3=1<<3-1
+           =3 #define BT2 !(P1&(1<<4)); //p1b5
+           =3 #define BT3 !(P3&(1<<3)); //p3b4
            =3 
-           =3 //p3b3
-           =3 //p1b5
-           =3 //p3b4
-           =3 #define BT1 !(P3&(0x04)); 
-           =3 #define BT2 !(P1&(0x10));
-           =3 #define BT3 !(P3&(0x08));
-           =3 
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 10  
+
            =3 #define BT(num) \
            =3 ( switch (num) \
-           =3   {             \ 
+           =3   {             \
            =3     case 1:  return BT1;  \
            =3     case 2:  return BT2;  \
            =3     case 3:  return BT3;  \
            =3   }              \
            =3 )
            =3 
-           =3 
-           =3 
            =3 // number of bit in byte
            =3 // T2MOD
            =3 #define T2OE	1
            =3 #define DCEN	0
-           =3 
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 8   
-
-           =3 
+           =3 //____________________________________________________
+           =3 // macro functions (do not use often!)
+           =3 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           =3 // TYPE DEFINITIONS
            =3 typedef short int 	int8_t ;
            =3 typedef int 		int16_t ;
            =3 typedef long int 	int32_t ;
@@ -457,182 +601,355 @@ stmt level    source
            =3 typedef unsigned int		uint16_t ;
            =3 typedef unsigned long int 	uint32_t ;
            =3 
+           =3 typedef unsigned short int 	FILE ;
+           =3 
+           =3 //typedef unsigned int size_t;
+           =3 typedef signed int ssize_t;
+           =3 typedef long off_t;
+           =3 //____________________________________________________
+           =3 #define __NOT_IMPLEMENTED_YET 	0
+           =3 #define __NOT_USED_ANYMORE		0
+           =3 
+           =3 #define GPIO0	1<<0
+           =3 #define GPIO1	1<<1
+           =3 #define GPIO2	1<<2
+           =3 #define GPIO3	1<<3
+           =3 #define GPIO4	1<<4
+           =3 #define GPIO5	1<<5
+           =3 #define GPIO6	1<<6
+           =3 #define GPIO7	1<<7
+           =3 #define GPIO8	1<<8
+           =3 #define GPIO9	1<<9
+           =3 #define GPIO10	1<<10
+           =3 #define GPIO11	1<<11
+           =3 #define GPIO12	1<<12
+           =3 #define GPIO13	1<<13
+           =3 #define GPIO14	1<<14
+           =3 
+           =3 
+           =3 #define UNUSED(var) (void)(var);
+           =3 //____________________________________________________
+           =3 // enumerations
+           =3 //____________________________________________________
+           =3 // structs
+           =3 //____________________________________________________
+           =3 // unions
+           =3 
+           =3 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           =3 // EXTERNAL VARIABLE DECLARATIONS
+           =3 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 11  
+
+           =3 // INLINE FUNCTION DEFINITIONS
+           =3 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           =3 // STATIC FUNCTION DEFINITIONS
+           =3 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           =3 // OTHER FUNCTION DECLARATIONS
+           =3     //____________________________________________________
+           =3     // ..
+           =3 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           =3 // EXTERNAL REFERENCES
+           =3 
+           =3 
            =3 
            =3 #endif
-   5      =2  
-   6      =2  
-   7      =2  void wwwait(int w);
-   8      =2  void mwait(int cycles);
-   9      =2  void swait(int cycles);
-  10      =2  
-  11      =2  void INIT_T0m1();
-  12      =2  void pause(unsigned int doba);
-  13      =2  void pause10(unsigned int doba);
-  14      =2  
-  15      =2  #endif
-   7      =1  
-   8      =1  #define nRows 4
-   9      =1  #define nCols 4
-  10      =1  #define nButtons 4
-  11      =1  
-  12      =1  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  13      =1  // EXTERN variable declarations
-  14      =1  
-  15      =1  extern unsigned char xdata kbCW;
-  16      =1  extern unsigned char xdata kbRow;
-  17      =1  extern unsigned char xdata kbCol;
-  18      =1  
-  19      =1  extern uint8_t xdata key[nRows][nCols];
-  20      =1  extern uint8_t xdata btn[nButtons];
-  21      =1  
-  22      =1  extern char xdata keyChar[nRows][nCols];
-  23      =1  
-  24      =1  extern char xdata btnChar[nButtons];
+  25      =2  
+  26      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  27      =2  // MACRO DEFINITIONS
+  28      =2  //____________________________________________________
+  29      =2  //constants (user-defined)
+  30      =2  //____________________________________________________
+  31      =2  //constants (do not change)
+  32      =2  //____________________________________________________
+  33      =2  // macro functions (do not use often!)
+  34      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  35      =2  // TYPE DEFINITIONS
+  36      =2  //____________________________________________________
+  37      =2  // enumerations
+  38      =2  //____________________________________________________
+  39      =2  // structs
+  40      =2  //____________________________________________________
+  41      =2  // unions
+  42      =2  
+  43      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  44      =2  // EXTERNAL VARIABLE DECLARATIONS
+  45      =2  extern volatile uint32_t tic_toc_start;
+  46      =2  
+  47      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  48      =2  // INLINE FUNCTION DEFINITIONS
+  49      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  50      =2  // STATIC FUNCTION DEFINITIONS
+  51      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  52      =2  // OTHER FUNCTION DECLARATIONS
+  53      =2      //____________________________________________________
+  54      =2      // ..
+  55      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  56      =2  // EXTERNAL REFERENCES
+  57      =2  /****************
+  58      =2   \brief
+  59      =2   \param
+  60      =2   \retval
+  61      =2   ****************/
+  62      =2  void INIT_clk(void);
+  63      =2  
+  64      =2  /****************
+  65      =2   \brief
+  66      =2   \param
+  67      =2   \retval
+  68      =2   ****************/
+  69      =2  void mswait(uint32_t delay);
+  70      =2  
+  71      =2  /****************
+  72      =2   \brief Stores systick stamp to global variable (MATLAB alike)
+  73      =2   \retval also returns the stamp
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 12  
+
+  74      =2   ****************/
+  75      =2  uint32_t _tic(void);
+  76      =2  
+  77      =2  /****************
+  78      =2   \brief Count ticks of systick from the last call of _tic
+  79      =2   \retval interval between _tic and _toc in systick units
+  80      =2   ****************/
+  81      =2  uint32_t _toc(void);
+  82      =2  
+  83      =2  /****************
+  84      =2   \brief Count ticks of systick from the start time stamp
+  85      =2   \param start time stamp
+  86      =2   \retval interval between start time stamp and _tocFrom in systick units
+  87      =2   ****************/
+  88      =2  uint32_t _tocFrom(uint32_t start);
+  89      =2  
+  90      =2  
+  91      =2  
+  92      =2  
+  93      =2  
+  94      =2  void wwwait(int w);
+  95      =2  void mwait(int cycles);
+  96      =2  
+  97      =2  void twait(uint16_t times);
+  98      =2  void swait(int cycles);
+  99      =2  
+ 100      =2  void INIT_T0m1();
+ 101      =2  void pause(unsigned int doba);
+ 102      =2  void pause10(unsigned int doba);
+ 103      =2  
+ 104      =2  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 105      =2  // EXTERNAL REFERENCES
+ 106      =2  
+ 107      =2  #endif
   25      =1  
-  26      =1  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  27      =1  // FUNCTION DECLARATIONS
-  28      =1  void KB_scanPressedKeys(void);
-  29      =1  void KB_scanPressedBtns(void);
-  30      =1  void KB_printPressedKeys(void);
-  31      =1  void KB_printPressedBtns(void);
-  32      =1  
-  33      =1  void INIT_kb();
-  34      =1  
-  35      =1  #endif
-   9          //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  10          // VARIABLE DEFINITIONS
-  11          
-  12          unsigned char xdata kbCW _at_ 0x8003;
-  13          unsigned char xdata kbRow _at_ 0x8002;
-  14          unsigned char xdata kbCol _at_ 0x8000;
-  15          
-  16          uint8_t xdata key[nRows][nCols];
-  17          uint8_t xdata btn[nButtons];
-  18          
-  19          char xdata keyChar[nRows][nCols] = 
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 9   
+  26      =1  #define nRows 4
+  27      =1  #define nCols 4
+  28      =1  #define nButtons 4
+  29      =1  
+  30      =1  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  31      =1  // MACRO DEFINITIONS
+  32      =1  //____________________________________________________
+  33      =1  //constants (user-defined)
+  34      =1  //____________________________________________________
+  35      =1  //constants (do not change)
+  36      =1  //____________________________________________________
+  37      =1  // macro functions (do not use often!)
+  38      =1  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  39      =1  // TYPE DEFINITIONS
+  40      =1  //____________________________________________________
+  41      =1  // enumerations
+  42      =1  //____________________________________________________
+  43      =1  // structs
+  44      =1  //____________________________________________________
+  45      =1  // unions
+  46      =1  
+  47      =1  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  48      =1  // EXTERNAL VARIABLE DECLARATIONS
+  49      =1  
+  50      =1  extern unsigned char xdata kbCW;
+  51      =1  extern unsigned char xdata kbRow;
+  52      =1  extern unsigned char xdata kbCol;
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 13  
 
-  20          {
-  21          	{'1','2','3','A' },
-  22          	{'4','5','6','B' },
-  23          	{'7','8','9','C' },
-  24          	{'*','0','#','D' }
-  25          };
-  26          
-  27          char xdata btnChar[nButtons] = {'y','b','r','g' };
-  28          
-  29          
-  30          //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  31          // FUNCTION DEFINITIONS
-  32          
-  33          void INIT_kb()
-  34          {
-  35   1      /*
-  36   1      	CW  0x8003
-  37   1      	radek 0x8002  - tlacitka + ledky
-  38   1      	sloupec 0x8000 
-  39   1      	0x90 do CW
-  40   1      	*/
-  41   1      	kbCW = 0x90; // naknfigurovat na PORT A abych k tomu mohl pristupovat
-  42   1      	
-  43   1      }
+  53      =1  
+  54      =1  extern uint8_t xdata key[nRows][nCols];
+  55      =1  extern uint8_t xdata btn[nButtons];
+  56      =1  
+  57      =1  extern char xdata keyChar[nRows][nCols];
+  58      =1  
+  59      =1  extern char xdata btnChar[nButtons];
+  60      =1  
+  61      =1  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  62      =1  // INLINE FUNCTION DEFINITIONS
+  63      =1  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  64      =1  // STATIC FUNCTION DEFINITIONS
+  65      =1  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  66      =1  // OTHER FUNCTION DECLARATIONS
+  67      =1      //____________________________________________________
+  68      =1      // ..
+  69      =1  
+  70      =1  void KB_scanPressedKeys(void);
+  71      =1  void KB_scanPressedBtns(void);
+  72      =1  void KB_printPressedKeys(void);
+  73      =1  void KB_printPressedBtns(void);
+  74      =1  
+  75      =1  void INIT_kb();
+  76      =1  
+  77      =1  
+  78      =1  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  79      =1  // EXTERNAL REFERENCES
+  80      =1  
+  81      =1  #endif
+  19          
+  20          //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  21          // TYPE DEFINITIONS
+  22          //____________________________________________________
+  23          // enumerations
+  24          //____________________________________________________
+  25          // structs
+  26          //____________________________________________________
+  27          // unions
+  28          //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  29          // VARIABLE DEFINITIONS
+  30          
+  31          unsigned char xdata kbCW _at_ 0x8003;
+  32          unsigned char xdata kbRow _at_ 0x8002;
+  33          unsigned char xdata kbCol _at_ 0x8000;
+  34          
+  35          uint8_t xdata key[nRows][nCols];
+  36          uint8_t xdata btn[nButtons];
+  37          
+  38          char xdata keyChar[nRows][nCols] = {
+  39          	{'1','2','3','A' },
+  40          	{'4','5','6','B' },
+  41          	{'7','8','9','C' },
+  42          	{'*','0','#','D' }
+  43          };
   44          
-  45          
+  45          char xdata btnChar[nButtons] = {'y','b','r','g' };
   46          
-  47          void KB_scanPressedKeys(void)
-  48          {
-  49   1      	uint8_t r=0;
-  50   1      	uint8_t c=0;
-  51   1      	// detect matrix keyboard keys
-  52   1      	for(r=0; r<nRows; r++)
-  53   1      	{
-  54   2      		kbRow = ~(1<<r);
-  55   2      		pause10(1); // wait for the bus to stabilize
-  56   2      		for(c=0;c<nRows;c++)
-  57   2      		{
-  58   3      			if(~kbCol & (1<<c))
-  59   3      			{
-  60   4      				key[r][c] = 1;	
-  61   4      			}
-  62   3      			else
-  63   3      				key[r][c] = 0;
-  64   3      		}
-  65   2      	}
-  66   1      }
-  67          
-  68          void KB_scanPressedBtns(void)
-  69          {
-  70   1      	uint8_t r=0;
-  71   1      	// detect 4 buttons on the left
-  72   1      	for(r=0; r<nButtons; r++)
-  73   1      	{
-  74   2      		kbRow = ~(1<<(r+4));
-  75   2      		pause10(1); // wait for the bus to stabilize
-  76   2      		if(~kbCol & (1<<(r+4)))
-  77   2      		{
-  78   3      			btn[r] = 1;	
-  79   3      		}
-  80   2      		else
-  81   2      			btn[r] = 0;
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 10  
+  47          //____________________________________________________
+  48          // static variables
+  49          //____________________________________________________
+  50          // other variables
+  51          //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 14  
 
-  82   2      		}
-  83   1      }
-  84          
-  85          
-  86          void KB_printPressedKeys(void)
-  87          {
-  88   1      	uint8_t r=0;
-  89   1      	uint8_t c=0;
-  90   1      	// print keyboard character 
-  91   1      	for(r=0; r<nRows; r++)
-  92   1      		for(c=0;c<nRows;c++)
-  93   1      			if(key[r][c])
-  94   1      				printf("%c", keyChar[r][c]);  	
-  95   1      }
-  96          
-  97          void KB_printPressedBtns(void)
-  98          {
-  99   1      	uint8_t r=0;
- 100   1      	// print button character
- 101   1      	for(r=0; r<nButtons; r++)
- 102   1      		if(btn[r])
- 103   1      			printf("%c", btnChar[r]);
- 104   1      }
- 105          
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 11  
+  52          // EXTERNAL VARIABLE DECLARATIONS
+  53          //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  54          // STATIC FUNCTION DECLARATIONS
+  55          //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  56          // STATIC FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
+  57          //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  58          // INLINE FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
+  59          //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  60          // OTHER FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
+  61              //____________________________________________________
+  62          void INIT_kb()
+  63          {
+  64   1      /*
+  65   1      	CW  0x8003
+  66   1      	radek 0x8002  - tlacitka + ledky
+  67   1      	sloupec 0x8000
+  68   1      	0x90 do CW
+  69   1      	*/
+  70   1      	kbCW = 0x90; // naknfigurovat na PORT A abych k tomu mohl pristupovat
+  71   1      
+  72   1      }
+  73          
+  74          void KB_scanPressedKeys(void)
+  75          {
+  76   1      	uint8_t r=0;
+  77   1      	uint8_t c=0;
+  78   1      	// detect matrix keyboard keys
+  79   1      	for(r=0; r<nRows; r++)
+  80   1      	{
+  81   2      		kbRow = ~(1<<r);
+  82   2      		pause10(1); // wait for the bus to stabilize
+  83   2      		for(c=0;c<nRows;c++)
+  84   2      		{
+  85   3      			if(~kbCol & (1<<c))
+  86   3      			{
+  87   4      				key[r][c] = 1;
+  88   4      			}
+  89   3      			else
+  90   3      				key[r][c] = 0;
+  91   3      		}
+  92   2      	}
+  93   1      }
+  94          
+  95          void KB_scanPressedBtns(void)
+  96          {
+  97   1      	uint8_t r=0;
+  98   1      	// detect 4 buttons on the left
+  99   1      	for(r=0; r<nButtons; r++)
+ 100   1      	{
+ 101   2      		kbRow = ~(1<<(r+4));
+ 102   2      		pause10(1); // wait for the bus to stabilize
+ 103   2      		if(~kbCol & (1<<(r+4)))
+ 104   2      		{
+ 105   3      			btn[r] = 1;
+ 106   3      		}
+ 107   2      		else
+ 108   2      			btn[r] = 0;
+ 109   2      		}
+ 110   1      }
+ 111          
+ 112          
+ 113          void KB_printPressedKeys(void)
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 15  
+
+ 114          {
+ 115   1      	uint8_t r=0;
+ 116   1      	uint8_t c=0;
+ 117   1      	// print keyboard character
+ 118   1      	for(r=0; r<nRows; r++)
+ 119   1      		for(c=0;c<nRows;c++)
+ 120   1      			if(key[r][c])
+ 121   1      				printf("%c", keyChar[r][c]);
+ 122   1      }
+ 123          
+ 124          void KB_printPressedBtns(void)
+ 125          {
+ 126   1      	uint8_t r=0;
+ 127   1      	// print button character
+ 128   1      	for(r=0; r<nButtons; r++)
+ 129   1      		if(btn[r])
+ 130   1      			printf("%c", btnChar[r]);
+ 131   1      }
+ 132          
+ 133          //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 134          // EXTERNAL REFERENCES
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 16  
 
 ASSEMBLY LISTING OF GENERATED OBJECT CODE
 
 
              ; FUNCTION INIT_kb (BEGIN)
-                                           ; SOURCE LINE # 33
-                                           ; SOURCE LINE # 34
-                                           ; SOURCE LINE # 41
+                                           ; SOURCE LINE # 62
+                                           ; SOURCE LINE # 63
+                                           ; SOURCE LINE # 70
 0000 908003            MOV     DPTR,#kbCW
 0003 7490              MOV     A,#090H
 0005 F0                MOVX    @DPTR,A
-                                           ; SOURCE LINE # 43
+                                           ; SOURCE LINE # 72
 0006 22                RET     
              ; FUNCTION INIT_kb (END)
 
              ; FUNCTION KB_scanPressedKeys (BEGIN)
-                                           ; SOURCE LINE # 47
-                                           ; SOURCE LINE # 48
-                                           ; SOURCE LINE # 49
+                                           ; SOURCE LINE # 74
+                                           ; SOURCE LINE # 75
+                                           ; SOURCE LINE # 76
 0000 E4                CLR     A
 0001 F500        R     MOV     r,A
 0003 F500        R     MOV     r+01H,A
-                                           ; SOURCE LINE # 50
+                                           ; SOURCE LINE # 77
 ;---- Variable 'c' assigned to Register 'R4/R5' ----
 0005 FD                MOV     R5,A
 0006 FC                MOV     R4,A
-                                           ; SOURCE LINE # 52
+                                           ; SOURCE LINE # 79
 0007 F500        R     MOV     r,A
 0009 F500        R     MOV     r+01H,A
 000B         ?C0002:
-                                           ; SOURCE LINE # 53
-                                           ; SOURCE LINE # 54
+                                           ; SOURCE LINE # 80
+                                           ; SOURCE LINE # 81
 000B AF00        R     MOV     R7,r+01H
 000D 7401              MOV     A,#01H
 000F A807              MOV     R0,AR7
@@ -646,17 +963,17 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0018 F4                CPL     A
 0019 908002            MOV     DPTR,#kbRow
 001C F0                MOVX    @DPTR,A
-                                           ; SOURCE LINE # 55
+                                           ; SOURCE LINE # 82
 001D 7F01              MOV     R7,#01H
 001F 7E00              MOV     R6,#00H
 0021 120000      E     LCALL   _pause10
-                                           ; SOURCE LINE # 56
+                                           ; SOURCE LINE # 83
 0024 E4                CLR     A
 0025 FC                MOV     R4,A
 0026 FD                MOV     R5,A
 0027         ?C0005:
-                                           ; SOURCE LINE # 57
-                                           ; SOURCE LINE # 58
+                                           ; SOURCE LINE # 84
+                                           ; SOURCE LINE # 85
 0027 AF05              MOV     R7,AR5
 0029 7401              MOV     A,#01H
 002B 7E00              MOV     R6,#00H
@@ -664,7 +981,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 002F 08                INC     R0
 0030 8005              SJMP    ?C0033
 0032         ?C0032:
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 12  
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 17  
 
 0032 C3                CLR     C
 0033 33                RLC     A
@@ -686,8 +1003,8 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0045 5B                ANL     A,R3
 0046 4E                ORL     A,R6
 0047 602E              JZ      ?C0008
-                                           ; SOURCE LINE # 59
-                                           ; SOURCE LINE # 60
+                                           ; SOURCE LINE # 86
+                                           ; SOURCE LINE # 87
 0049 ED                MOV     A,R5
 004A 25E0              ADD     A,ACC
 004C FB                MOV     R3,A
@@ -720,15 +1037,15 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0072 A3                INC     DPTR
 0073 04                INC     A
 0074 F0                MOVX    @DPTR,A
-                                           ; SOURCE LINE # 61
+                                           ; SOURCE LINE # 88
 0075 802B              SJMP    ?C0007
 0077         ?C0008:
-                                           ; SOURCE LINE # 63
+                                           ; SOURCE LINE # 90
 0077 ED                MOV     A,R5
 0078 25E0              ADD     A,ACC
 007A FB                MOV     R3,A
 007B EC                MOV     A,R4
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 13  
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 18  
 
 007C 33                RLC     A
 007D FA                MOV     R2,A
@@ -757,7 +1074,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 009F F0                MOVX    @DPTR,A
 00A0 A3                INC     DPTR
 00A1 F0                MOVX    @DPTR,A
-                                           ; SOURCE LINE # 64
+                                           ; SOURCE LINE # 91
 00A2         ?C0007:
 00A2 0D                INC     R5
 00A3 BD0001            CJNE    R5,#00H,?C0036
@@ -768,7 +1085,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 00AA 4C                ORL     A,R4
 00AB 6003              JZ      $ + 5H
 00AD 020000      R     LJMP    ?C0005
-                                           ; SOURCE LINE # 65
+                                           ; SOURCE LINE # 92
 00B0         ?C0004:
 00B0 0500        R     INC     r+01H
 00B2 E500        R     MOV     A,r+01H
@@ -781,26 +1098,26 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 00BD 9400              SUBB    A,#00H
 00BF 5003              JNC     $ + 5H
 00C1 020000      R     LJMP    ?C0002
-                                           ; SOURCE LINE # 66
+                                           ; SOURCE LINE # 93
 00C4         ?C0010:
 00C4 22                RET     
              ; FUNCTION KB_scanPressedKeys (END)
 
              ; FUNCTION KB_scanPressedBtns (BEGIN)
-                                           ; SOURCE LINE # 68
-                                           ; SOURCE LINE # 69
-                                           ; SOURCE LINE # 70
+                                           ; SOURCE LINE # 95
+                                           ; SOURCE LINE # 96
+                                           ; SOURCE LINE # 97
 0000 E4                CLR     A
 0001 F500        R     MOV     r,A
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 14  
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 19  
 
 0003 F500        R     MOV     r+01H,A
-                                           ; SOURCE LINE # 72
+                                           ; SOURCE LINE # 99
 0005 F500        R     MOV     r,A
 0007 F500        R     MOV     r+01H,A
 0009         ?C0011:
-                                           ; SOURCE LINE # 73
-                                           ; SOURCE LINE # 74
+                                           ; SOURCE LINE # 100
+                                           ; SOURCE LINE # 101
 0009 E500        R     MOV     A,r+01H
 000B 2404              ADD     A,#04H
 000D FF                MOV     R7,A
@@ -816,11 +1133,11 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0019 F4                CPL     A
 001A 908002            MOV     DPTR,#kbRow
 001D F0                MOVX    @DPTR,A
-                                           ; SOURCE LINE # 75
+                                           ; SOURCE LINE # 102
 001E 7F01              MOV     R7,#01H
 0020 7E00              MOV     R6,#00H
 0022 120000      E     LCALL   _pause10
-                                           ; SOURCE LINE # 76
+                                           ; SOURCE LINE # 103
 0025 E500        R     MOV     A,r+01H
 0027 2404              ADD     A,#04H
 0029 FF                MOV     R7,A
@@ -850,13 +1167,13 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0046 5D                ANL     A,R5
 0047 4E                ORL     A,R6
 0048 601A              JZ      ?C0014
-                                           ; SOURCE LINE # 77
-                                           ; SOURCE LINE # 78
+                                           ; SOURCE LINE # 104
+                                           ; SOURCE LINE # 105
 004A E500        R     MOV     A,r+01H
 004C 25E0              ADD     A,ACC
 004E FF                MOV     R7,A
 004F E500        R     MOV     A,r
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 15  
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 20  
 
 0051 33                RLC     A
 0052 FE                MOV     R6,A
@@ -871,10 +1188,10 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 005F A3                INC     DPTR
 0060 04                INC     A
 0061 F0                MOVX    @DPTR,A
-                                           ; SOURCE LINE # 79
+                                           ; SOURCE LINE # 106
 0062 8017              SJMP    ?C0013
 0064         ?C0014:
-                                           ; SOURCE LINE # 81
+                                           ; SOURCE LINE # 108
 0064 E500        R     MOV     A,r+01H
 0066 25E0              ADD     A,ACC
 0068 FF                MOV     R7,A
@@ -891,7 +1208,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0078 F0                MOVX    @DPTR,A
 0079 A3                INC     DPTR
 007A F0                MOVX    @DPTR,A
-                                           ; SOURCE LINE # 82
+                                           ; SOURCE LINE # 109
 007B         ?C0013:
 007B 0500        R     INC     r+01H
 007D E500        R     MOV     A,r+01H
@@ -904,33 +1221,33 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0088 9400              SUBB    A,#00H
 008A 5003              JNC     $ + 5H
 008C 020000      R     LJMP    ?C0011
-                                           ; SOURCE LINE # 83
+                                           ; SOURCE LINE # 110
 008F         ?C0016:
 008F 22                RET     
              ; FUNCTION KB_scanPressedBtns (END)
 
              ; FUNCTION KB_printPressedKeys (BEGIN)
-                                           ; SOURCE LINE # 86
-                                           ; SOURCE LINE # 87
-                                           ; SOURCE LINE # 88
+                                           ; SOURCE LINE # 113
+                                           ; SOURCE LINE # 114
+                                           ; SOURCE LINE # 115
 0000 E4                CLR     A
 0001 F500        R     MOV     r,A
 0003 F500        R     MOV     r+01H,A
-                                           ; SOURCE LINE # 89
+                                           ; SOURCE LINE # 116
 0005 F500        R     MOV     c,A
 0007 F500        R     MOV     c+01H,A
-                                           ; SOURCE LINE # 91
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 16  
+                                           ; SOURCE LINE # 118
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 21  
 
 0009 F500        R     MOV     r,A
 000B F500        R     MOV     r+01H,A
 000D         ?C0017:
-                                           ; SOURCE LINE # 92
+                                           ; SOURCE LINE # 119
 000D E4                CLR     A
 000E F500        R     MOV     c,A
 0010 F500        R     MOV     c+01H,A
 0012         ?C0020:
-                                           ; SOURCE LINE # 93
+                                           ; SOURCE LINE # 120
 0012 E500        R     MOV     A,c+01H
 0014 25E0              ADD     A,ACC
 0016 FD                MOV     R5,A
@@ -964,7 +1281,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 003E E0                MOVX    A,@DPTR
 003F 4E                ORL     A,R6
 0040 6026              JZ      ?C0022
-                                           ; SOURCE LINE # 94
+                                           ; SOURCE LINE # 121
 0042 7BFF              MOV     R3,#0FFH
 0044 7A00        R     MOV     R2,#HIGH ?SC_0
 0046 7900        R     MOV     R1,#LOW ?SC_0
@@ -984,7 +1301,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0060 F583              MOV     DPH,A
 0062 E0                MOVX    A,@DPTR
 0063 F500        E     MOV     ?_printf?BYTE+03H,A
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 17  
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 22  
 
 0065 120000      E     LCALL   _printf
 0068         ?C0022:
@@ -1009,23 +1326,23 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0084 E500        R     MOV     A,r
 0086 9400              SUBB    A,#00H
 0088 4083              JC      ?C0017
-                                           ; SOURCE LINE # 95
+                                           ; SOURCE LINE # 122
 008A         ?C0024:
 008A 22                RET     
              ; FUNCTION KB_printPressedKeys (END)
 
              ; FUNCTION KB_printPressedBtns (BEGIN)
-                                           ; SOURCE LINE # 97
-                                           ; SOURCE LINE # 98
-                                           ; SOURCE LINE # 99
+                                           ; SOURCE LINE # 124
+                                           ; SOURCE LINE # 125
+                                           ; SOURCE LINE # 126
 0000 E4                CLR     A
 0001 F500        R     MOV     r,A
 0003 F500        R     MOV     r+01H,A
-                                           ; SOURCE LINE # 101
+                                           ; SOURCE LINE # 128
 0005 F500        R     MOV     r,A
 0007 F500        R     MOV     r+01H,A
 0009         ?C0025:
-                                           ; SOURCE LINE # 102
+                                           ; SOURCE LINE # 129
 0009 E500        R     MOV     A,r+01H
 000B 25E0              ADD     A,ACC
 000D FF                MOV     R7,A
@@ -1044,11 +1361,11 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 001F E0                MOVX    A,@DPTR
 0020 4E                ORL     A,R6
 0021 6017              JZ      ?C0027
-                                           ; SOURCE LINE # 103
+                                           ; SOURCE LINE # 130
 0023 7BFF              MOV     R3,#0FFH
 0025 7A00        R     MOV     R2,#HIGH ?SC_0
 0027 7900        R     MOV     R1,#LOW ?SC_0
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 18  
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 23  
 
 0029 7400        R     MOV     A,#LOW btnChar
 002B 2500        R     ADD     A,r+01H
@@ -1070,12 +1387,12 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0045 E500        R     MOV     A,r
 0047 9400              SUBB    A,#00H
 0049 40BE              JC      ?C0025
-                                           ; SOURCE LINE # 104
+                                           ; SOURCE LINE # 131
 004B         ?C0029:
 004B 22                RET     
              ; FUNCTION KB_printPressedBtns (END)
 
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 19  
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 24  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -1092,6 +1409,7 @@ P3 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B0H  1
 AC . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D6H  1
 T0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B4H  1
 T1 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B5H  1
+ssize_t. . . . . . . . . . . . . . . .  TYPEDEF  -----  INT      -----  2
 EA . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AFH  1
 T2 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0090H  1
 int32_t. . . . . . . . . . . . . . . .  TYPEDEF  -----  LONG     -----  4
@@ -1107,6 +1425,7 @@ KB_scanPressedKeys . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
   r. . . . . . . . . . . . . . . . . .  AUTO     DATA   U_INT    0000H  2
   c. . . . . . . . . . . . . . . . . .  * REG *  DATA   U_INT    0004H  2
 P0_0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0080H  1
+off_t. . . . . . . . . . . . . . . . .  TYPEDEF  -----  LONG     -----  4
 CEX0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0093H  1
 P1_0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0090H  1
 P0_1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0081H  1
@@ -1136,14 +1455,14 @@ P0_5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0085H  1
 EXF2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CEH  1
 RD . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B7H  1
 P3_3 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B3H  1
-P2_4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A4H  1
-P1_5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0095H  1
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 20  
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 25  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
 
 
+P2_4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A4H  1
+P1_5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0095H  1
 P0_6 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0086H  1
 P3_4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B4H  1
 P2_5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A5H  1
@@ -1167,6 +1486,7 @@ INT1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B3H  1
 TI . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0099H  1
 IE0_ . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0089H  1
 IE1_ . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008BH  1
+FILE . . . . . . . . . . . . . . . . .  TYPEDEF  -----  U_INT    -----  2
 PS . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BCH  1
 CCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D8H  1
 T2EX . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0091H  1
@@ -1198,15 +1518,15 @@ P. . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D0H  1
 SM0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009FH  1
 SM1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009EH  1
 ECI. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0092H  1
-SM2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009DH  1
-PT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B9H  1
-RS0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D3H  1
-C51 COMPILER V6.20c  KB                                                                    04/10/2014 14:13:51 PAGE 21  
+C51 COMPILER V6.20c  KB                                                                    04/22/2014 09:33:55 PAGE 26  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
 
 
+SM2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009DH  1
+PT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B9H  1
+RS0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D3H  1
 PT1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BBH  1
 RS1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D4H  1
 PT2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BDH  1

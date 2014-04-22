@@ -50,12 +50,36 @@ char xdata line[4][21]; //= 20*4 +\0 *4
 // OTHER FUNCTION DEFINITIONS - doxygen description should be in HEADERFILE
     //____________________________________________________
     // ..
+	
+char putchar(char ch)
+{
+	LCD_printChar(0, ch);
+	return ch;
+}
+
+void gpio_clear(uint32_t port, uint8_t bits)
+{
+	UNUSED(port)
+	UNUSED(bits)
+}
+void gpio_set(uint32_t port, uint8_t bits)
+{
+	UNUSED(port)
+	UNUSED(bits)
+}
+void gpio_port_write(uint32_t port, uint8_t bits)
+{
+	UNUSED(port)
+	UNUSED(bits)
+}
+
+void LCD_initPredef(void)
+{
+	lcds_predef[0].cmd_port = 0;
+	lcds_predef[0].data_port = 1;
+}
+
+
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // EXTERNAL REFERENCES
-
-
-
-
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-// FUNCTION DEFINITIONS
 

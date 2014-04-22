@@ -2,6 +2,9 @@
 ".\disp.LIB",
 "cv1.obj",
 "kb.obj",
-"waitin.obj" 
+"waitin.obj",
+"lcd.obj",
+"LCD_HD44780.obj",
+"dev_LCD_HD44780.obj" 
 TO "cv1_display hello" 
 RAMSIZE(256) 
